@@ -27,6 +27,7 @@ export class UserListComponent {
     );
   }
 
+
   deleteUser(userId){
     this.db.object('/user/' + userId).remove();
   }
@@ -49,4 +50,5 @@ export class UserListComponent {
       signup_date: user.signup_date,
      });
   }
+
 }

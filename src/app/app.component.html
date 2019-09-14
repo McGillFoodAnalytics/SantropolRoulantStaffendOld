@@ -13,9 +13,27 @@
 		</div>
 		<div class="row">
 		  <div class="col-4"><app-new-user></app-new-user></div>
-		  <div class="col-4"><app-user-list></app-user-list></div>
+		  <div class="col-4"></div>
 		  <div class="col-4">
 			</div>
 		</div>
+
+
+		<p></p><p></p>
+		<p>
+		<button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+						[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+			View Volunteers:
+		</button>
+	</p>
+	<div id="collapseExample" [ngbCollapse]="isCollapsed">
+		<div class="card">
+			<div class="card-body">
+				Volunteer List:
+					<app-user-list></app-user-list>
+			</div>
+		</div>
 	</div>
+	</div>
+	
 </div>

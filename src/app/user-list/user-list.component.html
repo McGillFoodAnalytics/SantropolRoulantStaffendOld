@@ -1,10 +1,16 @@
 
 <html lang="en-US" ng-app="basicApp">
+  <p></p>
 <div>
-<ul>
-<li *ngFor="let user of volunteers | async" >
-  {{user.first_name}} {{ user.last_name }}
-  <button (click)="updateNoShow(user, user.no_show)">No Show</button>
-  {{user.no_show}}
-</li>
-</ul>
+
+  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+  <ngb-panel *ngFor="let user of volunteers | async" title="{{user.first_name}} {{user.last_name}}">
+    <ng-template ngbPanelContent>
+      Email: {{user.email}}
+      
+      <p></p>
+      <button (click)="updateNoShow(user, user.no_show)">No Show</button>
+      {{user.no_show}}
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
