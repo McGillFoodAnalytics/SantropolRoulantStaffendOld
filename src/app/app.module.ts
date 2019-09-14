@@ -28,7 +28,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { NewUserComponent } from './new-user/new-user.component';
-import { TestComponent } from './test/test.component';
+import { UserListComponent } from './user-list/user-list.component';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,7 +37,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent, TestComponent],
+  declarations: [AppComponent, NewUserComponent, UserListComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(AppConfig.firebase),
