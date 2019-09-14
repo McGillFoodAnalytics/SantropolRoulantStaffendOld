@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule  } from '@angular/forms';
+import {Component} from '@angular/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { User } from '../shared/models/user';
 
 @Component({
   selector: 'app-new-user',
@@ -7,9 +8,30 @@ import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule  }
   styleUrls: ['./new-user.component.scss']
 })
 export class NewUserComponent {
-  model: any = {};
+  closeResult: string;
+  private model = new User();
+  constructor(private modalService: NgbModal) {}
 
-    onSubmit() {
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.model));
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    console.log(this.closeResult);
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
     }
+  }
+
+  onSubmit(){
+    console.log(this.model);
+  }
 }

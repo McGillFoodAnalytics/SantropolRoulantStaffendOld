@@ -1,12 +1,21 @@
 <header class="header">
-	<h1 class="header-text"> Santropol Roulant Staffend</h1>
+	<h2 class="header-text"> Santropol Roulant Staffend</h2>
 </header>
-<button type="button" class="btn btn-warning">Warning</button>
-<div style="text-align:center">
-	<img width="250" alt="Santropol Logo" src="../assets/santropol-roulant.jpg">
+<div class="container-page">
+	<div style="text-align:center">
+		<img width="250" alt="Santropol Logo" src="../assets/santropol-roulant.jpg">
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h3 class="actions-title">Here are some actions you can do: </h3>
+			</div>
+		</div>
+		<div class="row">
+		  <div class="col-4"><app-new-user></app-new-user></div>
+		  <div class="col-4"><app-test></app-test></div>
+		  <div class="col-4">
+			</div>
+		</div>
+	</div>
 </div>
-<h2>Here are some actions you can do: </h2>
-
-<app-new-user></app-new-user>
-
-<router-outlet></router-outlet>

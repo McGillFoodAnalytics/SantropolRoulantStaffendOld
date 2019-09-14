@@ -1,16 +1,20 @@
 import 'reflect-metadata';
 import '../polyfills';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AppConfig } from '../environments/environment';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatInputModule,MatOptionModule, MatSelectModule, MatIconModule} from '@angular/material'
+// MATT IMPORTS
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatInputModule, MatButtonModule, MatOptionModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule} from '@angular/material'
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
@@ -22,10 +26,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { HomeModule } from './home/home.module';
-
 import { AppComponent } from './app.component';
 import { NewUserComponent } from './new-user/new-user.component';
+import { TestComponent } from './test/test.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -33,7 +36,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent],
+  declarations: [AppComponent, NewUserComponent, TestComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(AppConfig.firebase),
@@ -43,8 +46,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     CoreModule,
     SharedModule,
-    MatInputModule,MatOptionModule, MatSelectModule, MatIconModule,
-    HomeModule,
+    NgbModule,
+    MatCheckboxModule,
+    MatInputModule,MatOptionModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     TranslateModule.forRoot({
@@ -55,7 +59,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [NewUserComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
