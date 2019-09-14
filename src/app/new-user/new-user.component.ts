@@ -32,7 +32,8 @@ export class NewUserComponent {
     }
   }
 
-  onSubmit(){
+  onSubmit(f){
     console.log(this.model);
+    this.model = new User();
   }
 }

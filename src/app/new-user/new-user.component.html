@@ -6,7 +6,7 @@
     </button>
   </div>
   <div class="modal-body" style="padding-right: 2rem;padding-left: 2rem; padding-bottom: 0; padding-top: 1rem">
-    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate style="padding-bottom:0">
+    <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)" novalidate style="padding-bottom:0">
         <div class="form-row mb-12">
           <h5 style="margin-bottom:1.5rem; color:darkgrey"> Personal Information </h5>
         </div>
