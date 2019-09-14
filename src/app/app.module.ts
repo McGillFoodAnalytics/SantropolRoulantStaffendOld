@@ -3,8 +3,9 @@ import '../polyfills';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'
 import { AppConfig } from '../environments/environment';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AngularFireModule.initializeApp(AppConfig.firebase),
  	  AngularFirestoreModule,
+    AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
