@@ -15,6 +15,7 @@ export class NewUserComponent {
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
