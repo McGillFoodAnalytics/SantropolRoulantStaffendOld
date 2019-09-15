@@ -1,0 +1,34 @@
+<ng-template #content let-modal>
+  <div class="modal-header text-center" style="background-color:#28a745">
+    <h4 class="modal-title w-100" id="modal-basic-title" style="color: white">Change Registration Code</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()" #closeModal>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center" style="padding-right: 2rem;padding-left: 2rem; padding-bottom: 0; padding-top: 1rem">
+    <form (ngSubmit)="onSubmit()" [formGroup]="myForm" style="padding-bottom:0">
+      <div class="form-row mb-12">
+        <div class="form-group col-md-12" id="old_reg">
+          <h5>The current registration code is: Banana </h5>
+
+          <div *ngFor="let user of volunteers | async" >
+            {{user.registeration_code}}
+          </div>
+        </div>
+      </div>
+      <div class="form-row mb-12">
+        <div class="form-group col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="New Registration Code" formControlName="new_registration_code" [(ngModel)]="model.registration_code">
+            <mat-error>Required!</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="footer" style="padding-bottom:2.5rem; text-align:center">
+      <button type="submit" class="btn btn-xl btn-outline-success" (click)="onSubmit()">Change Registration Code</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-lg btn-outline-success" (click)="open(content)">Change Registration Code</button>

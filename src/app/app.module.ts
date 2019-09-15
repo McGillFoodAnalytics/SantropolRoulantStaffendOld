@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import '../polyfills';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -30,6 +30,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { ChangeRegistrationCodeComponent } from './change-registration-code/change-registration-code.component';
 
 
 // AoT requires an exported function for factories
@@ -38,7 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent, UserListComponent],
+  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(AppConfig.firebase),
