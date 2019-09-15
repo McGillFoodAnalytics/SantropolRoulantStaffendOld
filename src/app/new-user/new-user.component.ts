@@ -14,6 +14,7 @@ export class NewUserComponent implements OnInit {
   closeResult: string;
   private model = new User();
   private myForm: FormGroup;
+  private modalReference;
 
   constructor(private modalService: NgbModal, private db: AngularFireDatabase, private formBuilder: FormBuilder) {
   }
@@ -33,23 +34,7 @@ export class NewUserComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-    console.log(this.closeResult);
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
+    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg'});
   }
 
   newUser(user: any): void {
@@ -74,9 +59,10 @@ export class NewUserComponent implements OnInit {
   onSubmit(f){
     this.myForm.markAllAsTouched();
     if (this.myForm.valid) {
-      console.log(this.model);
+      this.modalReference.close();
       this.newUser(this.model);
       this.model = new User();
+      this.myForm.reset();
     }
   }
 }

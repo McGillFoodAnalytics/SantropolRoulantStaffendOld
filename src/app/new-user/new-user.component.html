@@ -6,27 +6,27 @@
       </button>
    </div>
    <div class="modal-body" style="padding-right: 2rem;padding-left: 2rem; padding-bottom: 0; padding-top: 1rem">
-      <form (ngSubmit)="onSubmit()"  style="padding-bottom:0">
+      <form (ngSubmit)="onSubmit()" [formGroup]="myForm"  style="padding-bottom:0">
         <div class="form-row mb-12">
            <h5 style="margin-bottom:1.5rem; color:darkgrey"> Personal Information </h5>
         </div>
         <div class="form-row mb-12">
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="First Name" name="first_name" [(ngModel)]="model.first_name" #first_name="ngModel" required>
+                 <input matInput placeholder="First Name" formControlName="first_name" [(ngModel)]="model.first_name">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="Last Name" name="last_name" [(ngModel)]="model.last_name" #last_name="ngModel" required />
+                 <input matInput placeholder="Last Name" formControlName="last_name" [(ngModel)]="model.last_name"/>
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
            <div class="form-group col-md-4">
               <mat-form-field>
                  <mat-label> Birth Date </mat-label>
-                 <input matInput [matDatepicker]="picker" placeholder="mm/dd/yyyy" name="dob" [(ngModel)]="model.dob" #dob="ngModel" required>
+                 <input matInput [matDatepicker]="picker" placeholder="mm/dd/yyyy" formControlName="dob" [(ngModel)]="model.dob">
                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                  <mat-datepicker #picker></mat-datepicker>
                  <mat-error>Required!</mat-error>
@@ -39,19 +39,19 @@
         <div class="form-row mb-12">
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="Street Number" name="address_number" [(ngModel)]="model.address_number" #address_number="ngModel" required>
+                 <input matInput placeholder="Street Number" formControlName="address_number" [(ngModel)]="model.address_number">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="Street Name" name="address_street" [(ngModel)]="model.address_street" #address_street="ngModel" required>
+                 <input matInput placeholder="Street Name" formControlName="address_street" [(ngModel)]="model.address_street">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="City" name="address_city" [(ngModel)]="model.address_city" #address_city="ngModel" required>
+                 <input matInput placeholder="City" formControlName="address_city" [(ngModel)]="model.address_city">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
@@ -59,19 +59,19 @@
         <div class="form-row mb-12">
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="Postal Code" name="address_postal_code" [(ngModel)]="model.address_postal_code" #address_postal_code="ngModel" required>
+                 <input matInput placeholder="Postal Code" formControlName="address_postal_code" [(ngModel)]="model.address_postal_code">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="Email" name="email" [(ngModel)]="model.email" #email="ngModel" required>
+                 <input matInput placeholder="Email" formControlName="email" [(ngModel)]="model.email">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="Phone Number" name="phone_number" [(ngModel)]="model.phone_number" #phone_number="ngModel" required>
+                 <input matInput placeholder="Phone Number" formControlName="phone_number" [(ngModel)]="model.phone_number">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
