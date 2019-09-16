@@ -1,19 +1,15 @@
 <ng-template #content let-modal>
-  <div class="modal-header text-center" style="background-color:#28a745">
-    <h4 class="modal-title w-100" id="modal-basic-title" style="color: white">Change Registration Code</h4>
+  <div class="modal-header text-center">
+    <h4 class="modal-title w-100">Change Registration Code</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()" #closeModal>
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body text-center" style="padding-right: 2rem;padding-left: 2rem; padding-bottom: 0; padding-top: 1rem">
-    <form (ngSubmit)="onSubmit()" [formGroup]="myForm" style="padding-bottom:0">
+  <div class="modal-body text-center">
+    <form class="form" (ngSubmit)="onSubmit()" [formGroup]="myForm">
       <div class="form-row mb-12">
-        <div class="form-group col-md-12" id="old_reg">
-          <h5>The current registration code is: Banana </h5>
-
-          <div *ngFor="let user of volunteers | async" >
-            {{user.registeration_code}}
-          </div>
+        <div class="form-group col-md-12">
+          <h6>The current registration code is: {{ (result | async) }} </h6>
         </div>
       </div>
       <div class="form-row mb-12">
@@ -26,7 +22,7 @@
       </div>
     </form>
   </div>
-  <div class="footer" style="padding-bottom:2.5rem; text-align:center">
+  <div class="footer">
       <button type="submit" class="btn btn-xl btn-outline-success" (click)="onSubmit()">Change Registration Code</button>
   </div>
 </ng-template>

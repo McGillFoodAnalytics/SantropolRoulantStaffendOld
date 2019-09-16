@@ -1,2 +1,26 @@
 
 ::ng-deep .cdk-overlay-container{ z-index:2000; }
+
+.modal-header{
+  background-color: #4285f4;
+}
+
+.modal-body{
+  padding: 1rem 2rem 0 2rem;
+}
+
+.form{
+  padding-bottom: 0;
+}
+
+.form-section{
+  margin-bottom: 1.5rem;
+  color: darkgrey;
+  margin-top: 1.5rem;
+}
+
+
+.footer{
+  padding-bottom: 2.5rem;
+  text-align: center;
+}

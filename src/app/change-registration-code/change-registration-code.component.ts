@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-change-registration-code',
@@ -14,10 +13,12 @@ export class ChangeRegistrationCodeComponent implements OnInit {
   private registration_code: string;
   private modalReference;
   private model: any = {};
-  private closeResult: string;
   private myForm: FormGroup;
+  result: Observable<any>;
 
-  constructor(private modalService: NgbModal, private db: AngularFireDatabase, private formBuilder: FormBuilder) {}
+  constructor(private modalService: NgbModal, private db: AngularFireDatabase, private formBuilder: FormBuilder) {
+    this.result = db.object('/registration_code').valueChanges();
+  }
 
   ngOnInit(){
     this.myForm = this.formBuilder.group({
