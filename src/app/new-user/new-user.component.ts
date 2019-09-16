@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../shared/models/user';
-<<<<<<< HEAD
-import { UserListComponent } from '../user-list/user-list.component'
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
-import { formatDate } from '@angular/common';
-=======
+
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { formatDate } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
->>>>>>> new-user
+
 
 @Component({
   selector: 'app-new-user',

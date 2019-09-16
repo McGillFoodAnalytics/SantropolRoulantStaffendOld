@@ -25,7 +25,7 @@ export class UserListComponent {
   flag: boolean = false;
   flagList: boolean = false;
   error: boolean = false;
-  errorMessage: '';
+  errorMessage: string = "";
   volunteer;
   count = 0;
 
