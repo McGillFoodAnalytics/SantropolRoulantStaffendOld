@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import '../polyfills';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import {NgbModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'
@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // MATT IMPORTS
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule, MatButtonModule, MatOptionModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule} from '@angular/material'
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,7 +30,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { UserListComponent } from './user-list/user-list.component';
-// import { MarkImportantEventComponent } from './mark-important-event/mark-important-event.component';
+import { ChangeRegistrationCodeComponent } from './change-registration-code/change-registration-code.component';
+import { MarkImportantEventComponent } from './mark-important-event/mark-important-event.component';
 
 
 // AoT requires an exported function for factories
@@ -38,7 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent, UserListComponent],
+  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(AppConfig.firebase),
@@ -51,7 +53,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     NgbModule,
     MatCheckboxModule,
-    MatInputModule,MatOptionModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule,
+    AngularFontAwesomeModule,
+    MatInputModule,MatOptionModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     TranslateModule.forRoot({
