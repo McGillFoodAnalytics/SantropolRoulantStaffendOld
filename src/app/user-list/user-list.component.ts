@@ -73,7 +73,7 @@ export class UserListComponent {
   }
 
 
-  model: any;
+  model = "";
   id;
 
   @ViewChild('instance', {static: true}) instance: NgbTypeahead;

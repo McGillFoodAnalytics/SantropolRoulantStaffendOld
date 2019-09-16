@@ -7,7 +7,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'
 import { AppConfig } from '../environments/environment';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
