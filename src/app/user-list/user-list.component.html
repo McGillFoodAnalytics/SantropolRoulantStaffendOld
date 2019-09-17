@@ -1,10 +1,73 @@
-
 <html lang="en-US" ng-app="basicApp">
+  <p></p>
 <div>
-<ul>
-<li *ngFor="let user of volunteers | async" >
-  {{user.first_name}} {{ user.last_name }}
-  <button (click)="updateNoShow(user, user.no_show)">No Show</button>
-  {{user.no_show}}
-</li>
-</ul>
+<label for="typeahead-focus">Search for a volunteer:</label>
+<input
+  id="typeahead-focus"
+  type="text"
+  class="form-control"
+  [(ngModel)]="model"
+  [ngbTypeahead]="search"
+  (focus)="focus$.next($event.target.value)"
+  (click)="click$.next($event.target.value)"
+  #instance="ngbTypeahead"
+/>
+<p></p>
+<button type="button" class="btn btn-primary" (click)= "displayUser()">Search</button>
+<p></p>
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMessage}}
+</div>
+
+
+<div id="target" class="jumbotron " *ngIf="flag">
+  <h1 class="display-4">{{volunteer.first_name}} {{volunteer.last_name}}</h1>
+  <hr class="my-4">
+  <p></p>
+  <p>User ID: {{volunteer.id}} </p>
+  <p>Date of Birth: {{volunteer.dob}} </p>
+  <p>Signup Date: {{volunteer.signup_date}}</p>
+  <p></p>
+  <p></p>
+  No show count: {{volunteer.no_show}}
+  <p></p>
+  <button (click)="updateNoShow(volunteer.id, volunteer.no_show+1); this.names = []; this.pairs = []" type="button" class="btn btn-outline-success">Increase Count</button>
+  <button (click)="updateNoShow(volunteer.id, volunteer.no_show-1); this.names = []; this.pairs = []" type="button" class="btn btn-outline-warning">Decrease Count</button>
+
+  <hr>
+  <h2>Contact Information:</h2>
+  <p></p>
+  <p>Email: {{volunteer.email}}</p>
+  <p>Phone number: {{volunteer.phone_number}}</p>
+  <p>Home Address: {{volunteer.address_number}} {{volunteer.address_street}}, {{volunteer.address_city}} {{volunteer.address_postal_code}}</p>
+  <p></p>
+  <button type="button" class="btn btn-outline-danger" (click)="deleteUser(volunteer.id)">Delete this volunteer?</button>
+</div>
+
+
+
+<div>
+  <p></p>
+  <p>
+  <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed"  aria-controls="collapseExample" >
+    Volunteer List
+  </button>
+</p>
+<div id="collapseExample" [ngbCollapse]="isCollapsed" >
+  <div class="card">
+    <div class="card-body">
+
+
+      <p *ngFor="let user of (volunteers | async)" (click)="updateUser(user.id); scroll('target')">
+        <a href="#" onClick="return false;">
+      {{user.first_name}} {{user.last_name}}
+    </a>
+      </p>
+
+
+
+    </div>
+  </div>
+</div>
+</div>

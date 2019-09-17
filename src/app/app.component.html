@@ -37,5 +37,22 @@
       	</div>
 			</div>
 		</div>
+
+
+		<p></p><p></p>
+		<p>
+		<button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+						[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+			View Volunteers:
+		</button>
+	</p>
+	<div id="collapseExample" [ngbCollapse]="isCollapsed">
+		<div class="card">
+			<div class="card-body">
+					<app-user-list></app-user-list>
+			</div>
+		</div>
 	</div>
+	</div>
+
 </div>
