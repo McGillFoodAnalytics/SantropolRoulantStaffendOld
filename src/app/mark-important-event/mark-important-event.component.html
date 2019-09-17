@@ -8,12 +8,22 @@
   <div class="modal-body text-center">
     <form class="form" (ngSubmit)="onSubmit()" [formGroup]="form">
       <div class="form-row mb-12">
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-6">
           <mat-form-field>
             <mat-label>Event Type</mat-label>
             <mat-select formControlName="event_type" [(ngModel)]="model.event_type">
               <mat-option disabled>--Select Event Type--</mat-option>
-              <mat-option *ngFor="let event of event_types" [value]="event"> {{ event }} </mat-option>
+              <mat-option *ngFor="let event of eventTypes | keyvalue" [value]="event.key"> {{ event.key }} </mat-option>
+            </mat-select>
+            <mat-error>Required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field>
+            <mat-label>Event Date</mat-label>
+            <mat-select formControlName="event_date" [(ngModel)]="model.event_date">
+              <mat-option disabled>--Select Event Date--</mat-option>
+              <mat-option *ngFor="let date of eventDates | keyvalue" [value]="date.key"> {{ date.key }} </mat-option>
             </mat-select>
             <mat-error>Required!</mat-error>
           </mat-form-field>
