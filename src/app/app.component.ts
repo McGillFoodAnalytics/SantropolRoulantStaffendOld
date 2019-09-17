@@ -11,6 +11,7 @@ import { AppConfig } from '../environments/environment';
 })
 export class AppComponent {
   show: boolean = true;
+  private isCollapsed = true;
 
   constructor(
     public electronService: ElectronService,

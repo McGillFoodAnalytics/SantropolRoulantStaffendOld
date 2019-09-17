@@ -37,15 +37,21 @@
       	</div>
 			</div>
 		</div>
+		<div class="row" style="padding-top:2rem">
+			<div class="col-4">
+				<div class="card" style="text-align:center">
+					<div class="card-body">
+						<h5 class="card-title text-center"><i class="fa fa-eye"></i>&nbsp;&nbsp;View Volunteers</h5>
+						<p class="card-text">Click this button to search through volunteers and performs actions on them.</p>
+						<button type="button" class="btn btn-lg btn-outline-info"  (click)="isCollapsed = !isCollapsed"
+										[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+							View Volunteers:
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-
-		<p></p><p></p>
-		<p>
-		<button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
-						[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-			View Volunteers:
-		</button>
-	</p>
 	<div id="collapseExample" [ngbCollapse]="isCollapsed">
 		<div class="card">
 			<div class="card-body">
