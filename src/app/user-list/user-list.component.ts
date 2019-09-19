@@ -101,14 +101,12 @@ export class UserListComponent {
     this.vps.scrollToAnchor(id);
   }
   updateUser(userId){
+    this.flag = true;
+    this.error = false;
     this.volunteers.subscribe(snapshots=>{
         snapshots.forEach(snapshot => {
           if(snapshot.id == userId){
-            this.flag = true;
-            this.error = false;
             this.volunteer = snapshot;
-            //console.log(this.volunteer);
-            //this.names = [];
 
           }
         });
