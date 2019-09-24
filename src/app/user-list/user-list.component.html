@@ -1,6 +1,6 @@
 <html lang="en-US" ng-app="basicApp">
   <p></p>
-<div>
+<div id="target">
 <label for="typeahead-focus">Search for a volunteer:</label>
 <input
   id="typeahead-focus"
@@ -19,8 +19,8 @@
   {{errorMessage}}
 </div>
 
-
-<div id="target" class="jumbotron " *ngIf="flag">
+<div>
+<div class="jumbotron " *ngIf="flag">
   <h1 class="display-4">{{volunteer.first_name}} {{volunteer.last_name}}</h1>
   <hr class="my-4">
   <p></p>
@@ -43,7 +43,7 @@
   <p></p>
   <button type="button" class="btn btn-outline-danger" (click)="deleteUser(volunteer.id)">Delete this volunteer?</button>
 </div>
-
+</div>
 
 
 <div>
@@ -59,8 +59,8 @@
     <div class="card-body">
 
 
-      <p *ngFor="let user of (volunteers | async)" (click)="updateUser(user.id); scroll('target')">
-        <a href="#" onClick="return false;">
+      <p *ngFor="let user of (volunteers | async)">
+        <a href="#" onClick="return false;" (click)="updateUser(user.first_name, user.last_name, user.email); scroll('target')">
       {{user.first_name}} {{user.last_name}}
     </a>
       </p>

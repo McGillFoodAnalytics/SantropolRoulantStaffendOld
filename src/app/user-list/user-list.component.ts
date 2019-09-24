@@ -100,18 +100,7 @@ export class UserListComponent {
   scroll(id) {
     this.vps.scrollToAnchor(id);
   }
-  updateUser(userId){
-    this.flag = true;
-    this.error = false;
-    this.volunteers.subscribe(snapshots=>{
-        snapshots.forEach(snapshot => {
-          if(snapshot.id == userId){
-            this.volunteer = snapshot;
 
-          }
-        });
-    })
-  }
   displayUser(){
     var j = 0;
     for(let i = 0; i < this.names.length; i++) {
@@ -138,7 +127,35 @@ export class UserListComponent {
       this.error = true;
       this.errorMessage = this.model + " is not a registered volunteer.";
     }
+  }
 
+  updateUser(firstName, lastName, email){
+    this.model = firstName + " " + lastName + " (Email: " + email + ")";
+    var j = 0;
+    for(let i = 0; i < this.names.length; i++) {
+      if(this.model == this.names[i]){
+        this.id = this.pairs[2*i + 1];
+        this.flag = true;
+        this.error = false;
+        this.volunteers.subscribe(snapshots=>{
+            snapshots.forEach(snapshot => {
+              if(snapshot.id == this.id){
+                this.volunteer = snapshot;
+                //console.log(this.volunteer);
+                //this.names = [];
+              }
+            });
+        })
+      }
+      else{
+        j++;
+      }
+    }
+    if(j == this.names.length){
+      this.flag = false;
+      this.error = true;
+      this.errorMessage = this.model + " is not a registered volunteer.";
+    }
   }
 
 }
