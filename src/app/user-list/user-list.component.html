@@ -33,8 +33,22 @@
   <p></p>
   <button (click)="updateNoShow(volunteer.id, volunteer.no_show+1); this.names = []; this.pairs = []" type="button" class="btn btn-outline-success">Increase Count</button>
   <button (click)="updateNoShow(volunteer.id, volunteer.no_show-1); this.names = []; this.pairs = []" type="button" class="btn btn-outline-warning">Decrease Count</button>
+<p></p>
+<p>
+  <button type="button" class="btn btn-outline-primary" (click)="registerVolunteer = !registerVolunteer"
+          [attr.aria-expanded]="registerVolunteer" aria-controls="volunteerRegistration">
+    Register Volunteer
+  </button>
+</p>
+<div id="volunteerRegistration" [ngbCollapse]="!registerVolunteer">
+  <div class="card">
+    <div class="card-body">
+      <ngb-datepicker #dp [(ngModel)]="modelDate" (navigate)="date = $event.next"  ></ngb-datepicker>
+    </div>
+  </div>
+</div>
+    <hr>
 
-  <hr>
   <h2>Contact Information:</h2>
   <p></p>
   <p>Email: {{volunteer.email}}</p>
@@ -63,6 +77,12 @@
         <a href="#" onClick="return false;" (click)="updateUser(user.first_name, user.last_name, user.email); scroll('target')">
       {{user.first_name}} {{user.last_name}}
     </a>
+      </p>
+
+      <p *ngFor="let user of (volunteerSamples | async)">
+        <a href="#" onClick="return false;" (click)="updateUser(user.first_name, user.last_name, user.email); scroll('target')">
+      {{user.first_name}} {{user.last_name}}
+        </a>
       </p>
 
 
