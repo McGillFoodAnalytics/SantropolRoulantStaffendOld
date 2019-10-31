@@ -17,7 +17,7 @@ export class MarkImportantEventComponent implements OnInit {
   private eventTypes = {'Kitchen AM': 'kitam', 'Kitchen PM': 'kitpm', 'Meal Delivery': 'deliv', 'Meal Delivery Driver': 'deldr'};
   private eventsRef: AngularFireList<any>;
   private events: Observable<any[]>;
-  private eventDates = {};
+  private eventDates = {}; 
 
 
   constructor(private modalService: NgbModal, private db: AngularFireDatabase, private formBuilder: FormBuilder) {

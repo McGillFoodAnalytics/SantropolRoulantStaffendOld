@@ -5,7 +5,6 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import {Subject, merge} from 'rxjs';
 import { ViewportScroller } from '@angular/common';
-
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 
 
@@ -29,12 +28,8 @@ export class UserListComponent {
   volunteer;
   count = 0;
 
-
-
-
   constructor(private db : AngularFireDatabase, private vps: ViewportScroller) {
     this.volunteerRef = db.list('user');
-    // Use snapshotChanges().map() to store the key
     this.volunteers = this.volunteerRef.snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
@@ -47,8 +42,6 @@ export class UserListComponent {
             this.pairs.push(snapshot.id);
         });
     })
-
-    // const nameSet = [...new Set(this.names)];
   }
 
 

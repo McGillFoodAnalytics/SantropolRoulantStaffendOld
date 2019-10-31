@@ -7,12 +7,15 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'
 import { AppConfig } from '../environments/environment';
+import { RouterModule, Routes } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // MATT IMPORTS
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatInputModule, MatButtonModule, MatOptionModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule} from '@angular/material'
+import {MatChipsModule} from '@angular/material/chips';
+import { MatTableModule } from '@angular/material'
+import {MatInputModule, MatButtonModule, MatOptionModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule} from '@angular/material'
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
@@ -32,7 +35,25 @@ import { NewUserComponent } from './new-user/new-user.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { ChangeRegistrationCodeComponent } from './change-registration-code/change-registration-code.component';
 import { MarkImportantEventComponent } from './mark-important-event/mark-important-event.component';
+import { SignUpSheetComponent } from './sign-up-sheet/sign-up-sheet.component';
+import { HomeComponent } from './home/home.component';
+import { SliderComponent } from './slider/slider.component';
+import { AddUserToEvent } from './sign-up-sheet/add-user-to-event/add-user-to-event.component';
 
+const appRoutes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'sign-up-sheet',
+    component: SignUpSheetComponent
+  },
+  {
+    path: '**',
+    component: HomeComponent
+  }
+];
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -40,9 +61,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent],
+  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(AppConfig.firebase),
  	  AngularFirestoreModule,
     AngularFireDatabaseModule,
@@ -53,7 +75,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     NgbModule,
     MatCheckboxModule,
+    MatTableModule,
     AngularFontAwesomeModule,
+    MatChipsModule,
     MatInputModule,MatOptionModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule,
     BrowserAnimationsModule,
     AppRoutingModule,

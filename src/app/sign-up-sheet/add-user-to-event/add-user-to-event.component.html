@@ -1,0 +1,45 @@
+<ng-template #content let-modal>
+  <div class="modal-header text-center">
+    <h4 class="modal-title w-100" id="modal-basic-title">Add Volunteer to Event</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()" #closeModal>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form class="form" (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="form-row mb-12">
+        Select volunteer to add to
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="first_name">
+            <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.first_name}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="last_name">
+            <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.last_name}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </form>
+  </div>
+  <div class="footer">
+      <button type="submit" class="btn btn-xl btn-outline-danger" (click)="onSubmit()">Add Volunteer to Event</button>
+  </div>
+</ng-template>
+
+<img src="../../assets/add-user.png" width=35px (click)="open(content)">
