@@ -10,6 +10,7 @@ import { AppConfig } from '../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SidebarModule } from 'ng-sidebar';
 
 // MATT IMPORTS
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -39,6 +40,7 @@ import { SignUpSheetComponent } from './sign-up-sheet/sign-up-sheet.component';
 import { HomeComponent } from './home/home.component';
 import { SliderComponent } from './slider/slider.component';
 import { AddUserToEvent } from './sign-up-sheet/add-user-to-event/add-user-to-event.component';
+import { RemoveUserFromEventComponent } from './sign-up-sheet/remove-user-from-event/remove-user-from-event.component';
 
 const appRoutes: Routes = [
   {
@@ -61,10 +63,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent],
+  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent, RemoveUserFromEventComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
+    SidebarModule.forRoot(),
     AngularFireModule.initializeApp(AppConfig.firebase),
  	  AngularFirestoreModule,
     AngularFireDatabaseModule,

@@ -28,6 +28,7 @@ export class SignUpSheetComponent implements OnInit {
   private eventTypes = [];
   private currentEvent: string;
   private pane = "left";
+
   constructor(private db: AngularFireDatabase) {
     this.getEvents(db);
     this.getUsers(db);
@@ -133,6 +134,7 @@ export class SignUpSheetComponent implements OnInit {
         this.weekRange2 = this.setWeekRange(this.week2);
         this.weekRange3 = this.setWeekRange(this.week3);
         this.setEventTypes();
+        console.log(this.week1);
     });
   }
 

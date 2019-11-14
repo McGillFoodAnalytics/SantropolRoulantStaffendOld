@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-add-user-to-event',
@@ -13,17 +14,19 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class AddUserToEvent implements OnInit {
   @Input() volunteerList;
+  @Input() evenType;
+  @Input() date;
   private modalReference;
   private model: any = {};
   private form: FormGroup;
   private displayedColumns: string[] = ['first_name', 'last_name', 'email'];
   private dataSource;
+  private selectedRow: Number;
+
 
   constructor(private modalService: NgbModal, private db: AngularFireDatabase, private formBuilder: FormBuilder) {}
 
   ngOnInit(){
-    console.log('inside child');
-    console.log(this.volunteerList);
     this.dataSource = new MatTableDataSource(this.volunteerList);
     this.form = this.formBuilder.group({
       user: ['', Validators.required]
@@ -31,10 +34,14 @@ export class AddUserToEvent implements OnInit {
   }
 
   open(content) {
-    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg', windowClass: 'my-class'});
+    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg', windowClass: 'my-class', centered: true});
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  setClickedRow(index) {
+    this.selectedRow = index;
   }
 }

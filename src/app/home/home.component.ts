@@ -7,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   private isCollapsed = true;
+  private opened: boolean = false;
+  private closeOnClickOutside: boolean = true;
+  private showBackdrop: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  private toggleSidebar() {
+    this.opened = !this.opened;
+  }
+
+  private onBackdropClicked() {
+
   }
 
 }

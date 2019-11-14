@@ -1,126 +1,141 @@
 <button><a routerLink="">Back</a></button>
 
 <div class="container-fluid">
-  <div class="row" style="padding-top: 2rem; padding-bottom: 1rem">
-    <div class="col">
-      <h1 class="header-text" style="padding:0.5rem; text-align: center; color: #449afe">
-        <img heigth="75px" width="75px" src="../assets/santropol-logo.png">&nbsp;
-        Volunteer Schedule
-      </h1>
+    <div class="row" style="padding-top: 2rem; padding-bottom: 1rem">
+        <div class="col">
+            <h1 class="header-text" style="padding:0.5rem; text-align: center; color: #449afe">
+                <img heigth="75px" width="75px" src="../assets/santropol-logo.png">&nbsp;
+                Volunteer Schedule
+            </h1>
+        </div>
     </div>
-  </div>
-  <div class="row" style="padding-bottom:2rem">
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          <div class="row">
-            <div class="col-8 offset-2" style="text-align:center">
-              <button class="btn" (click)="prevWeek()" *ngIf="currentWeek!='first'"><i class="fa fa-chevron-left fa-lg" style="color:#5fce99"></i></button>
-              {{getWeekTitle()}}
-              <button class="btn" (click)="nextWeek()" *ngIf="currentWeek!='third'"><i class="fa fa-chevron-right fa-lg" style="color:#5fce99"></i></button>
-            </div>
-            <div class="col-2" style="text-align:right">
-              <select class="browser-default custom-select" [(ngModel)]="currentEvent" style="background-color:#5fce99 !important; color:white; border:none">
-                  <option disabled> Event Type </option>
-                  <option *ngFor="let event of eventTypes"> {{event}} </option>
-              </select>
-            </div>
+    <div class="row" style="padding-bottom:2rem">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-8 offset-2" style="text-align:center">
+                            <button class="btn" (click)="prevWeek()" *ngIf="currentWeek!='first'"><i class="fa fa-chevron-left fa-lg" style="color:#5fce99"></i></button>
+                            {{getWeekTitle()}}
+                            <button class="btn" (click)="nextWeek()" *ngIf="currentWeek!='third'"><i class="fa fa-chevron-right fa-lg" style="color:#5fce99"></i></button>
+                        </div>
+                        <div class="col-2" style="text-align:right">
+                            <select class="browser-default custom-select" [(ngModel)]="currentEvent" style="background-color:#5fce99 !important; color:white; border:none">
+                                <option disabled> Event Type </option>
+                                <option *ngFor="let event of eventTypes"> {{event}} </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="container-fluid">
-    <app-slider [activePane]="currentWeek">
-      <div firstPane>
-        <div class="row"  style="padding-bottom:2rem">
-          <div class="col-4" *ngFor="let day of getEventList() | keyvalue" style="padding-bottom:2rem">
-            <div class="card">
-              <!-- <button mat-mini-fab>{{day.value.num_volunteers}}/{{day.value.num_slots}}</button> -->
-              <div class="card-header">
-                {{ day.value.display_date | date: 'EEEE, MMM d' }}
-              </div>
-              <div class="card-body">
-                <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
-                <ng-template #volunteersRegistered>
-                  <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
-                    <li class="list-group-item" *ngIf="slot.first_name" >{{slot.first_name}} {{slot.last_name}}<img src="../../assets/remove-user.png" width=30px style="float:right"></li>
-                  </ul>
-                </ng-template>
-              </div>
-              <div class="card-footer" style="text-align:center">
-                <!-- <mat-chip-list aria-label="Fish selection">
-                <mat-chip><img src="../../assets/imp4.png" width=30px> Mark Important</mat-chip>
-                <mat-chip><img src="../../assets/add-user.png" width=35px> Add User</mat-chip>
-              </mat-chip-list> -->
-                <img *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" >
-                <ng-template #importantEventFalse>
-                  <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" >
-                </ng-template>
-                <!-- how to pass data from parent component to child component -->
-                <app-add-user-to-event [volunteerList]="volunteerList"></app-add-user-to-event>
-              </div>
+    <div class="container-fluid">
+        <app-slider [activePane]="currentWeek">
+            <div firstPane>
+                <div class="row" style="padding-bottom:2rem">
+                    <div class="col-4" *ngFor="let day of getEventList() | keyvalue" style="padding-bottom:2rem">
+                        <div class="card">
+                            <!-- <button mat-mini-fab>{{day.value.num_volunteers}}/{{day.value.num_slots}}</button> -->
+                            <div class="card-header">
+                                {{ day.value.display_date | date: 'EEEE, MMM d' }}
+                            </div>
+                            <div class="card-body">
+                                <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
+                                <ng-template #volunteersRegistered>
+                                    <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
+                                        <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
+                                            <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} style="float:right"></app-remove-user-from-event>
+                                        </li>
+                                    </ul>
+                                </ng-template>
+                            </div>
+                            <div class="card-footer" style="text-align:center">
+                                <img *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
+                                <ng-template #importantEventFalse>
+                                    <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
+                                </ng-template>
+                                <!-- how to pass data from parent component to child component -->
+                                <app-add-user-to-event [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}}></app-add-user-to-event>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div secondPane>
-        <div class="row"  style="padding-bottom:2rem">
-          <div class="col-4" *ngFor="let day of getEventList() | keyvalue; let i=index" style="padding-bottom:2rem">
-            <div class="card">
-              <div class="card-header">
-                {{ day.value.display_date | date: 'EEEE, MMM d' }}
-              </div>
-              <div class="card-body">
-                {{day.value.num_volunteers}}/{{day.value.num_slots}}
-                <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
-                <ng-template #volunteersRegistered>
-                  <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
-                    <li class="list-group-item" *ngIf="slot.first_name" >{{slot.first_name}} {{slot.last_name}}<img src="../../assets/remove-user.png" width=30px style="float:right"></li>
-                  </ul>
-                </ng-template>
-              </div>
-              <div class="card-footer" style="text-align:center">
-                <img *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" >
-                <ng-template #importantEventFalse>
-                  <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" >
-                </ng-template>
-                <app-add-user-to-event [volunteerList]="volunteerList"></app-add-user-to-event>
-              </div>
+            <div secondPane>
+                <div class="row" style="padding-bottom:2rem">
+                    <div class="col-4" *ngFor="let day of getEventList() | keyvalue; let i=index" style="padding-bottom:2rem">
+                        <div class="card">
+                            <div class="card-header">
+                                {{ day.value.display_date | date: 'EEEE, MMM d' }}
+                            </div>
+                            <div class="card-body">
+                                {{day.value.num_volunteers}}/{{day.value.num_slots}}
+                                <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
+                                <ng-template #volunteersRegistered>
+                                    <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
+                                        <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
+                                            <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} style="float:right"></app-remove-user-from-event>
+                                        </li>
+                                    </ul>
+                                </ng-template>
+                            </div>
+                            <div class="card-footer" style="text-align:center">
+                                <img *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
+                                <ng-template #importantEventFalse>
+                                    <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
+                                </ng-template>
+                                <app-add-user-to-event [volunteerList]="volunteerList"></app-add-user-to-event>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div thirdPane>
-        <div class="row" style="padding-bottom:2rem">
-          <div class="col-4" *ngFor="let day of getEventList() | keyvalue; let i=index" style="padding-bottom:2rem">
-            <div class="card">
-              <div class="card-header">
-                {{ day.value.display_date | date: 'EEEE, MMM d' }}
-              </div>
-              <div class="card-body">
-                {{day.value.num_volunteers}}/{{day.value.num_slots}}
-                <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
-                <ng-template #volunteersRegistered>
-                  <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
-                    <li class="list-group-item" *ngIf="slot.first_name" >{{slot.first_name}} {{slot.last_name}}<img src="../../assets/remove-user.png" width=30px style="float:right"></li>
-                  </ul>
-                </ng-template>
-              </div>
-              <div class="card-footer" style="text-align:center">
-                <img *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" >
-                <ng-template #importantEventFalse>
-                  <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" >
-                </ng-template>
-                <app-add-user-to-event [volunteerList]="volunteerList"></app-add-user-to-event>
-              </div>
+            <div thirdPane>
+                <div class="row" style="padding-bottom:2rem">
+                    <div class="col-4" *ngFor="let day of getEventList() | keyvalue; let i=index" style="padding-bottom:2rem">
+                        <div class="card">
+                            <div class="card-header">
+                                {{ day.value.display_date | date: 'EEEE, MMM d' }}
+                            </div>
+                            <div class="card-body">
+                                {{day.value.num_volunteers}}/{{day.value.num_slots}}
+                                <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
+                                <ng-template #volunteersRegistered>
+                                    <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
+                                        <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
+                                            <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} style="float:right"></app-remove-user-from-event>
+                                        </li>
+                                    </ul>
+                                </ng-template>
+                            </div>
+                            <div class="card-footer" style="text-align:center">
+                                <img *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
+                                <ng-template #importantEventFalse>
+                                    <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
+                                </ng-template>
+                                <app-add-user-to-event [volunteerList]="volunteerList"></app-add-user-to-event>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+        </app-slider>
+    </div>
+
+    <div class="row" style="background-color: #449afe;">
+        <div class="col-md-3 offset-md-3">
+          <i class="fa fa-user-plus"></i> Create New Volunteer
         </div>
-      </div>
-    </app-slider>
-  </div>
-  <ng-template #content let-modal>
+        <div class="col-md-3">
+          <i class="fa fa-edit"></i> Change Registration Code
+        </div>
+        <div class="col-md-3">
+          View volunteers
+        </div>
+    </div>
+
+  <!-- <ng-template #content let-modal>
     <div class="modal-header text-center">
       <h4 class="modal-title w-100">Remove Volunteer from Event</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()" #closeModal>
@@ -147,4 +162,4 @@
     <div class="footer">
         <button type="submit" class="btn btn-xl btn-outline-success" (click)="onSubmit()">Change Registration Code</button>
     </div>
-  </ng-template>
+  </ng-template> -->

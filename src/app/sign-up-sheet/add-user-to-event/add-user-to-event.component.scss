@@ -1,11 +1,11 @@
 
 ::ng-deep .my-class .modal-dialog {
-     max-width: 50%;
-     width: 50%;
+     max-width: 70%;
+     width: 70%;
 }
 
 .modal-header{
-  background-color: #4285f4;
+  background-color: #5fce99;
   color: white;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .form{
-  padding-bottom: 0;
+  padding-bottom: 1rem;
 }
 
 .form-section{
@@ -30,7 +30,8 @@
 }
 
 .mat-table {
-    width: 100% !important;
+    width: 90% !important;
+    margin: auto;
 }
 
 .mat-header-row {
@@ -54,4 +55,12 @@
 .mat-column-email {
     flex: 0 0 50% !important;
     min-width: 104px !important;
+}
+
+.mat-row.ng-star-inserted.active {
+  background-color:  #5fce99;
+}
+
+.mat-row.ng-star-inserted.active > .mat-cell {
+  color: white;
 }
