@@ -52,6 +52,10 @@ const appRoutes: Routes = [
     component: SignUpSheetComponent
   },
   {
+    path: 'app-user-list',
+    component: UserListComponent
+  },
+  {
     path: '**',
     component: HomeComponent
   }

@@ -1,6 +1,6 @@
 <ng-sidebar-container>
 	<!-- A sidebar -->
-	<ng-sidebar [(opened)]="opened" [closeOnClickOutside]="closeOnClickOutside" [showBackdrop]="showBackdrop">
+	<!-- <ng-sidebar [(opened)]="opened" [closeOnClickOutside]="closeOnClickOutside" [showBackdrop]="showBackdrop">
 		<p>Sidebar contents</p>
 		<p><a closeSidebar>This will close the sidebar too</a></p>
 			<div class="row">
@@ -9,7 +9,7 @@
 			<div class="row">
 				<i class="fa fa-edit"></i> Change Registration Code
 			</div>
-	</ng-sidebar> -->
+	</ng-sidebar>  -->
 
 	<!-- Page content -->
 	<div ng-sidebar-content>
@@ -63,8 +63,7 @@
 							<div class="card-body">
 								<h5 class="card-title text-center"><i class="fa fa-eye"></i>&nbsp;&nbsp;View Volunteers</h5>
 								<p class="card-text">Click this button to search through volunteers and performs actions on them.</p>
-								<button type="button" class="btn btn-lg btn-outline-info"  (click)="isCollapsed = !isCollapsed"
-												[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+								<button type="button" class="btn btn-lg btn-outline-info" routerLink="/app-user-list">
 									View Volunteers:
 								</button>
 							</div>
@@ -80,14 +79,9 @@
 					</div>
 				</div>
 
-			<div id="collapseExample" [ngbCollapse]="isCollapsed">
-				<div class="card">
-					<div class="card-body">
-							<app-user-list></app-user-list>
-					</div>
-				</div>
+
 			</div>
-			</div>
+
 		</div>
 		</div>
 	</div>

@@ -1,5 +1,6 @@
 <html lang="en-US" ng-app="basicApp">
   <p></p>
+<div class="col-md-12">
 <div id="target">
 <label for="typeahead-focus">Search for a volunteer:</label>
 <input
@@ -20,44 +21,60 @@
 </div>
 
 <div>
-<div class="jumbotron " *ngIf="flag">
-  <h1 class="display-4">{{volunteer.first_name}} {{volunteer.last_name}}</h1>
-  <hr class="my-4">
+
+<div class="card bg-light mb-3" *ngIf="flag">
+    <div class="card-body" >
+    <div class = "row">
+
+    <div class = "col-md-6">
+      <h2>{{volunteer.first_name}} {{volunteer.last_name}}</h2>
+    <p></p>
+    <p>User ID: {{volunteer.id}} </p>
+    <p>Date of Birth: {{volunteer.dob}} </p>
+    <p>Signup Date: {{volunteer.signup_date}}</p>
+    <p></p>
+    <p></p>
+    No show count: {{volunteer.no_show}}
+    <p></p>
+    <div class = "row">
+      <div class = "col-md-3">
+    <button (click)="updateNoShow(volunteer.id, volunteer.no_show+1); this.names = []; this.pairs = []" type="button" class="btn btn-outline-success">Increase Count</button>
+    </div>
+    <div class = col-md-3>
+    <button (click)="updateNoShow(volunteer.id, volunteer.no_show-1); this.names = []; this.pairs = []" type="button" class="btn btn-outline-warning">Decrease Count</button>
+  </div>
+  </div>
   <p></p>
-  <p>User ID: {{volunteer.id}} </p>
-  <p>Date of Birth: {{volunteer.dob}} </p>
-  <p>Signup Date: {{volunteer.signup_date}}</p>
-  <p></p>
-  <p></p>
-  No show count: {{volunteer.no_show}}
-  <p></p>
-  <button (click)="updateNoShow(volunteer.id, volunteer.no_show+1); this.names = []; this.pairs = []" type="button" class="btn btn-outline-success">Increase Count</button>
-  <button (click)="updateNoShow(volunteer.id, volunteer.no_show-1); this.names = []; this.pairs = []" type="button" class="btn btn-outline-warning">Decrease Count</button>
-<p></p>
-<p>
-  <button type="button" class="btn btn-outline-primary" (click)="registerVolunteer = !registerVolunteer"
-          [attr.aria-expanded]="registerVolunteer" aria-controls="volunteerRegistration">
-    Register Volunteer
-  </button>
-</p>
-<div id="volunteerRegistration" [ngbCollapse]="!registerVolunteer">
-  <div class="card">
-    <div class="card-body">
-      <ngb-datepicker #dp [(ngModel)]="modelDate" (navigate)="date = $event.next"  ></ngb-datepicker>
+  <p>
+    <button type="button" class="btn btn-outline-primary" (click)="registerVolunteer = !registerVolunteer"
+            [attr.aria-expanded]="registerVolunteer" aria-controls="volunteerRegistration">
+      Register Volunteer
+    </button>
+  </p>
+  <div id="volunteerRegistration" [ngbCollapse]="!registerVolunteer">
+    <div class="card">
+      <div class="card-body">
+        <ngb-datepicker #dp [(ngModel)]="modelDate" (navigate)="date = $event.next"  ></ngb-datepicker>
+      </div>
     </div>
   </div>
 </div>
-    <hr>
+    <div class = "col-md-6">
+    <h2>Contact Information:</h2>
+    <p></p>
+    <p>Email: {{volunteer.email}}</p>
+    <p>Phone number: {{volunteer.phone_number}}</p>
+    <p>Home Address: {{volunteer.address_number}} {{volunteer.address_street}}, {{volunteer.address_city}} {{volunteer.address_postal_code}}</p>
+    <p></p>
+    <button type="button" class="btn btn-outline-danger" (click)="deleteUser(volunteer.id)">Delete this volunteer?</button>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
 
-  <h2>Contact Information:</h2>
-  <p></p>
-  <p>Email: {{volunteer.email}}</p>
-  <p>Phone number: {{volunteer.phone_number}}</p>
-  <p>Home Address: {{volunteer.address_number}} {{volunteer.address_street}}, {{volunteer.address_city}} {{volunteer.address_postal_code}}</p>
-  <p></p>
-  <button type="button" class="btn btn-outline-danger" (click)="deleteUser(volunteer.id)">Delete this volunteer?</button>
-</div>
-</div>
+
 
 
 <div>
@@ -79,15 +96,10 @@
     </a>
       </p>
 
-      <p *ngFor="let user of (volunteerSamples | async)">
-        <a href="#" onClick="return false;" (click)="updateUser(user.first_name, user.last_name, user.email); scroll('target')">
-      {{user.first_name}} {{user.last_name}}
-        </a>
-      </p>
-
 
 
     </div>
   </div>
+</div>
 </div>
 </div>
