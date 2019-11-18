@@ -82,4 +82,10 @@
       <button type="submit" class="btn btn-xl btn-outline-primary" (click)="onSubmit()">Create Volunteer</button>
    </div>
 </ng-template>
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Create New Volunteer</button>
+
+<button mat-menu-item (click)="open(content)">
+  <mat-icon>person_add</mat-icon>
+  <span>New Volunteer</span>
+</button>
+
+<!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Create New Volunteer</button> -->

@@ -1,10 +1,7 @@
-<button><a routerLink="">Back</a></button>
-
-<div class="container-fluid">
+<div class="container-fluid" style="padding:0">
     <div class="row" style="padding-top: 2rem; padding-bottom: 1rem">
         <div class="col">
             <h1 class="header-text" style="padding:0.5rem; text-align: center; color: #449afe">
-                <img heigth="75px" width="75px" src="../assets/santropol-logo.png">&nbsp;
                 Volunteer Schedule
             </h1>
         </div>
@@ -46,6 +43,7 @@
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
                                         <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
                                             <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} style="float:right"></app-remove-user-from-event>
+                                            <app-mark-permanent-event></app-mark-permanent-event>
                                         </li>
                                     </ul>
                                 </ng-template>
@@ -76,6 +74,7 @@
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
                                         <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
                                             <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} style="float:right"></app-remove-user-from-event>
+                                            <app-mark-permanent-event></app-mark-permanent-event>
                                         </li>
                                     </ul>
                                 </ng-template>
@@ -83,9 +82,9 @@
                             <div class="card-footer" style="text-align:center">
                                 <img *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 <ng-template #importantEventFalse>
-                                    <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
+                                    <img src="../../assets/important-event-false.png" class="volunteer-schedule-operation" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
-                                <app-add-user-to-event [volunteerList]="volunteerList"></app-add-user-to-event>
+                                <app-add-user-to-event class="volunteer-schedule-operation" [volunteerList]="volunteerList"></app-add-user-to-event>
                             </div>
                         </div>
                     </div>
@@ -105,6 +104,7 @@
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
                                         <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
                                             <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} style="float:right"></app-remove-user-from-event>
+                                            <app-mark-permanent-event></app-mark-permanent-event>
                                         </li>
                                     </ul>
                                 </ng-template>
@@ -123,17 +123,6 @@
         </app-slider>
     </div>
 
-    <div class="row" style="background-color: #449afe;">
-        <div class="col-md-3 offset-md-3">
-          <i class="fa fa-user-plus"></i> Create New Volunteer
-        </div>
-        <div class="col-md-3">
-          <i class="fa fa-edit"></i> Change Registration Code
-        </div>
-        <div class="col-md-3">
-          View volunteers
-        </div>
-    </div>
 
   <!-- <ng-template #content let-modal>
     <div class="modal-header text-center">

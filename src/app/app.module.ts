@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import '../polyfills';
 
+import { FlexLayoutModule } from "@angular/flex-layout";
+
 import {NgbModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularFireModule } from 'angularfire2';
@@ -15,8 +17,8 @@ import { SidebarModule } from 'ng-sidebar';
 // MATT IMPORTS
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
-import { MatTableModule } from '@angular/material'
-import {MatInputModule, MatButtonModule, MatOptionModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule} from '@angular/material'
+import { MatTableModule, MatMenuModule } from '@angular/material'
+import {MatInputModule, MatButtonModule, MatOptionModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatToolbarModule} from '@angular/material'
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
@@ -41,19 +43,26 @@ import { HomeComponent } from './home/home.component';
 import { SliderComponent } from './slider/slider.component';
 import { AddUserToEvent } from './sign-up-sheet/add-user-to-event/add-user-to-event.component';
 import { RemoveUserFromEventComponent } from './sign-up-sheet/remove-user-from-event/remove-user-from-event.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MarkPermanentEventComponent } from './sign-up-sheet/mark-permanent-event/mark-permanent-event.component';
+
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent
-  },
-  {
-    path: 'sign-up-sheet',
     component: SignUpSheetComponent
   },
   {
+    path: 'volunteer-schedule',
+    component: SignUpSheetComponent
+  },
+  {
+    path: 'volunteer-directory',
+    component: UserListComponent
+  },
+  {
     path: '**',
-    component: HomeComponent
+    component: SignUpSheetComponent
   }
 ];
 
@@ -63,12 +72,13 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent, RemoveUserFromEventComponent],
+  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent, RemoveUserFromEventComponent, ToolbarComponent, MarkPermanentEventComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     SidebarModule.forRoot(),
     AngularFireModule.initializeApp(AppConfig.firebase),
+    FlexLayoutModule,
  	  AngularFirestoreModule,
     AngularFireDatabaseModule,
     FormsModule,
@@ -77,7 +87,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     CoreModule,
     SharedModule,
     NgbModule,
+    MatToolbarModule,
     MatCheckboxModule,
+    MatMenuModule,
     MatTableModule,
     AngularFontAwesomeModule,
     MatChipsModule,
