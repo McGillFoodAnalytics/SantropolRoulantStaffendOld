@@ -182,11 +182,11 @@ export class UserListComponent {
     }
   }
 
-  displayPastEvents(){
+  displayPastEvents(firstName, lastName){
     this.pastEventsUser = [];
     this.pastEvents.subscribe(snapshots=>{
         snapshots.forEach(snapshot => {
-            if(snapshot.first_name == this.model.first_name && snapshot.last_name == this.model.last_name){ //if the model has past events
+            if(snapshot.first_name == firstName && snapshot.last_name == lastName){ //if the model has past events
               this.pastEventsUser.push(snapshot); //push it to pastEvents
             }
         });
