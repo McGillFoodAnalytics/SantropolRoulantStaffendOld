@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, Params } from '@angular/router';
-import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
+import {NgbTypeahead,NgbDatepickerConfig, NgbCalendar, NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import {Subject, merge} from 'rxjs';
+import {FireBaseService} from '../core/firebaseService'
 import { ViewportScroller } from '@angular/common';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 
@@ -17,24 +18,58 @@ export class UserListComponent {
 
   key : [];
   message: '';
-  volunteerRef: AngularFireList<any>;
+  model = "";
   volunteers: Observable<any[]>;
+  events: Observable<any[]>;
+  pastEventRef: AngularFireList<any>;
+  pastEvents: Observable<any[]>;
+  volunteerSamples: Observable<any[]>;
   names: string[] = [];
   pairs: string[] = [];
+  years: Number[] = [];
+  modelDate: NgbDateStruct;
+
+
+  eventDates = {};
+
   flag: boolean = false;
   flagList: boolean = false;
   error: boolean = false;
   errorMessage: string = "";
   volunteer;
   count = 0;
+  pastEventsUser = [];
 
-  constructor(private db : AngularFireDatabase, private vps: ViewportScroller) {
-    this.volunteerRef = db.list('user');
-    this.volunteers = this.volunteerRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
-      )
-    );
+  public registerVolunteer = false;
+
+
+
+
+
+    formatDate(date: string){
+      const year = "20" + date.substring(0,2);
+      const month = date.substring(2,4);
+      const day = date.substring(4,6);
+      date = month+'/'+day+'/'+year;
+      return date;
+    }
+
+
+
+  constructor(private db : AngularFireDatabase, private vps: ViewportScroller, private config: NgbDatepickerConfig, private calendar: NgbCalendar,
+              private firebase: FireBaseService ) {
+
+
+
+
+    this.volunteers = firebase.getUsers();
+    this.volunteerSamples = firebase.getUserSamples();
+    this.events = firebase.getEvents();
+
+    this.eventDates = firebase.getEventsJson();
+    console.log(this.eventDates);
+
+
     this.volunteers.subscribe(snapshots=>{
         snapshots.forEach(snapshot => {
             this.names.push(snapshot.first_name + " " + snapshot.last_name + " (Email: " + snapshot.email + ")");
@@ -42,6 +77,30 @@ export class UserListComponent {
             this.pairs.push(snapshot.id);
         });
     })
+
+
+    this.pastEventRef = db.list('event');
+    // Use snapshotChanges().map() to store the key
+    this.pastEvents = this.pastEventRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
+      )
+    );
+
+
+    // customize default values of datepickers used by this component
+    config.minDate =  { year:   new Date().getFullYear(),
+                        month:  new Date().getMonth() + 1,
+                        day:    new Date().getDate()};
+
+    let date1: Date = new Date();
+    //date1 += 21;
+
+    config.maxDate = {  year:   date1.getFullYear(),
+                        month:  date1.getMonth() + 2,
+                        day:    date1.getDate() };;
+    // days that don't belong to current month are not visible
+    config.outsideDays = 'hidden';
   }
 
 
@@ -66,7 +125,6 @@ export class UserListComponent {
   }
 
 
-  model = "";
   id;
 
   @ViewChild('instance', {static: true}) instance: NgbTypeahead;
@@ -87,27 +145,57 @@ export class UserListComponent {
     );
   }
 
-  resetModel(){
+  resetModel() {
     this.model = "";
   }
   scroll(id) {
     this.vps.scrollToAnchor(id);
   }
-  updateUser(userId){
-    this.volunteers.subscribe(snapshots=>{
-        snapshots.forEach(snapshot => {
-          if(snapshot.id == userId){
-            this.flag = true;
-            this.error = false;
-            this.volunteer = snapshot;
-            //console.log(this.volunteer);
-            //this.names = [];
 
-          }
+  displayUser(){
+    var j = 0;
+    this.registerVolunteer = false;
+    for(let i = 0; i < this.names.length; i++) {
+      if(this.model == this.names[i]){
+        this.id = this.pairs[2*i + 1];
+        this.flag = true;
+        this.error = false;
+        this.volunteers.subscribe(snapshots=>{
+            snapshots.forEach(snapshot => {
+              if(snapshot.id == this.id){
+                this.volunteer = snapshot;
+                //console.log(this.volunteer);
+                //this.names = [];
+              }
+            });
+        })
+      }
+      else{
+        j++;
+      }
+    }
+    if(j == this.names.length){
+      this.flag = false;
+      this.error = true;
+      this.errorMessage = this.model + " is not a registered volunteer.";
+    }
+  }
+
+  displayPastEvents(firstName, lastName){
+    this.pastEventsUser = [];
+    this.pastEvents.subscribe(snapshots=>{
+        snapshots.forEach(snapshot => {
+            if(snapshot.first_name == firstName && snapshot.last_name == lastName){ //if the model has past events
+              this.pastEventsUser.push(snapshot); //push it to pastEvents
+            }
         });
     })
   }
-  displayUser(){
+
+
+
+  updateUser(firstName, lastName, email){
+    this.model = firstName + " " + lastName + " (Email: " + email + ")";
     var j = 0;
     for(let i = 0; i < this.names.length; i++) {
       if(this.model == this.names[i]){
@@ -133,7 +221,6 @@ export class UserListComponent {
       this.error = true;
       this.errorMessage = this.model + " is not a registered volunteer.";
     }
-
   }
 
 }
