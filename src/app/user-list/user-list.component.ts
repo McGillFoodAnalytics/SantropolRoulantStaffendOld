@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import {Subject, merge} from 'rxjs';
 import {FireBaseService} from '../core/firebaseService'
 import { ViewportScroller } from '@angular/common';
-
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 
 

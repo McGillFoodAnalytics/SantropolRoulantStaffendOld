@@ -13,7 +13,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./new-user.component.scss']
 })
 export class NewUserComponent implements OnInit {
-  closeResult: string;
   private model = new User();
   private myForm: FormGroup;
   private modalReference;

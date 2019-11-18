@@ -10,8 +10,6 @@ import { AppConfig } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  show: boolean = true;
-  private isCollapsed = true;
 
   constructor(
     public electronService: ElectronService,

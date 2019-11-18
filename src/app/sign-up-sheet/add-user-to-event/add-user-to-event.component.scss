@@ -1,0 +1,66 @@
+
+::ng-deep .my-class .modal-dialog {
+     max-width: 70%;
+     width: 70%;
+}
+
+.modal-header{
+  background-color: #5fce99;
+  color: white;
+}
+
+.modal-body{
+  padding: 1rem 2rem 0 2rem;
+}
+
+.form{
+  padding-bottom: 1rem;
+}
+
+.form-section{
+  margin-bottom: 1.5rem;
+  color: darkgrey;
+  margin-top: 1.5rem;
+}
+
+
+.footer{
+  padding-bottom: 2.5rem;
+  text-align: center;
+}
+
+.mat-table {
+    width: 90% !important;
+    margin: auto;
+}
+
+.mat-header-row {
+    width: 100%;
+}
+
+.mat-row {
+    width: 100%;
+}
+
+.mat-column-first_name {
+    flex: 0 0 25% !important;
+    min-width: 104px !important;
+}
+
+.mat-column-last_name {
+    flex: 0 0 25% !important;
+    min-width: 104px !important;
+}
+
+.mat-column-email {
+    flex: 0 0 50% !important;
+    min-width: 104px !important;
+}
+
+.mat-row.ng-star-inserted.active {
+  background-color:  #5fce99;
+}
+
+.mat-row.ng-star-inserted.active > .mat-cell {
+  color: white;
+}

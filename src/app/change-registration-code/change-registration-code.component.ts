@@ -27,7 +27,7 @@ export class ChangeRegistrationCodeComponent implements OnInit {
   }
 
   open(content) {
-    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm', windowClass: 'my-class'});
+    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm', windowClass: 'my-class', centered: true});
   }
 
   updateRegistrationCode(): void {
