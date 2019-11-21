@@ -17,13 +17,10 @@ export class FireBaseService {
   pastEventRef: AngularFireList<any>;
   pastEvents: Observable<any[]>;
   eventDates = {};
-
   volunteerSampleRef: AngularFireList<any>;
   volunteerSamples: Observable<any[]>;
 
-
   constructor(private db : AngularFireDatabase) {}
-
 
   getUserSamples(): Observable<any[]> {
     this.volunteerSampleRef = this.db.list('userSample');
@@ -87,5 +84,13 @@ export class FireBaseService {
     const day = date.substring(4,6);
     date = month+'/'+day+'/'+year;
     return date;
+  }
+
+  changeEventImportance(event_id: string, is_important_event: boolean){
+    this.db.object('/event/' + event_id).update(
+      {
+        is_important_event: is_important_event
+      }
+    );
   }
 }

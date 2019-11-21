@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import 'bootstrap/dist/js/bootstrap.bundle';
+import {FireBaseService} from '../core/firebaseService'
 
 @Component({
   selector: 'app-sign-up-sheet',
@@ -13,14 +14,12 @@ import 'bootstrap/dist/js/bootstrap.bundle';
   styleUrls: ['./sign-up-sheet.component.scss']
 })
 export class SignUpSheetComponent implements OnInit {
-  private eventsRef: AngularFireList<any>;
   private events: Observable<any[]>;
-  private volunteerRef: AngularFireList<any>;
   private volunteers: Observable<any[]>;
   private volunteerList = [];
   private week1 = {};
   private week2 = {};
-  private week3=  {};
+  private week3 = {};
   private weekRange1: string;
   private weekRange2: string;
   private weekRange3: string;
@@ -29,24 +28,12 @@ export class SignUpSheetComponent implements OnInit {
   private currentEvent: string;
   private pane = "left";
 
-  constructor(private db: AngularFireDatabase) {
-    this.getEvents(db);
-    this.getUsers(db);
-    console.log(this.volunteerList);
-  }
+  constructor(private db: AngularFireDatabase, private firebaseService: FireBaseService) {}
 
   ngOnInit() {
-
-  }
-
-  getEvents(db: AngularFireDatabase){
-    this.eventsRef = db.list('event');
-    this.events = this.eventsRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
-      )
-    );
+    this.events = this.firebaseService.getEvents();
     this.formatEventDates();
+    this.volunteers = this.firebaseService.getUsers();
   }
 
   getUsers(db: AngularFireDatabase){
@@ -65,10 +52,14 @@ export class SignUpSheetComponent implements OnInit {
 
   formatEventDates(){
     const events_per_week = 134;
-    var i = 0;
     this.events.subscribe(snapshots=>{
+        var i = 0;
+        this.week1 = [];
+        this.week2 = [];
+        this.week3 = [];
+        console.log("in snapshot");
         snapshots.forEach(snapshot => {
-          snapshot.event_date = this.formatDate(snapshot.event_date.toString());
+          snapshot.event_date = this.firebaseService.formatDate(snapshot.event_date.toString());
           const event_type = snapshot.event_type.toString();
           const event_date = snapshot.event_date;
           if (i < events_per_week) {
@@ -134,20 +125,12 @@ export class SignUpSheetComponent implements OnInit {
         this.weekRange2 = this.setWeekRange(this.week2);
         this.weekRange3 = this.setWeekRange(this.week3);
         this.setEventTypes();
-        console.log(this.week1);
     });
   }
 
   getDisplayDate(date: string)
   {
     return new Date(date);
-  }
-  formatDate(date: string){
-    const year = "20" + date.substring(0,2);
-    const month = date.substring(2,4);
-    const day = date.substring(4,6);
-    date = month+'/'+day+'/'+year;
-    return date;
   }
 
   nextWeek(){
@@ -177,8 +160,7 @@ export class SignUpSheetComponent implements OnInit {
     const monday_month = monday.toLocaleString('default', { month: 'long' });
     const monday_date = monday.getDate();
     const monday_year = monday.getFullYear();
-    var saturday = new Date();
-    saturday.setDate(monday.getDate()+5);
+    var saturday = new Date(monday.getTime() + 5 * 86400000);
     const saturday_month = saturday.toLocaleString('default', { month: 'long' });
     const saturday_date = saturday.getDate();
     const saturday_year = saturday.getFullYear();
@@ -200,6 +182,7 @@ export class SignUpSheetComponent implements OnInit {
     this.eventTypes = Object.keys(this.week1);
     this.currentEvent = this.eventTypes[0];
   }
+
   getEventList(){
     if (this.currentWeek == "first") {
       return this.week1[this.currentEvent];
@@ -215,31 +198,36 @@ export class SignUpSheetComponent implements OnInit {
   changeEventImportance(day: string){
     var slots;
     var is_important_event;
+    console.log("in changeEventImportance");
+    console.log("current week is " + this.currentWeek);
+    console.log("current event is " + this.currentEvent);
+    console.log("day is " + day);
     if (this.currentWeek == "first") {
       is_important_event = !this.week1[this.currentEvent][day]["is_important_event"];
       this.week1[this.currentEvent][day]["is_important_event"] = is_important_event;
+      console.log("in first " + is_important_event);
       slots =  this.week1[this.currentEvent][day]["slots"];
     }
     else if (this.currentWeek == "second"){
       is_important_event = this.week2[this.currentEvent][day]["is_important_event"];
+      console.log("in second " + is_important_event);
       this.week2[this.currentEvent][day]["is_important_event"] = !is_important_event;
       slots =  this.week2[this.currentEvent][day]["slots"];
     }
     else {
       is_important_event = this.week3[this.currentEvent][day]["is_important_event"];
+      console.log("in third " + is_important_event);
       this.week3[this.currentEvent][day]["is_important_event"] = !is_important_event;
       slots =  this.week3[this.currentEvent][day]["slots"];
     }
     for (var slot of slots){
-        this.changeEventImportanceDB(slot["id"], is_important_event);
+        this.firebaseService.changeEventImportance(slot["id"], is_important_event);
     }
-  }
-
-  changeEventImportanceDB(event_id: string, is_important_event: boolean){
-    this.db.object('/event/' + event_id).update(
-      {
-        is_important_event: is_important_event
-      }
-    );
+    console.log("week 1");
+    console.log(this.week1);
+    console.log("week 2");
+    console.log(this.week2);
+    console.log("week 3");
+    console.log(this.week3);
   }
 }
