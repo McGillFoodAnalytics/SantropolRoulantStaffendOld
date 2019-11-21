@@ -20,6 +20,22 @@
   {{errorMessage}}
 </div>
 
+<div class="row" style="padding-bottom:2rem">
+    <div class="col-4" *ngFor="let user of (volunteers | async)" style="padding-bottom:2rem">
+        <div class="card">
+            <div class="card-body">
+                {{user.first_name}} {{user.last_name}}
+                <p>User ID: {{user.id}}</p>
+                Date of Birth: {{user.dob}}
+            </div>
+            <div class="card-footer" style="text-align:center">
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
 
 <div class="card bg-light mb-3" *ngIf="flag">
@@ -29,6 +45,7 @@
     <div class = "col-md-6">
       <h2>{{volunteer.first_name}} {{volunteer.last_name}}</h2>
     <p></p>
+
     <p>User ID: {{volunteer.id}} </p>
     <p>Date of Birth: {{volunteer.dob}} </p>
     <p>Signup Date: {{volunteer.signup_date}}</p>
