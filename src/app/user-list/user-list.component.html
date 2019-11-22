@@ -127,20 +127,30 @@ date={{event.event_date_txt}}
 <div class="row" style="padding-bottom:2rem">
   <div class="col-md-4" *ngFor="let user of (volunteers | async)" style="padding-bottom:2rem">
   <div class="card">
-      <div class="card-header text-white" style="background-color: #449afe;">
+      <div class="card-header text-white" style="background-color: #449afe; text-align:center">
         <a href="" onClick="return false;" (click)="updateUser(user.first_name, user.last_name, user.email); scroll('target')" style ="color: white;" >
       {{user.first_name}} {{user.last_name}}
       </a>
       </div>
       <div class="card-body">
+        <div class="row" style="margin-bottom:0.5rem">
+          <div class="col-md-1">
+            <mat-icon> email</mat-icon>
+          </div>
+          <div class="col-md-10" style="margin:auto">
+            {{ user.email }}
+          </div>
+        </div>
         <div class="row">
-          Email: {{user.email}}
-      </div>
+          <div class="col-md-1">
+            <mat-icon>phone_iphone</mat-icon>
+          </div>
+          <div class="col-md-10" style="margin:auto">
+            {{ user.phone_number }}
+          </div>
+        </div>
       <div >
       </div>
-      </div>
-      <div class="card-footer" style="text-align:center">
-
       </div>
   </div>
 </div>

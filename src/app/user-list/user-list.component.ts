@@ -230,11 +230,8 @@ export class UserListComponent {
   {
     this.firebase.removeUserFromEvent(event_id);
     this.currentEventsUser = [];
-    this.displayCurrentEvents(volunteer.first_name, volunteer.last_name);
+    this.displayCurrentEvents(this.volunteer.first_name, volunteer.last_name);
   }
-
-
-
 
   updateUser(firstName, lastName, email){
     this.model = firstName + " " + lastName + " (Email: " + email + ")";
