@@ -17,9 +17,11 @@ export class SignUpSheetComponent implements OnInit {
   private events: Observable<any[]>;
   private volunteers: Observable<any[]>;
   private volunteerList = [];
-  private week1 = {};
-  private week2 = {};
-  private week3 = {};
+  private volunteerSubscription;
+  private volunteerListInitialized = false;
+  private week1;
+  private week2;
+  private week3;
   private weekRange1: string;
   private weekRange2: string;
   private weekRange3: string;
@@ -34,18 +36,17 @@ export class SignUpSheetComponent implements OnInit {
     this.events = this.firebaseService.getEvents();
     this.formatEventDates();
     this.volunteers = this.firebaseService.getUsers();
+    this.setVolunteerList();
   }
 
-  getUsers(db: AngularFireDatabase){
-    this.volunteerRef = db.list('user');
-    this.volunteers = this.volunteerRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
-      )
-    );
-    this.volunteers.subscribe(snapshots=>{
+  setVolunteerList(){
+    this.volunteerSubscription = this.volunteers.subscribe(snapshots=>{
+        if (this.volunteerListInitialized == true) {
+          this.volunteerList = [];
+        }
+        this.volunteerListInitialized = false;
         snapshots.forEach(snapshot => {
-            this.volunteerList.push(snapshot);
+          this.volunteerList.push(snapshot);
         });
     });
   }
@@ -57,7 +58,6 @@ export class SignUpSheetComponent implements OnInit {
         this.week1 = [];
         this.week2 = [];
         this.week3 = [];
-        console.log("in snapshot");
         snapshots.forEach(snapshot => {
           snapshot.event_date = this.firebaseService.formatDate(snapshot.event_date.toString());
           const event_type = snapshot.event_type.toString();
@@ -223,11 +223,15 @@ export class SignUpSheetComponent implements OnInit {
     for (var slot of slots){
         this.firebaseService.changeEventImportance(slot["id"], is_important_event);
     }
-    console.log("week 1");
-    console.log(this.week1);
-    console.log("week 2");
-    console.log(this.week2);
-    console.log("week 3");
-    console.log(this.week3);
   }
+
+  getVolunteerList()
+  {
+    console.log(this.volunteerList);
+    return this.volunteerList;
+  }
+
+  ngOnDestroy() {
+    this.volunteerSubscription.unsubscribe();
+}
 }
