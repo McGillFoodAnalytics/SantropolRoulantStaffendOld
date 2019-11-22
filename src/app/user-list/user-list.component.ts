@@ -38,7 +38,8 @@ export class UserListComponent {
   errorMessage: string = "";
   volunteer;
   count = 0;
-  pastEventsUser = [];
+  pastEventsUser: [];
+  currentEventsUser: [];
 
   public registerVolunteer = false;
 
@@ -79,7 +80,7 @@ export class UserListComponent {
     })
 
 
-    this.pastEventRef = db.list('event');
+    this.pastEventRef = db.list('past_events');
     // Use snapshotChanges().map() to store the key
     this.pastEvents = this.pastEventRef.snapshotChanges().pipe(
       map(changes =>
@@ -192,6 +193,33 @@ export class UserListComponent {
     })
   }
 
+  displayCurrentEvents(firstName, lastName){
+    this.currentEventsUser = [];
+
+    this.events.subscribe(snapshots=>{
+        snapshots.forEach(snapshot => {
+            if(snapshot.first_name == firstName && snapshot.last_name == lastName){ //if the model has past events
+              this.currentEventsUser.push(snapshot); //push it to pastEvents
+            }
+        });
+    })
+    
+  }
+
+  removeUserFromEvent(eventID, first_name:string, last_name:string) : void{
+    //console.log(this.db.object('/event/' + eventID).valueChanges());
+    console.log(eventID);
+    this.db.object('/event/' + eventID)
+    .update({
+        first_name:  "",
+        last_name :  ""
+     });
+     this.currentEventsUser = [];
+     this.pastEventsUser = [];
+     //this.displayCurrentEvents(this.volunteer.first_name, this.volunteer.last_name);
+  }
+
+
 
 
   updateUser(firstName, lastName, email){
@@ -221,6 +249,9 @@ export class UserListComponent {
       this.error = true;
       this.errorMessage = this.model + " is not a registered volunteer.";
     }
+
+    this.displayCurrentEvents(firstName, lastName);
+    this.displayPastEvents(firstName, lastName);
   }
 
 }
