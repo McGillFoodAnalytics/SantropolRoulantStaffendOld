@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,9 +8,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RemoveUserFromEventComponent implements OnInit {
   @Input() lastName;
-  @Input() evenType;
+  @Input() eventType;
   @Input() date;
   @Input() firstName: string;
+  @Output() onConfirm: EventEmitter<any> = new EventEmitter<any>();
 
   private modalReference;
   private model: any = {};
@@ -22,6 +23,12 @@ export class RemoveUserFromEventComponent implements OnInit {
 
   open(content) {
     this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm', windowClass: 'my-class', centered: true});
+  }
+
+  onSubmit() {
+    console.log("confirm");
+    this.onConfirm.emit("true");
+    this.modalReference.close();
   }
 
 }

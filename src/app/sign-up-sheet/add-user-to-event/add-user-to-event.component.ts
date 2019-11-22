@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
@@ -15,6 +15,7 @@ export class AddUserToEvent implements OnInit {
   @Input() volunteerList;
   @Input() eventType;
   @Input() date;
+  @Output() onAddUser: EventEmitter<any> = new EventEmitter<any>();
   private modalReference;
   private model: any = {};
   private displayedColumns: string[] = ['first_name', 'last_name', 'email'];
@@ -47,7 +48,7 @@ export class AddUserToEvent implements OnInit {
     if (this.selectedRowIndex >= 0)
     {
       this.modalReference.close();
-      console.log(this.selectedRow);
+      this.onAddUser.emit(this.selectedRow);
       this.selectedRowIndex = -1;
       this.selectedRow = {};
     }
