@@ -86,7 +86,15 @@
   </thead>
   <tbody>
     <tr *ngFor="let event of currentEventsUser">
-      <th scope="row"><i class="fa fa-times-circle" (click)="removeUserFromEvent(event.event_id, event.first_name, event.last_name)" style="align-self:  center"></i></th>
+      <th scope="row"><app-remove-user-from-event
+firstName={{volunteer.first_name}}
+lastName={{volunteer.last_name}}
+date={{event.event_date_txt}}
+[eventType]="event.event_type"
+(onConfirm)="removeUserFromEvent(event.id)"
+
+
+        ></app-remove-user-from-event></th>
         <th>{{event.event_date_txt}}</th>
       <td>{{event.event_type}}</td>
       <td>{{event.event_time_start}}</td>

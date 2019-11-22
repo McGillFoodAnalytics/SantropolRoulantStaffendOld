@@ -20,6 +20,7 @@ export class UserListComponent {
   message: '';
   model = "";
   volunteers: Observable<any[]>;
+  eventRef: AngularFireList<any>;
   events: Observable<any[]>;
   pastEventRef: AngularFireList<any>;
   pastEvents: Observable<any[]>;
@@ -46,7 +47,6 @@ export class UserListComponent {
 
 
 
-
     formatDate(date: string){
       const year = "20" + date.substring(0,2);
       const month = date.substring(2,4);
@@ -65,7 +65,13 @@ export class UserListComponent {
 
     this.volunteers = firebase.getUsers();
     this.volunteerSamples = firebase.getUserSamples();
-    this.events = firebase.getEvents();
+    //this.events = firebase.getEvents();
+    this.eventRef = this.db.list('event');
+    this.events = this.eventRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
+      )
+    );
 
     this.eventDates = firebase.getEventsJson();
     console.log(this.eventDates);
@@ -219,17 +225,12 @@ export class UserListComponent {
 
   }
 
-  removeUserFromEvent(eventID, first_name:string, last_name:string) : void{
-    //console.log(this.db.object('/event/' + eventID).valueChanges());
-    console.log(eventID);
-    this.db.object('/event/' + eventID)
-    .update({
-        first_name:  "",
-        last_name :  ""
-     });
-     this.currentEventsUser = [];
-     this.pastEventsUser = [];
-     //this.displayCurrentEvents(this.volunteer.first_name, this.volunteer.last_name);
+
+  removeUserFromEvent(event_id :string) :void
+  {
+    this.firebase.removeUserFromEvent(event_id);
+    this.currentEventsUser = [];
+    this.displayCurrentEvents(volunteer.first_name, volunteer.last_name);
   }
 
 
