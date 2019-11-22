@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
@@ -14,23 +13,20 @@ import {SelectionModel} from '@angular/cdk/collections';
 })
 export class AddUserToEvent implements OnInit {
   @Input() volunteerList;
-  @Input() evenType;
+  @Input() eventType;
   @Input() date;
   private modalReference;
   private model: any = {};
-  private form: FormGroup;
   private displayedColumns: string[] = ['first_name', 'last_name', 'email'];
   private dataSource;
-  private selectedRow: Number;
+  private selectedRowIndex: Number;
+  private selectedRow: {};
 
 
-  constructor(private modalService: NgbModal, private db: AngularFireDatabase, private formBuilder: FormBuilder) {}
+  constructor(private modalService: NgbModal, private db: AngularFireDatabase) {}
 
   ngOnInit(){
     this.dataSource = new MatTableDataSource(this.volunteerList);
-    this.form = this.formBuilder.group({
-      user: ['', Validators.required]
-    });
   }
 
   open(content) {
@@ -41,7 +37,19 @@ export class AddUserToEvent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  setClickedRow(index) {
-    this.selectedRow = index;
+  setClickedRow(index, row) {
+    this.selectedRowIndex = index;
+    this.selectedRow = row;
+  }
+
+  onSubmit()
+  {
+    if (this.selectedRowIndex >= 0)
+    {
+      this.modalReference.close();
+      console.log(this.selectedRow);
+      this.selectedRowIndex = -1;
+      this.selectedRow = {};
+    }
   }
 }

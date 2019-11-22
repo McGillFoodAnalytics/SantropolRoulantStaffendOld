@@ -26,8 +26,16 @@ export class SignUpSheetComponent implements OnInit {
   private weekRange2: string;
   private weekRange3: string;
   private currentWeek = 'first';
-  private eventTypes = [];
-  private currentEvent: string;
+  private eventTypes = {"Kitchen AM" : "kitam",
+                        "Kitchen PM" : "kitpm",
+                        "Delivery Driver": "deldr",
+                        "Delivery" : "deliv",
+                        "Kitcham AM Sat" : "kitas",
+                        "Kitchem PM Sat" : "kitps",
+                        "Delivery Driver Sat" : "delds",
+                        "Delivery Sat" : "delis"
+                      };
+  private currentEvent = "Kitchen AM";
   private pane = "left";
 
   constructor(private db: AngularFireDatabase, private firebaseService: FireBaseService) {}
@@ -124,7 +132,6 @@ export class SignUpSheetComponent implements OnInit {
         this.weekRange1 = this.setWeekRange(this.week1);
         this.weekRange2 = this.setWeekRange(this.week2);
         this.weekRange3 = this.setWeekRange(this.week3);
-        this.setEventTypes();
     });
   }
 
@@ -178,45 +185,35 @@ export class SignUpSheetComponent implements OnInit {
     return week_title;
   }
 
-  setEventTypes(){
-    this.eventTypes = Object.keys(this.week1);
-    this.currentEvent = this.eventTypes[0];
-  }
 
   getEventList(){
+    var currentEventValue = this.eventTypes[this.currentEvent];
     if (this.currentWeek == "first") {
-      return this.week1[this.currentEvent];
+      return this.week1[currentEventValue];
     }
     else if (this.currentWeek == "second"){
-      return this.week2[this.currentEvent];
+      return this.week2[currentEventValue];
     }
     else {
-      return this.week3[this.currentEvent];
+      return this.week3[currentEventValue];
     }
   }
 
   changeEventImportance(day: string){
     var slots;
     var is_important_event;
-    console.log("in changeEventImportance");
-    console.log("current week is " + this.currentWeek);
-    console.log("current event is " + this.currentEvent);
-    console.log("day is " + day);
     if (this.currentWeek == "first") {
       is_important_event = !this.week1[this.currentEvent][day]["is_important_event"];
       this.week1[this.currentEvent][day]["is_important_event"] = is_important_event;
-      console.log("in first " + is_important_event);
       slots =  this.week1[this.currentEvent][day]["slots"];
     }
     else if (this.currentWeek == "second"){
       is_important_event = this.week2[this.currentEvent][day]["is_important_event"];
-      console.log("in second " + is_important_event);
       this.week2[this.currentEvent][day]["is_important_event"] = !is_important_event;
       slots =  this.week2[this.currentEvent][day]["slots"];
     }
     else {
       is_important_event = this.week3[this.currentEvent][day]["is_important_event"];
-      console.log("in third " + is_important_event);
       this.week3[this.currentEvent][day]["is_important_event"] = !is_important_event;
       slots =  this.week3[this.currentEvent][day]["slots"];
     }
@@ -227,7 +224,6 @@ export class SignUpSheetComponent implements OnInit {
 
   getVolunteerList()
   {
-    console.log(this.volunteerList);
     return this.volunteerList;
   }
 

@@ -19,7 +19,7 @@
                         <div class="col-2" style="text-align:right">
                             <select class="browser-default custom-select" [(ngModel)]="currentEvent" style="background-color:#5fce99 !important; color:white; border:none">
                                 <option disabled> Event Type </option>
-                                <option *ngFor="let event of eventTypes"> {{event}} </option>
+                                <option *ngFor="let event of eventTypes | keyvalue"> {{event.key}} </option>
                             </select>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                                     <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
                                 <!-- how to pass data from parent component to child component -->
-                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}}></app-add-user-to-event>
+                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent"></app-add-user-to-event>
                             </div>
                         </div>
                     </div>

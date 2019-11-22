@@ -5,38 +5,36 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <form class="form" (ngSubmit)="onSubmit()" [formGroup]="form">
-      <div class="form-row mb-12">
-        Select a volunteer to add to the Kitchen AM event on {{ date }}.
-        <mat-form-field style="width: 75%; margin:auto; padding-top: 1rem">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        <div style="height:200px; overflow: auto; width:100%"> 
-          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-             <ng-container matColumnDef="first_name">
-                <th mat-header-cell *matHeaderCellDef> First name </th>
-                <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
-             </ng-container>
-             <!-- Name Column -->
-             <ng-container matColumnDef="last_name">
-                <th mat-header-cell *matHeaderCellDef> Last name </th>
-                <td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
-             </ng-container>
-             <!-- Weight Column -->
-             <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef> Email </th>
-                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-             </ng-container>
-             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-             <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"
-             (click)="setClickedRow(i)" [class.active]="i == selectedRow">
-             </tr>
-          </table>
-        </div>
+  <div class="modal-body" style="padding-bottom:2rem">
+    <div class="form-row mb-12">
+      Select a volunteer to add to the {{ eventType }} event on {{ date }}.
+      <mat-form-field style="width: 75%; margin:auto; padding-top: 1rem">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <div style="height:250px; overflow: auto; width:100%">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+           <ng-container matColumnDef="first_name">
+              <th mat-header-cell *matHeaderCellDef> First name </th>
+              <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
+           </ng-container>
+           <!-- Name Column -->
+           <ng-container matColumnDef="last_name">
+              <th mat-header-cell *matHeaderCellDef> Last name </th>
+              <td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
+           </ng-container>
+           <!-- Weight Column -->
+           <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+           </ng-container>
+           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+           <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"
+           (click)="setClickedRow(i, row)" [class.active]="i == selectedRowIndex">
+           </tr>
+        </table>
       </div>
-    </form>
+    </div>
   </div>
   <div class="footer">
       <button type="submit" class="btn btn-xl btn-outline-danger" (click)="onSubmit()">Add Volunteer to Event</button>
