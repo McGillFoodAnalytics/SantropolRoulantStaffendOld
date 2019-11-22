@@ -17,7 +17,6 @@ export class SignUpSheetComponent implements OnInit {
   private events: Observable<any[]>;
   private volunteers: Observable<any[]>;
   private volunteerList = [];
-  private volunteerSubscription;
   private volunteerListInitialized = false;
   private week1;
   private week2;
@@ -48,7 +47,7 @@ export class SignUpSheetComponent implements OnInit {
   }
 
   setVolunteerList(){
-    this.volunteerSubscription = this.volunteers.subscribe(snapshots=>{
+    this.volunteers.subscribe(snapshots=>{
         if (this.volunteerListInitialized == true) {
           this.volunteerList = [];
         }
@@ -227,7 +226,8 @@ export class SignUpSheetComponent implements OnInit {
     return this.volunteerList;
   }
 
-  ngOnDestroy() {
-    this.volunteerSubscription.unsubscribe();
-}
+  removeUser(event_id)
+  {
+    this.firebaseService.removeUserFromEvent(event_id);
+  }
 }

@@ -93,4 +93,13 @@ export class FireBaseService {
       }
     );
   }
-}
+
+  removeUserFromEvent(event_id: string) : void{
+    this.db.object('/event/' + event_id)
+    .update({
+        first_name:  "",
+        last_name :  "",
+        uid: "nan"
+     });
+   }
+ }
