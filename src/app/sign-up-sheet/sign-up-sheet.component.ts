@@ -201,20 +201,21 @@ export class SignUpSheetComponent implements OnInit {
   changeEventImportance(day: string){
     var slots;
     var is_important_event;
+    var currentEventValue = this.eventTypes[this.currentEvent];
     if (this.currentWeek == "first") {
-      is_important_event = !this.week1[this.currentEvent][day]["is_important_event"];
-      this.week1[this.currentEvent][day]["is_important_event"] = is_important_event;
-      slots =  this.week1[this.currentEvent][day]["slots"];
+      is_important_event = !this.week1[currentEventValue][day]["is_important_event"];
+      this.week1[currentEventValue][day]["is_important_event"] = is_important_event;
+      slots =  this.week1[currentEventValue][day]["slots"];
     }
     else if (this.currentWeek == "second"){
-      is_important_event = this.week2[this.currentEvent][day]["is_important_event"];
-      this.week2[this.currentEvent][day]["is_important_event"] = !is_important_event;
-      slots =  this.week2[this.currentEvent][day]["slots"];
+      is_important_event = this.week2[currentEventValue][day]["is_important_event"];
+      this.week2[currentEventValue][day]["is_important_event"] = !is_important_event;
+      slots =  this.week2[currentEventValue][day]["slots"];
     }
     else {
-      is_important_event = this.week3[this.currentEvent][day]["is_important_event"];
-      this.week3[this.currentEvent][day]["is_important_event"] = !is_important_event;
-      slots =  this.week3[this.currentEvent][day]["slots"];
+      is_important_event = this.week3[currentEventValue][day]["is_important_event"];
+      this.week3[currentEventValue][day]["is_important_event"] = !is_important_event;
+      slots =  this.week3[currentEventValue][day]["slots"];
     }
     for (var slot of slots){
         this.firebaseService.changeEventImportance(slot["id"], is_important_event);
@@ -226,8 +227,14 @@ export class SignUpSheetComponent implements OnInit {
     return this.volunteerList;
   }
 
-  removeUser(event_id)
+  removeUserFromEvent(event_id)
   {
     this.firebaseService.removeUserFromEvent(event_id);
+  }
+
+  addUserToEvent(user, event_info)
+  {
+    var event_id = event_info.slots[event_info.num_volunteers].id;
+    this.firebaseService.addUserToEvent(event_id, user.first_name, user.last_name, user.key);
   }
 }

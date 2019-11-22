@@ -42,7 +42,7 @@
                                 <ng-template #volunteersRegistered>
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
                                         <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
-                                            <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} [eventType]="currentEvent" style="float:right" (onConfirm)="removeUser(slot.id)"></app-remove-user-from-event>
+                                            <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} [eventType]="currentEvent" style="float:right" (onConfirm)="removeUserFromEvent(slot.id)"></app-remove-user-from-event>
                                         </li>
                                     </ul>
                                 </ng-template>
@@ -52,8 +52,7 @@
                                 <ng-template #importantEventFalse>
                                     <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
-                                <!-- how to pass data from parent component to child component -->
-                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent"></app-add-user-to-event>
+                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" (onAddUser)="addUserToEvent($event, day.value)"></app-add-user-to-event>
                             </div>
                         </div>
                     </div>
@@ -72,7 +71,7 @@
                                 <ng-template #volunteersRegistered>
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
                                         <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
-                                            <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} [eventType]="currentEvent" style="float:right" (onConfirm)="removeUser(slot.id)"></app-remove-user-from-event>
+                                            <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} [eventType]="currentEvent" style="float:right" (onConfirm)="removeUserFromEvent(slot.id)"></app-remove-user-from-event>
                                         </li>
                                     </ul>
                                 </ng-template>
@@ -82,7 +81,7 @@
                                 <ng-template #importantEventFalse>
                                     <img src="../../assets/important-event-false.png" class="volunteer-schedule-operation" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
-                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent"></app-add-user-to-event>
+                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" (onAddUser)="addUserToEvent($event, day.value)"></app-add-user-to-event>
                             </div>
                         </div>
                     </div>
@@ -101,7 +100,7 @@
                                 <ng-template #volunteersRegistered>
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
                                         <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
-                                            <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} [eventType]="currentEvent" style="float:right" (onConfirm)="removeUser(slot.id)"></app-remove-user-from-event>
+                                            <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} [eventType]="currentEvent" style="float:right" (onConfirm)="removeUserFromEvent(slot.id)"></app-remove-user-from-event>
                                         </li>
                                     </ul>
                                 </ng-template>
@@ -111,7 +110,7 @@
                                 <ng-template #importantEventFalse>
                                     <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
-                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent"></app-add-user-to-event>
+                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" (onAddUser)="addUserToEvent($event, day.value)"></app-add-user-to-event>
                             </div>
                         </div>
                     </div>
@@ -119,33 +118,3 @@
             </div>
         </app-slider>
     </div>
-
-
-  <!-- <ng-template #content let-modal>
-    <div class="modal-header text-center">
-      <h4 class="modal-title w-100">Remove Volunteer from Event</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()" #closeModal>
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body text-center">
-      <form class="form" (ngSubmit)="onSubmit()" [formGroup]="myForm">
-        <div class="form-row mb-12">
-          <div class="form-group col-md-12">
-            Are you sure you want to remove  {{ (result | async) }}
-          </div>
-        </div>
-        <div class="form-row mb-12">
-          <div class="form-group col-md-12">
-            <mat-form-field>
-              <input matInput placeholder="New Registration Code" formControlName="new_registration_code" [(ngModel)]="model.registration_code">
-              <mat-error>Required!</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="footer">
-        <button type="submit" class="btn btn-xl btn-outline-success" (click)="onSubmit()">Change Registration Code</button>
-    </div>
-  </ng-template> -->
