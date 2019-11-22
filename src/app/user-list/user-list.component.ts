@@ -193,17 +193,30 @@ export class UserListComponent {
     })
   }
 
+  containsObject(obj, list) : boolean {
+    var x;
+    for (x in list) {
+        if (list.hasOwnProperty(x) && list[x] === obj) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
   displayCurrentEvents(firstName, lastName){
     this.currentEventsUser = [];
 
     this.events.subscribe(snapshots=>{
         snapshots.forEach(snapshot => {
+      if(!this.containsObject(snapshot, this.currentEventsUser)){
             if(snapshot.first_name == firstName && snapshot.last_name == lastName){ //if the model has past events
               this.currentEventsUser.push(snapshot); //push it to pastEvents
             }
+          }
         });
     })
-    
+
   }
 
   removeUserFromEvent(eventID, first_name:string, last_name:string) : void{
@@ -253,5 +266,8 @@ export class UserListComponent {
     this.displayCurrentEvents(firstName, lastName);
     this.displayPastEvents(firstName, lastName);
   }
+
+
+
 
 }
