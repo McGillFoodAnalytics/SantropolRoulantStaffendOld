@@ -20,6 +20,7 @@ export class UserListComponent {
   message: '';
   model = "";
   volunteers: Observable<any[]>;
+  eventRef: AngularFireList<any>;
   events: Observable<any[]>;
   pastEventRef: AngularFireList<any>;
   pastEvents: Observable<any[]>;
@@ -38,10 +39,10 @@ export class UserListComponent {
   errorMessage: string = "";
   volunteer;
   count = 0;
-  pastEventsUser = [];
+  pastEventsUser: [];
+  currentEventsUser: [];
 
   public registerVolunteer = false;
-
 
 
 
@@ -64,7 +65,13 @@ export class UserListComponent {
 
     this.volunteers = firebase.getUsers();
     this.volunteerSamples = firebase.getUserSamples();
-    this.events = firebase.getEvents();
+    //this.events = firebase.getEvents();
+    this.eventRef = this.db.list('event');
+    this.events = this.eventRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
+      )
+    );
 
     this.eventDates = firebase.getEventsJson();
     console.log(this.eventDates);
@@ -79,7 +86,7 @@ export class UserListComponent {
     })
 
 
-    this.pastEventRef = db.list('event');
+    this.pastEventRef = db.list('past_events');
     // Use snapshotChanges().map() to store the key
     this.pastEvents = this.pastEventRef.snapshotChanges().pipe(
       map(changes =>
@@ -192,6 +199,41 @@ export class UserListComponent {
     })
   }
 
+  containsObject(obj, list) : boolean {
+    var x;
+    for (x in list) {
+        if (list.hasOwnProperty(x) && list[x] === obj) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+  displayCurrentEvents(firstName, lastName){
+    this.currentEventsUser = [];
+
+    this.events.subscribe(snapshots=>{
+        snapshots.forEach(snapshot => {
+      if(!this.containsObject(snapshot, this.currentEventsUser)){
+            if(snapshot.first_name == firstName && snapshot.last_name == lastName){ //if the model has past events
+              this.currentEventsUser.push(snapshot); //push it to pastEvents
+            }
+          }
+        });
+    })
+
+  }
+
+
+  removeUserFromEvent(event_id :string) :void
+  {
+    this.firebase.removeUserFromEvent(event_id);
+    this.currentEventsUser = [];
+    this.displayCurrentEvents(volunteer.first_name, volunteer.last_name);
+  }
+
+
 
 
   updateUser(firstName, lastName, email){
@@ -221,6 +263,12 @@ export class UserListComponent {
       this.error = true;
       this.errorMessage = this.model + " is not a registered volunteer.";
     }
+
+    this.displayCurrentEvents(firstName, lastName);
+    this.displayPastEvents(firstName, lastName);
   }
+
+
+
 
 }

@@ -16,6 +16,7 @@ import {FireBaseService} from '../core/firebaseService'
 export class SignUpSheetComponent implements OnInit {
   private events: Observable<any[]>;
   private volunteers: Observable<any[]>;
+  volunteerRef: AngularFireList<any>;
   private volunteerList = [];
   private volunteerListInitialized = false;
   private week1;
