@@ -61,6 +61,7 @@ export class SignUpSheetComponent implements OnInit {
   formatEventDates(){
     const events_per_week = 134;
     this.events.subscribe(snapshots=>{
+        console.log("inside format formatDates");
         var i = 0;
         this.week1 = [];
         this.week2 = [];
@@ -131,6 +132,7 @@ export class SignUpSheetComponent implements OnInit {
         this.weekRange1 = this.setWeekRange(this.week1);
         this.weekRange2 = this.setWeekRange(this.week2);
         this.weekRange3 = this.setWeekRange(this.week3);
+        console.log(this.week1);
     });
   }
 
@@ -234,7 +236,9 @@ export class SignUpSheetComponent implements OnInit {
 
   addUserToEvent(user, event_info)
   {
+    console.log(user);
     var event_id = event_info.slots[event_info.num_volunteers].id;
+    console.log(event_id);
     this.firebaseService.addUserToEvent(event_id, user.first_name, user.last_name, user.key);
   }
 }

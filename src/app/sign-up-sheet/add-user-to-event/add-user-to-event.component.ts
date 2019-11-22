@@ -15,6 +15,7 @@ export class AddUserToEvent implements OnInit {
   @Input() volunteerList;
   @Input() eventType;
   @Input() date;
+  @Input() fullEvent;
   @Output() onAddUser: EventEmitter<any> = new EventEmitter<any>();
   private modalReference;
   private model: any = {};
@@ -31,7 +32,9 @@ export class AddUserToEvent implements OnInit {
   }
 
   open(content) {
-    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg', windowClass: 'my-class', centered: true});
+    if (this.fullEvent == false ) {
+      this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg', windowClass: 'my-class', centered: true});
+    }
   }
 
   applyFilter(filterValue: string) {

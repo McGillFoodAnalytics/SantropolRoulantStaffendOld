@@ -38,6 +38,7 @@
                                 {{ day.value.display_date | date: 'EEEE, MMM d' }}
                             </div>
                             <div class="card-body">
+                                {{day.value.num_volunteers}}/{{day.value.num_slots}}
                                 <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
                                 <ng-template #volunteersRegistered>
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
@@ -52,7 +53,10 @@
                                 <ng-template #importantEventFalse>
                                     <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
-                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" (onAddUser)="addUserToEvent($event, day.value)"></app-add-user-to-event>
+                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;"></app-add-user-to-event>
+                                <ng-template #fullEvent>
+                                  <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
+                                </ng-template>
                             </div>
                         </div>
                     </div>
@@ -81,7 +85,10 @@
                                 <ng-template #importantEventFalse>
                                     <img src="../../assets/important-event-false.png" class="volunteer-schedule-operation" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
-                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" (onAddUser)="addUserToEvent($event, day.value)"></app-add-user-to-event>
+                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;"></app-add-user-to-event>
+                                <ng-template #fullEvent>
+                                  <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
+                                </ng-template>
                             </div>
                         </div>
                     </div>
@@ -110,7 +117,10 @@
                                 <ng-template #importantEventFalse>
                                     <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
-                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" (onAddUser)="addUserToEvent($event, day.value)"></app-add-user-to-event>
+                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;"></app-add-user-to-event>
+                                <ng-template #fullEvent>
+                                  <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
+                                </ng-template>
                             </div>
                         </div>
                     </div>
