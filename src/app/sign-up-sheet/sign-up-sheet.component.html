@@ -19,7 +19,7 @@
                         <div class="col-2" style="text-align:right">
                             <select class="browser-default custom-select" [(ngModel)]="currentEvent" style="background-color:#5fce99 !important; color:white; border:none">
                                 <option disabled> Event Type </option>
-                                <option *ngFor="let event of eventTypes"> {{event}} </option>
+                                <option *ngFor="let event of eventTypes | keyvalue"> {{event.key}} </option>
                             </select>
                         </div>
                     </div>
@@ -43,7 +43,6 @@
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
                                         <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
                                             <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} style="float:right"></app-remove-user-from-event>
-                                            <app-mark-permanent-event></app-mark-permanent-event>
                                         </li>
                                     </ul>
                                 </ng-template>
@@ -54,7 +53,7 @@
                                     <img src="../../assets/important-event-false.png" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
                                 <!-- how to pass data from parent component to child component -->
-                                <app-add-user-to-event [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}}></app-add-user-to-event>
+                                <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent"></app-add-user-to-event>
                             </div>
                         </div>
                     </div>
@@ -74,7 +73,6 @@
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
                                         <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
                                             <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} style="float:right"></app-remove-user-from-event>
-                                            <app-mark-permanent-event></app-mark-permanent-event>
                                         </li>
                                     </ul>
                                 </ng-template>
@@ -84,7 +82,7 @@
                                 <ng-template #importantEventFalse>
                                     <img src="../../assets/important-event-false.png" class="volunteer-schedule-operation" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)">
                                 </ng-template>
-                                <app-add-user-to-event class="volunteer-schedule-operation" [volunteerList]="volunteerList"></app-add-user-to-event>
+                                <app-add-user-to-event class="volunteer-schedule-operation" [volunteerList]="volunteers"></app-add-user-to-event>
                             </div>
                         </div>
                     </div>
@@ -104,7 +102,6 @@
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
                                         <li class="list-group-item" *ngIf="slot.first_name">{{slot.first_name}} {{slot.last_name}}
                                             <app-remove-user-from-event firstName={{slot.first_name}} lastName={{slot.last_name}} date={{slot.event_date_txt}} style="float:right"></app-remove-user-from-event>
-                                            <app-mark-permanent-event></app-mark-permanent-event>
                                         </li>
                                     </ul>
                                 </ng-template>

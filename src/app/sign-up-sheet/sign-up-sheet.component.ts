@@ -18,15 +18,25 @@ export class SignUpSheetComponent implements OnInit {
   private volunteers: Observable<any[]>;
   volunteerRef: AngularFireList<any>;
   private volunteerList = [];
-  private week1 = {};
-  private week2 = {};
-  private week3 = {};
+  private volunteerSubscription;
+  private volunteerListInitialized = false;
+  private week1;
+  private week2;
+  private week3;
   private weekRange1: string;
   private weekRange2: string;
   private weekRange3: string;
   private currentWeek = 'first';
-  private eventTypes = [];
-  private currentEvent: string;
+  private eventTypes = {"Kitchen AM" : "kitam",
+                        "Kitchen PM" : "kitpm",
+                        "Delivery Driver": "deldr",
+                        "Delivery" : "deliv",
+                        "Kitcham AM Sat" : "kitas",
+                        "Kitchem PM Sat" : "kitps",
+                        "Delivery Driver Sat" : "delds",
+                        "Delivery Sat" : "delis"
+                      };
+  private currentEvent = "Kitchen AM";
   private pane = "left";
 
   constructor(private db: AngularFireDatabase, private firebaseService: FireBaseService) {}
@@ -35,18 +45,17 @@ export class SignUpSheetComponent implements OnInit {
     this.events = this.firebaseService.getEvents();
     this.formatEventDates();
     this.volunteers = this.firebaseService.getUsers();
+    this.setVolunteerList();
   }
 
-  getUsers(db: AngularFireDatabase){
-    this.volunteerRef = db.list('user');
-    this.volunteers = this.volunteerRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
-      )
-    );
-    this.volunteers.subscribe(snapshots=>{
+  setVolunteerList(){
+    this.volunteerSubscription = this.volunteers.subscribe(snapshots=>{
+        if (this.volunteerListInitialized == true) {
+          this.volunteerList = [];
+        }
+        this.volunteerListInitialized = false;
         snapshots.forEach(snapshot => {
-            this.volunteerList.push(snapshot);
+          this.volunteerList.push(snapshot);
         });
     });
   }
@@ -58,7 +67,6 @@ export class SignUpSheetComponent implements OnInit {
         this.week1 = [];
         this.week2 = [];
         this.week3 = [];
-        console.log("in snapshot");
         snapshots.forEach(snapshot => {
           snapshot.event_date = this.firebaseService.formatDate(snapshot.event_date.toString());
           const event_type = snapshot.event_type.toString();
@@ -125,7 +133,6 @@ export class SignUpSheetComponent implements OnInit {
         this.weekRange1 = this.setWeekRange(this.week1);
         this.weekRange2 = this.setWeekRange(this.week2);
         this.weekRange3 = this.setWeekRange(this.week3);
-        this.setEventTypes();
     });
   }
 
@@ -179,56 +186,49 @@ export class SignUpSheetComponent implements OnInit {
     return week_title;
   }
 
-  setEventTypes(){
-    this.eventTypes = Object.keys(this.week1);
-    this.currentEvent = this.eventTypes[0];
-  }
 
   getEventList(){
+    var currentEventValue = this.eventTypes[this.currentEvent];
     if (this.currentWeek == "first") {
-      return this.week1[this.currentEvent];
+      return this.week1[currentEventValue];
     }
     else if (this.currentWeek == "second"){
-      return this.week2[this.currentEvent];
+      return this.week2[currentEventValue];
     }
     else {
-      return this.week3[this.currentEvent];
+      return this.week3[currentEventValue];
     }
   }
 
   changeEventImportance(day: string){
     var slots;
     var is_important_event;
-    console.log("in changeEventImportance");
-    console.log("current week is " + this.currentWeek);
-    console.log("current event is " + this.currentEvent);
-    console.log("day is " + day);
     if (this.currentWeek == "first") {
       is_important_event = !this.week1[this.currentEvent][day]["is_important_event"];
       this.week1[this.currentEvent][day]["is_important_event"] = is_important_event;
-      console.log("in first " + is_important_event);
       slots =  this.week1[this.currentEvent][day]["slots"];
     }
     else if (this.currentWeek == "second"){
       is_important_event = this.week2[this.currentEvent][day]["is_important_event"];
-      console.log("in second " + is_important_event);
       this.week2[this.currentEvent][day]["is_important_event"] = !is_important_event;
       slots =  this.week2[this.currentEvent][day]["slots"];
     }
     else {
       is_important_event = this.week3[this.currentEvent][day]["is_important_event"];
-      console.log("in third " + is_important_event);
       this.week3[this.currentEvent][day]["is_important_event"] = !is_important_event;
       slots =  this.week3[this.currentEvent][day]["slots"];
     }
     for (var slot of slots){
         this.firebaseService.changeEventImportance(slot["id"], is_important_event);
     }
-    console.log("week 1");
-    console.log(this.week1);
-    console.log("week 2");
-    console.log(this.week2);
-    console.log("week 3");
-    console.log(this.week3);
   }
+
+  getVolunteerList()
+  {
+    return this.volunteerList;
+  }
+
+  ngOnDestroy() {
+    this.volunteerSubscription.unsubscribe();
+}
 }
