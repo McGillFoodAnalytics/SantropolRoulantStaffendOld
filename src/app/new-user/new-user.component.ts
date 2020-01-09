@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-user.component.scss']
 })
 export class NewUserComponent implements OnInit {
+//Dummy class
 
   constructor() { }
 
