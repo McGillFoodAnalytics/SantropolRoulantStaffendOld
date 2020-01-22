@@ -124,19 +124,16 @@ export class UserListComponent {
 
   updateNoShow(userId, noshowcount): void {
 
-  if(noshowcount == -1){
-    noshowcount++;
-  }
+  if(noshowcount !== -1){
+
   this.db.object('/user/' + userId)
     .update({
       no_show: noshowcount,
      });
-
   }
+}
 
-
-  id;
-
+id;
   @ViewChild('instance', {static: true}) instance: NgbTypeahead;
   //Declare
 
