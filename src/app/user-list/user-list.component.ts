@@ -124,6 +124,9 @@ export class UserListComponent {
 
   updateNoShow(userId, noshowcount): void {
 
+  if(noshowcount == -1){
+    noshowcount++;
+  }
   this.db.object('/user/' + userId)
     .update({
       no_show: noshowcount,
@@ -221,7 +224,7 @@ export class UserListComponent {
             }
           }
         });
-    })
+    }) //
 
   }
 
