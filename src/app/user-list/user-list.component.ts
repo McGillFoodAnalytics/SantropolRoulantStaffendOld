@@ -41,6 +41,7 @@ export class UserListComponent {
   count = 0;
   pastEventsUser: [];
   currentEventsUser: [];
+  errorMessage2: string = "";
 
   public registerVolunteer = false;
 
@@ -62,7 +63,7 @@ export class UserListComponent {
 
 
 
-
+    this.errorMessage2 = "";
     this.volunteers = firebase.getUsers();
     this.volunteerSamples = firebase.getUserSamples();
     //this.events = firebase.getEvents();
@@ -124,13 +125,17 @@ export class UserListComponent {
 
   updateNoShow(userId, noshowcount): void {
 
-  if(noshowcount !== -1){
+    if(noshowcount !== -1){
 
-  this.db.object('/user/' + userId)
-    .update({
-      no_show: noshowcount,
-     });
-  }
+    this.db.object('/user/' + userId)
+      .update({
+        no_show: noshowcount,
+       });
+       this.errorMessage2="";
+    } else {
+      console.log("Tried to decrease the no show count below 0!");
+      this.errorMessage2="Can't decrease the no show count below zero!";
+    }
 }
 
 id;
