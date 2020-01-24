@@ -7,15 +7,27 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import {FireBaseService} from '../core/firebaseService'
+import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
+
+export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
+  showDelay: 1000,
+  hideDelay: 500,
+  touchendHideDelay: 1000,
+};
 
 @Component({
   selector: 'app-sign-up-sheet',
   templateUrl: './sign-up-sheet.component.html',
-  styleUrls: ['./sign-up-sheet.component.scss']
+  styleUrls: ['./sign-up-sheet.component.scss'],
+  providers: [
+    {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
+  ],
 })
+
 export class SignUpSheetComponent implements OnInit {
   private events: Observable<any[]>;
   private volunteers: Observable<any[]>;
+  private permanent_events: Observable<any[]>;
   volunteerRef: AngularFireList<any>;
   private volunteerList = [];
   private volunteerListInitialized = false;
@@ -25,8 +37,8 @@ export class SignUpSheetComponent implements OnInit {
   private weekRange1: string;
   private weekRange2: string;
   private weekRange3: string;
-  private currentWeek = 'first';
-  private eventTypes = {"Kitchen AM" : "kitam",
+  currentWeek = 'first';
+  eventTypes = {"Kitchen AM" : "kitam",
                         "Kitchen PM" : "kitpm",
                         "Delivery Driver": "deldr",
                         "Delivery" : "deliv",
@@ -35,15 +47,15 @@ export class SignUpSheetComponent implements OnInit {
                         "Delivery Driver Sat" : "delds",
                         "Delivery Sat" : "delis"
                       };
-  private currentEvent = "Kitchen AM";
+  currentEvent = "Kitchen AM";
   private pane = "left";
 
-  constructor(private db: AngularFireDatabase, private firebaseService: FireBaseService) {}
+  constructor(private db: AngularFireDatabase, private fs: FireBaseService) {}
 
   ngOnInit() {
-    this.events = this.firebaseService.getEvents();
+    this.events = this.fs.getEvents();
     this.formatEventDates();
-    this.volunteers = this.firebaseService.getUsers();
+    this.volunteers = this.fs.getUsers();
     this.setVolunteerList();
   }
 
@@ -62,13 +74,12 @@ export class SignUpSheetComponent implements OnInit {
   formatEventDates(){
     const events_per_week = 134;
     this.events.subscribe(snapshots=>{
-        console.log("inside format formatDates");
         var i = 0;
         this.week1 = [];
         this.week2 = [];
         this.week3 = [];
         snapshots.forEach(snapshot => {
-          snapshot.event_date = this.firebaseService.formatDate(snapshot.event_date.toString());
+          snapshot.event_date = this.fs.formatDate(snapshot.event_date.toString());
           const event_type = snapshot.event_type.toString();
           const event_date = snapshot.event_date;
           if (i < events_per_week) {
@@ -137,6 +148,9 @@ export class SignUpSheetComponent implements OnInit {
     });
   }
 
+  isPermanentEvent(slot) {
+    return "permanent_event_id" in slot;
+  }
   getDisplayDate(date: string)
   {
     return new Date(date);
@@ -187,6 +201,15 @@ export class SignUpSheetComponent implements OnInit {
     return week_title;
   }
 
+  getLastDate(week) {
+    const event = Object.keys(week)[0];
+    const monday = new Date(Object.keys(week[event])[0]);
+    const monday_month = monday.toLocaleString('default', { month: 'long' });
+    const monday_date = monday.getDate();
+    const monday_year = monday.getFullYear();
+    var saturday = new Date(monday.getTime() + 5 * 86400000);
+    return saturday;
+  }
 
   getEventList(){
     var currentEventValue = this.eventTypes[this.currentEvent];
@@ -221,7 +244,7 @@ export class SignUpSheetComponent implements OnInit {
       slots =  this.week3[currentEventValue][day]["slots"];
     }
     for (var slot of slots){
-        this.firebaseService.changeEventImportance(slot["id"], is_important_event);
+        this.fs.changeEventImportance(slot["id"], is_important_event);
     }
   }
 
@@ -232,7 +255,7 @@ export class SignUpSheetComponent implements OnInit {
 
   removeUserFromEvent(event_id)
   {
-    this.firebaseService.removeUserFromEvent(event_id);
+    this.fs.removeUserFromEvent(event_id);
   }
 
   addUserToEvent(user, event_info)
@@ -240,6 +263,72 @@ export class SignUpSheetComponent implements OnInit {
     console.log(user);
     var event_id = event_info.slots[event_info.num_volunteers].id;
     console.log(event_id);
-    this.firebaseService.addUserToEvent(event_id, user.first_name, user.last_name, user.key);
+    this.fs.addUserToEvent(event_id, user.first_name, user.last_name, user.key);
+  }
+
+  permanentVolunteerEvent(event, event_id, user_id, event_date, first_name, last_name, slot) {
+    if ( event.event == "remove" ) {
+      const data = event.removePermanentVolunteerData;
+      const event_type =  this.eventTypes[data.eventType];
+      const freq = slot.permanent_event_id.slice(-1);
+      const associatedPermanentEvents = this.getAssociatedPermanentEvents(event_date, freq, this.eventTypes[data.eventType], true);
+      console.log("associatedPermanentEvents");
+      console.log(associatedPermanentEvents);
+      this.fs.removePermanentVolunteer(
+        slot.permanent_event_id
+      )
+      for(let i = 0; i < associatedPermanentEvents.length; i++) {
+        this.fs.removePermanentVolunteerEvents(associatedPermanentEvents[i]);
+      }
+    }
+    if ( event.event == "add" ) {
+      const data = event.addPermanentVolunteerData;
+      const event_type =  this.eventTypes[data.eventType];
+      const associatedPermanentEvents = this.getAssociatedPermanentEvents(event_date, data.frequency, event_type, false);
+      this.fs.addPermanentVolunteer(
+        event_type,
+        user_id,
+        data.weekday,
+        event_date,
+        data.endDate,
+        data.frequency,
+        event_id
+      );
+      this.fs.addPermanentVolunteerEvents(
+        associatedPermanentEvents,
+        user_id,
+        first_name,
+        last_name,
+        this.eventTypes[data.eventType] + "_" + data.weekday + "_" + user_id + "_" + data.frequency
+      )
+    }
+  }
+
+  getAssociatedPermanentEvents(startDate, frequency, event_type, remove) {
+    var associatedPermanentEvents = [];
+    const lastDate = this.getLastDate(this.week3);
+    var currentDate = startDate;
+    while ( currentDate.getTime() <= lastDate.getTime() ) {
+      var year = currentDate.getFullYear().toString();
+      var month = currentDate.getMonth() + 1;
+      month = month < 9 ? "0" + month.toString(): month.toString();
+      var day = currentDate.getDate();
+      day = day < 9 ? "0" + day.toString(): day.toString();
+      const event_date = month+"/"+day+"/"+year;
+      var slot_num;
+      if ( event_date in this.week1[event_type] ) {
+        slot_num = this.week1[event_type][event_date].num_volunteers;
+      } else if ( event_date in this.week2[event_type] ) {
+        slot_num = this.week2[event_type][event_date].num_volunteers;
+      } else {
+        slot_num = this.week3[event_type][event_date].num_volunteers;
+      }
+      slot_num = currentDate.getTime() == startDate.getTime() || remove ? slot_num : slot_num + 1;
+      slot_num = slot_num < 9 ? "0" + slot_num.toString() : slot_num.toString();
+      const event_id = year.slice(-2)+month+day+event_type+slot_num;
+      associatedPermanentEvents.push(event_id);
+      currentDate = new Date(currentDate.getTime() + (1000 * 604800 * frequency));
+    }
+    return associatedPermanentEvents;
   }
 }

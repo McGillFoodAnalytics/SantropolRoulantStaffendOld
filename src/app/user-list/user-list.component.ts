@@ -39,8 +39,8 @@ export class UserListComponent {
   errorMessage: string = "";
   volunteer;
   count = 0;
-  pastEventsUser: [];
-  currentEventsUser: [];
+  pastEventsUser = [];
+  currentEventsUser = [];
 
   public registerVolunteer = false;
 
@@ -230,7 +230,7 @@ export class UserListComponent {
   {
     this.firebase.removeUserFromEvent(event_id);
     this.currentEventsUser = [];
-    this.displayCurrentEvents(this.volunteer.first_name, volunteer.last_name);
+    this.displayCurrentEvents(this.volunteer.first_name, this.volunteer.last_name);
   }
 
   updateUser(firstName, lastName, email){
@@ -260,7 +260,6 @@ export class UserListComponent {
       this.error = true;
       this.errorMessage = this.model + " is not a registered volunteer.";
     }
-
     this.displayCurrentEvents(firstName, lastName);
     this.displayPastEvents(firstName, lastName);
   }

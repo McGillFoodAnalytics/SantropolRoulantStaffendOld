@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../shared/models/user';
-
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { formatDate } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,8 +15,10 @@ export class NewUserComponent implements OnInit {
   private model = new User();
   private myForm: FormGroup;
   private modalReference;
+  private today: Date;
 
   constructor(private modalService: NgbModal, private db: AngularFireDatabase, private formBuilder: FormBuilder) {
+    this.today = new Date(); 
   }
 
   ngOnInit(){

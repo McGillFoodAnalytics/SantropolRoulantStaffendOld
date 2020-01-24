@@ -95,20 +95,52 @@ export class FireBaseService {
   }
 
   removeUserFromEvent(event_id: string) : void{
-    this.db.object('/event/' + event_id)
-    .update({
+    this.db.object('/event/' + event_id).update({
         first_name:  "",
-        last_name :  "",
+        last_name:  "",
         uid: "nan"
      });
    }
 
    addUserToEvent(event_id: string, first_name: string, last_name: string, uid: string) : void{
-     this.db.object('/event/' + event_id)
-     .update({
+     this.db.object('/event/' + event_id).update({
          first_name:  first_name,
-         last_name :  last_name,
+         last_name:  last_name,
          uid: uid
       });
     }
- }
+
+    addPermanentVolunteer(event_type: string, user_id: string, weekday: string, start_date: Date, end_date: Date, frequency: string, event_id: string) {
+      const permanent_event_id = event_type + "_" + weekday + "_" +  user_id + "_" + frequency;
+      this.db.object('/permanent_events/' + permanent_event_id).update({
+          event_type: event_type,
+          user_id: user_id,
+          start_date: start_date,
+          end_date: end_date,
+          frequency: frequency
+       });
+     }
+
+    addPermanentVolunteerEvents(associatedPermanentEvents: [], user_id: string, first_name: string, last_name: string, permanent_event_id: string) {
+        for( let i = 0; i < associatedPermanentEvents.length; i++ ) {
+           this.db.object('/event/' + associatedPermanentEvents[i]).update({
+             first_name: first_name,
+             last_name: last_name,
+             uid: user_id,
+             permanent_event_id: permanent_event_id
+        });
+      }
+    }
+
+
+    removePermanentVolunteer(permanent_event_id) {
+      this.db.object('/permanent_events/' + permanent_event_id).remove();
+    }
+
+    removePermanentVolunteerEvents(event_id) {
+      console.log(event_id);
+
+      console.log(this.db.object('/event/'+event_id+'/permanent_event_id').remove());
+    }
+
+  }
