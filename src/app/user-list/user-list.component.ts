@@ -62,7 +62,7 @@ export class UserListComponent {
 
 
 
-
+    this.errorMessage2 = "";
     this.volunteers = firebase.getUsers();
     this.volunteerSamples = firebase.getUserSamples();
     //this.events = firebase.getEvents();
@@ -124,16 +124,20 @@ export class UserListComponent {
 
   updateNoShow(userId, noshowcount): void {
 
-  this.db.object('/user/' + userId)
-    .update({
-      no_show: noshowcount,
-     });
+    if(noshowcount !== -1){
 
-  }
+    this.db.object('/user/' + userId)
+      .update({
+        no_show: noshowcount,
+       });
+       this.errorMessage2="";
+    } else {
+      console.log("Tried to decrease the no show count below 0!");
+      this.errorMessage2="Can't decrease the no show count below zero!";
+    }
+}
 
-
-  id;
-
+id;
   @ViewChild('instance', {static: true}) instance: NgbTypeahead;
   //Declare
 
@@ -221,7 +225,7 @@ export class UserListComponent {
             }
           }
         });
-    })
+    }) //
 
   }
 
