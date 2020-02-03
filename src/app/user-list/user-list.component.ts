@@ -197,7 +197,7 @@ id;
     this.pastEvents.subscribe(snapshots=>{
         snapshots.forEach(snapshot => {
             if(snapshot.first_name == firstName && snapshot.last_name == lastName){ //if the model has past events
-              this.pastEventsUser.push(snapshot); //push it to pastEvents
+              //this.pastEventsUser.push(snapshot); //push it to pastEvents
             }
         });
     })
@@ -221,7 +221,7 @@ id;
         snapshots.forEach(snapshot => {
       if(!this.containsObject(snapshot, this.currentEventsUser)){
             if(snapshot.first_name == firstName && snapshot.last_name == lastName){ //if the model has past events
-              this.currentEventsUser.push(snapshot); //push it to pastEvents
+            //  this.currentEventsUser.push(snapshot); //push it to pastEvents
             }
           }
         });
