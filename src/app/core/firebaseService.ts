@@ -103,12 +103,21 @@ export class FireBaseService {
      });
    }
 
-   addUserToEvent(event_id: string, first_name: string, last_name: string, uid: string) : void{
+   addUserToEvent(event_id: string, first_name: string, last_name: string, uid: string) : void {
      this.db.object('/event/' + event_id)
      .update({
          first_name:  first_name,
          last_name :  last_name,
          uid: uid
       });
+    }
+
+    addNewBug(description, subject): void {
+    console.log("in new bug")
+    this.db.object('/bug/1')
+      .update({
+        description: description,
+        subject: subject
+       });
     }
  }

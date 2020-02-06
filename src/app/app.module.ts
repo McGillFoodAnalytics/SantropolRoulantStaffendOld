@@ -45,6 +45,7 @@ import { AddUserToEvent } from './sign-up-sheet/add-user-to-event/add-user-to-ev
 import { RemoveUserFromEventComponent } from './sign-up-sheet/remove-user-from-event/remove-user-from-event.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MarkPermanentEventComponent } from './sign-up-sheet/mark-permanent-event/mark-permanent-event.component';
+import { BugReportComponent } from './bug-report/bug-report.component';
 
 
 const appRoutes: Routes = [
@@ -72,7 +73,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent, RemoveUserFromEventComponent, ToolbarComponent, MarkPermanentEventComponent],
+  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent, RemoveUserFromEventComponent, ToolbarComponent, MarkPermanentEventComponent, BugReportComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),

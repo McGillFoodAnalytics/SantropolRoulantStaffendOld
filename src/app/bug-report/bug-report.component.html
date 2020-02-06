@@ -8,49 +8,19 @@
    <div class="modal-body">
       <form class="form" (ngSubmit)="onSubmit()" [formGroup]="myForm">
         <div class="form-row mb-12">
-           <h5 class="form-section"> Personal Information </h5>
-        </div>
-        <div class="form-row mb-12">
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="First Name" formControlName="first_name" [(ngModel)]="model.first_name">
+                 <input matInput placeholder="Subject" formControlName="subject" [(ngModel)]="model.subject">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="Last Name" formControlName="last_name" [(ngModel)]="model.last_name"/>
+                 <input matInput placeholder="Description" formControlName="description" [(ngModel)]="model.description">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
-           <div class="form-group col-md-4">
-              <mat-form-field>
-                 <mat-label> Date </mat-label>
-                 <input matInput [matDatepicker]="picker" placeholder="mm/dd/yyyy" formControlName="dob" [(ngModel)]="model.dob">
-                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                 <mat-datepicker #picker></mat-datepicker>
-                 <mat-error>Required!</mat-error>
-              </mat-form-field>
-           </div>
-        </div>
-        <div class="form-row mb-12">
-           <h5 class="form-section"> Nature of error/bug </h5>
-        </div>
-        <div class="form-row mb-12">
-           <div class="form-group col-md-4">
-              <mat-form-field>
-                 <input matInput placeholder="Subject" formControlName="address_number" [(ngModel)]="model.address_number">
-                 <mat-error>Required!</mat-error>
-              </mat-form-field>
-           </div>
-           <div class="form-group col-md-4">
-              <mat-form-field>
-                 <input matInput placeholder="description" formControlName="address_number" [(ngModel)]="model.address_number">
-                 <mat-error>Required!</mat-error>
-              </mat-form-field>
-           </div>
-        <div class="form-row mb-12">
-        </div>
+          </div>
       </form>
    </div>
    <div class="footer">
@@ -59,8 +29,8 @@
 </ng-template>
 
 <button mat-menu-item (click)="open(content)">
-  <mat-icon>person_add</mat-icon>
-  <span>New Bug Reportr</span>
+  <mat-icon>bug_report</mat-icon>
+  <span>New Bug Report</span>
 </button>
 
 <!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Create New Volunteer</button> -->
