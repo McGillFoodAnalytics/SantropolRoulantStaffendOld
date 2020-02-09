@@ -10,13 +10,13 @@
         <div class="form-row mb-12">
            <div class="form-group col-md-4">
               <mat-form-field>
-                 <input matInput placeholder="Subject" formControlName="subject" [(ngModel)]="model.subject">
+                 <input matInput placeholder="Type Of Bug" formControlName="subject" [(ngModel)]="model.subject">
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
-           <div class="form-group col-md-4">
+           <div class="form-group col-md-9">
               <mat-form-field>
-                 <input matInput placeholder="Description" formControlName="description" [(ngModel)]="model.description">
+                 <textarea matInput placeholder="Description" class="form-control" rows="10" col="40" ></textarea>
                  <mat-error>Required!</mat-error>
               </mat-form-field>
            </div>
