@@ -38,17 +38,17 @@ export class SignUpSheetComponent implements OnInit {
   private weekRange2: string;
   private weekRange3: string;
   currentWeek = 'first';
-  eventTypes = {"Kitchen AM" : "kitam",
-                        "Kitchen PM" : "kitpm",
-                        "Delivery Driver": "deldr",
-                        "Delivery" : "deliv",
-                        "Kitcham AM Sat" : "kitas",
-                        "Kitchem PM Sat" : "kitps",
-                        "Delivery Driver Sat" : "delds",
-                        "Delivery Sat" : "delis"
+  eventTypes = {'Kitchen AM' : 'kitam',
+                        'Kitchen PM': 'kitpm',
+                        'Delivery Driver': 'deldr',
+                        'Delivery' : 'deliv',
+                        'Kitcham AM Sat' : 'kitas',
+                        'Kitchem PM Sat' : 'kitps',
+                        'Delivery Driver Sat' : 'delds',
+                        'Delivery Sat' : 'delis'
                       };
-  currentEvent = "Kitchen AM";
-  private pane = "left";
+  currentEvent = 'Kitchen AM';
+  private pane = 'left';
 
   constructor(private db: AngularFireDatabase, private fs: FireBaseService) {}
 
@@ -59,9 +59,9 @@ export class SignUpSheetComponent implements OnInit {
     this.setVolunteerList();
   }
 
-  setVolunteerList(){
-    this.volunteers.subscribe(snapshots=>{
-        if (this.volunteerListInitialized == true) {
+  setVolunteerList() {
+    this.volunteers.subscribe(snapshots => {
+        if (this.volunteerListInitialized === true) {
           this.volunteerList = [];
         }
         this.volunteerListInitialized = false;
@@ -71,10 +71,10 @@ export class SignUpSheetComponent implements OnInit {
     });
   }
 
-  formatEventDates(){
+  formatEventDates() {
     const events_per_week = 134;
-    this.events.subscribe(snapshots=>{
-        var i = 0;
+    this.events.subscribe(snapshots => {
+        let i = 0;
         this.week1 = [];
         this.week2 = [];
         this.week3 = [];
@@ -83,58 +83,56 @@ export class SignUpSheetComponent implements OnInit {
           const event_type = snapshot.event_type.toString();
           const event_date = snapshot.event_date;
           if (i < events_per_week) {
-            if (!(event_type in this.week1)){
+            if (!(event_type in this.week1)) {
               this.week1[event_type] = {};
             }
-            if (!(event_date in this.week1[event_type])){
+            if (!(event_date in this.week1[event_type])) {
               this.week1[event_type][event_date] = {
-                "slots" : [],
-                "num_volunteers" : 0,
-                "num_slots" : 0,
-                "is_important_event" : snapshot.is_important_event,
-                "display_date": this.getDisplayDate(event_date)
+                'slots' : [],
+                'num_volunteers' : 0,
+                'num_slots' : 0,
+                'is_important_event' : snapshot.is_important_event,
+                'display_date': this.getDisplayDate(event_date)
               };
             }
             if (snapshot.first_name) {
-              this.week1[event_type][event_date]["num_volunteers"] = this.week1[event_type][event_date]["num_volunteers"] + 1;
+              this.week1[event_type][event_date]['num_volunteers'] = this.week1[event_type][event_date]['num_volunteers'] + 1;
             }
-            this.week1[event_type][event_date]["num_slots"] = this.week1[event_type][event_date]["num_slots"] + 1;
-            this.week1[event_type][event_date]["slots"].push(snapshot);
-          }
-          else if (i >= events_per_week && i < 2*events_per_week){
-            if (!(event_type in this.week2)){
+            this.week1[event_type][event_date]['num_slots'] = this.week1[event_type][event_date]['num_slots'] + 1;
+            this.week1[event_type][event_date]['slots'].push(snapshot);
+          } else if (i >= events_per_week && i < 2 * events_per_week) {
+            if (!(event_type in this.week2)) {
               this.week2[event_type] = {};
             }
-            if (!(event_date in this.week2[event_type])){
+            if (!(event_date in this.week2[event_type])) {
               this.week2[event_type][event_date] = {
-                "slots" : [],
-                "num_volunteers" : 0,
-                "num_slots" : 0,
-                "is_important_event" : snapshot.is_important_event,
-                "display_date": this.getDisplayDate(event_date)
+                'slots' : [],
+                'num_volunteers' : 0,
+                'num_slots' : 0,
+                'is_important_event' : snapshot.is_important_event,
+                'display_date': this.getDisplayDate(event_date)
               };
             }
             if (snapshot.first_name) {
-              this.week2[event_type][event_date]["num_volunteers"] = this.week2[event_type][event_date]["num_volunteers"] + 1;
+              this.week2[event_type][event_date]['num_volunteers'] = this.week2[event_type][event_date]['num_volunteers'] + 1;
             }
-            this.week2[event_type][event_date]["num_slots"] = this.week2[event_type][event_date]["num_slots"] + 1;
-            this.week2[event_type][event_date]["slots"].push(snapshot);
-          }
-          else {
-            if (!(event_type in this.week3)){
+            this.week2[event_type][event_date]['num_slots'] = this.week2[event_type][event_date]['num_slots'] + 1;
+            this.week2[event_type][event_date]['slots'].push(snapshot);
+          } else {
+            if (!(event_type in this.week3)) {
               this.week3[event_type] = {};
             }
             if (!(event_date in this.week3[event_type])){
               this.week3[event_type][event_date] = {
-                "slots" : [],
-                "num_volunteers" : 0,
-                "num_slots" : 0,
-                "is_important_event" : snapshot.is_important_event,
-                "display_date": this.getDisplayDate(event_date)
+                'slots' : [],
+                'num_volunteers' : 0,
+                'num_slots' : 0,
+                'is_important_event' : snapshot.is_important_event,
+                'display_date': this.getDisplayDate(event_date)
               };
             }
             if (snapshot.first_name) {
-              this.week3[event_type][event_date]["num_volunteers"] = this.week3[event_type][event_date]["num_volunteers"] + 1;
+              this.week3[event_type][event_date]['num_volunteers'] = this.week3[event_type][event_date]["num_volunteers"] + 1;
             }
             this.week3[event_type][event_date]["num_slots"] = this.week3[event_type][event_date]["num_slots"] + 1;
             this.week3[event_type][event_date]["slots"].push(snapshot);
@@ -272,8 +270,6 @@ export class SignUpSheetComponent implements OnInit {
       const event_type =  this.eventTypes[data.eventType];
       const freq = slot.permanent_event_id.slice(-1);
       const associatedPermanentEvents = this.getAssociatedPermanentEvents(event_date, freq, this.eventTypes[data.eventType], true);
-      console.log("associatedPermanentEvents");
-      console.log(associatedPermanentEvents);
       this.fs.removePermanentVolunteer(
         slot.permanent_event_id
       )
@@ -309,13 +305,13 @@ export class SignUpSheetComponent implements OnInit {
     const lastDate = this.getLastDate(this.week3);
     var currentDate = startDate;
     while ( currentDate.getTime() <= lastDate.getTime() ) {
-      var year = currentDate.getFullYear().toString();
-      var month = currentDate.getMonth() + 1;
-      month = month < 9 ? "0" + month.toString(): month.toString();
-      var day = currentDate.getDate();
-      day = day < 9 ? "0" + day.toString(): day.toString();
-      const event_date = month+"/"+day+"/"+year;
-      var slot_num;
+      const year = currentDate.getFullYear().toString();
+      let month = currentDate.getMonth() + 1;
+      month = month < 9 ? '0' + month.toString() : month.toString();
+      let day = currentDate.getDate();
+      day = day < 9 ? '0' + day.toString() : day.toString();
+      const event_date = month + '/' + day + '/' + year;
+      let slot_num;
       if ( event_date in this.week1[event_type] ) {
         slot_num = this.week1[event_type][event_date].num_volunteers;
       } else if ( event_date in this.week2[event_type] ) {
@@ -323,9 +319,9 @@ export class SignUpSheetComponent implements OnInit {
       } else {
         slot_num = this.week3[event_type][event_date].num_volunteers;
       }
-      slot_num = currentDate.getTime() == startDate.getTime() || remove ? slot_num : slot_num + 1;
-      slot_num = slot_num < 9 ? "0" + slot_num.toString() : slot_num.toString();
-      const event_id = year.slice(-2)+month+day+event_type+slot_num;
+      slot_num = currentDate.getTime() === startDate.getTime() || remove ? slot_num : slot_num + 1;
+      slot_num = slot_num < 9 ? '0' + slot_num.toString() : slot_num.toString();
+      const event_id = year.slice(-2) + month + day + event_type + slot_num;
       associatedPermanentEvents.push(event_id);
       currentDate = new Date(currentDate.getTime() + (1000 * 604800 * frequency));
     }

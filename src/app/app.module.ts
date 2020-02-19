@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import '../polyfills';
 
-import { FlexLayoutModule } from "@angular/flex-layout";
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { AgGridModule } from 'ag-grid-angular';
 import {NgbModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularFireModule } from 'angularfire2';
@@ -10,6 +10,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'
 import { AppConfig } from '../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
+
+import { AgGridModule } from 'ag-grid-angular';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from 'ng-sidebar';
@@ -77,11 +79,12 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent, RemoveUserFromEventComponent, ToolbarComponent, MarkPermanentEventComponent, PermanentVolunteerComponent],
   imports: [
     BrowserModule,
+    AgGridModule.withComponents([]),
     RouterModule.forRoot(appRoutes),
     SidebarModule.forRoot(),
     AngularFireModule.initializeApp(AppConfig.firebase),
     FlexLayoutModule,
- 	  AngularFirestoreModule,
+    AngularFirestoreModule,
     AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
