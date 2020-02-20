@@ -39,7 +39,7 @@
     "lint": "ng lint"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.802.2",
+    "@angular-devkit/build-angular": "^0.803.24",
     "@angular/cli": "8.2.2",
     "@angular/common": "8.2.2",
     "@angular/compiler": "8.2.2",
@@ -63,6 +63,8 @@
     "electron": "^6.0.9",
     "electron-builder": "21.2.0",
     "electron-reload": "1.5.0",
+    "eslint-plugin-angular": "^4.0.1",
+    "eslit": "^6.0.0",
     "jasmine-core": "3.4.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "4.2.0",
@@ -91,6 +93,8 @@
     "@angular/flex-layout": "^8.0.0-beta.27",
     "@angular/material": "^8.2.0",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
+    "ag-grid-angular": "^22.1.1",
+    "ag-grid-community": "^22.1.1",
     "angular-font-awesome": "^3.1.2",
     "angularfire2": "^5.2.1",
     "bootstrap": "^4.3.1",

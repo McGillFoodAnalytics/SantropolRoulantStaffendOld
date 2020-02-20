@@ -39,9 +39,8 @@ export class UserListComponent {
   errorMessage: string = "";
   volunteer;
   count = 0;
-  pastEventsUser: [];
-  currentEventsUser: [];
-  errorMessage2: string = "";
+  pastEventsUser = [];
+  currentEventsUser = [];
 
   public registerVolunteer = false;
 
@@ -63,7 +62,7 @@ export class UserListComponent {
 
 
 
-    this.errorMessage2 = "";
+    this.errorMessage = "";
     this.volunteers = firebase.getUsers();
     this.volunteerSamples = firebase.getUserSamples();
     //this.events = firebase.getEvents();
@@ -130,10 +129,10 @@ export class UserListComponent {
       .update({
         no_show: noshowcount,
        });
-       this.errorMessage2="";
+       this.errorMessage="";
     } else {
       console.log("Tried to decrease the no show count below 0!");
-      this.errorMessage2="Can't decrease the no show count below zero!";
+      this.errorMessage="Can't decrease the no show count below zero!";
     }
 }
 
@@ -264,7 +263,6 @@ id;
       this.error = true;
       this.errorMessage = this.model + " is not a registered volunteer.";
     }
-
     this.displayCurrentEvents(firstName, lastName);
     this.displayPastEvents(firstName, lastName);
   }

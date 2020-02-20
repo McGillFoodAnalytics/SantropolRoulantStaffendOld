@@ -1,4 +1,4 @@
-::ng-deep .my-class .modal-dialog {
+::ng-deep .remove-volunteer .modal-dialog {
      max-width: 40%;
      width: 40%;
 }
@@ -10,6 +10,13 @@
 
 .modal-body{
   padding: 1rem 2rem 0 2rem;
+  padding-top:2rem;
+  padding-bottom:2rem;
+}
+
+.img-warning {
+  margin-bottom:1rem;
+  margin:auto;
 }
 
 .form{
@@ -22,6 +29,22 @@
   margin-top: 1.5rem;
 }
 
+.btn-cancel {
+  margin-right:1rem;
+}
+
+.btn-remove-volunteer {
+  color:white;
+  background:#dc3545;
+}
+
+.close:focus {
+  outline: none;
+}
+
+.btn-remove-volunteer:hover {
+  background: #bb202f;
+}
 
 .footer{
   padding-bottom: 2.5rem;

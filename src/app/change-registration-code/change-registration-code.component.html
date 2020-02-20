@@ -9,7 +9,7 @@
     <form class="form" (ngSubmit)="onSubmit()" [formGroup]="myForm">
       <div class="form-row mb-12">
         <div class="form-group col-md-12">
-          <h6>The current registration code is: {{ (result | async) }} </h6>
+          <h6>The current registration code is: <b> {{ (result | async) }} </b> </h6>
         </div>
       </div>
       <div class="form-row mb-12">
@@ -23,7 +23,7 @@
     </form>
   </div>
   <div class="footer">
-      <button type="submit" class="btn btn-xl btn-outline-success" (click)="onSubmit()">Change Registration Code</button>
+      <button type="submit" class="btn btn-xl btn-outline-success btn-change-registration-code" (click)="onSubmit()">Change Registration Code</button>
   </div>
 </ng-template>
 

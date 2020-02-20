@@ -1,15 +1,16 @@
 import 'reflect-metadata';
 import '../polyfills';
 
-import { FlexLayoutModule } from "@angular/flex-layout";
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {NgbModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AppConfig } from '../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
+
+import { AgGridModule } from 'ag-grid-angular';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from 'ng-sidebar';
@@ -32,7 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { StaffNoteComponent } from './sign-up-sheet/staff-note/staff-note.component';
 import { AppComponent } from './app.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { UserListComponent } from './user-list/user-list.component';
@@ -44,7 +45,11 @@ import { SliderComponent } from './slider/slider.component';
 import { AddUserToEvent } from './sign-up-sheet/add-user-to-event/add-user-to-event.component';
 import { RemoveUserFromEventComponent } from './sign-up-sheet/remove-user-from-event/remove-user-from-event.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MarkPermanentEventComponent } from './sign-up-sheet/mark-permanent-event/mark-permanent-event.component';
+import { PermanentVolunteerComponent } from './permanent-volunteer/permanent-volunteer.component';
+import { EventSignUpTableComponent } from './sign-up-sheet/event-sign-up-table/event-sign-up-table.component';
+
 
 
 const appRoutes: Routes = [
@@ -72,14 +77,30 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent, RemoveUserFromEventComponent, ToolbarComponent, MarkPermanentEventComponent],
+  declarations: [
+    AppComponent,
+    NewUserComponent,
+    UserListComponent,
+    ChangeRegistrationCodeComponent,
+    MarkImportantEventComponent,
+    SignUpSheetComponent,
+    HomeComponent,
+    SliderComponent,
+    AddUserToEvent,
+    RemoveUserFromEventComponent,
+    ToolbarComponent,
+    MarkPermanentEventComponent,
+    PermanentVolunteerComponent,
+    EventSignUpTableComponent,
+    StaffNoteComponent],
   imports: [
     BrowserModule,
+    AgGridModule.withComponents([]),
     RouterModule.forRoot(appRoutes),
     SidebarModule.forRoot(),
     AngularFireModule.initializeApp(AppConfig.firebase),
     FlexLayoutModule,
- 	  AngularFirestoreModule,
+    AngularFirestoreModule,
     AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
@@ -87,6 +108,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CoreModule,
     SharedModule,
     NgbModule,
+    MatTooltipModule,
     MatToolbarModule,
     MatCheckboxModule,
     MatMenuModule,
