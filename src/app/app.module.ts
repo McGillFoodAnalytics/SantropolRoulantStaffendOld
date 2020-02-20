@@ -47,9 +47,9 @@ import { RemoveUserFromEventComponent } from './sign-up-sheet/remove-user-from-e
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MarkPermanentEventComponent } from './sign-up-sheet/mark-permanent-event/mark-permanent-event.component';
+import { BugReportComponent } from './bug-report/bug-report.component';
 import { PermanentVolunteerComponent } from './permanent-volunteer/permanent-volunteer.component';
 import { EventSignUpTableComponent } from './sign-up-sheet/event-sign-up-table/event-sign-up-table.component';
-
 
 
 const appRoutes: Routes = [
@@ -92,6 +92,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MarkPermanentEventComponent,
     PermanentVolunteerComponent,
     EventSignUpTableComponent,
+    BugReportComponent
     StaffNoteComponent],
   imports: [
     BrowserModule,

@@ -102,7 +102,8 @@ export class FireBaseService {
      });
    }
 
-   addUserToEvent(event_id: string, first_name: string, last_name: string, uid: string) : void{
+
+   addUserToEvent(event_id: string, first_name: string, last_name: string, uid: string) : void {
      this.db.object('/event/' + event_id).update({
          first_name:  first_name,
          last_name:  last_name,
@@ -110,6 +111,16 @@ export class FireBaseService {
       });
     }
 
+    addNewBug(description, subject): void {
+    console.log("in new bug")
+    this.db.object('/bug/1')
+      .update({
+        description: description,
+        subject: subject
+       });
+    }
+ }
+ 
     addPermanentVolunteer(event_type: string, user_id: string, weekday: string, start_date: Date, end_date: Date, frequency: string, event_id: string) {
       const permanent_event_id = event_type + "_" + weekday + "_" +  user_id + "_" + frequency;
       this.db.object('/permanent_events/' + permanent_event_id).update({
@@ -154,3 +165,4 @@ export class FireBaseService {
 
 
   }
+
