@@ -1,0 +1,90 @@
+<ng-template #addPermanentModal let-modal>
+  <div class="modal-header text-center">
+    <h4 class="modal-title w-100"><i class="fa fa-map-marker"></i>Permanent Volunteer</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()" #closeModal>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form class="form" (ngSubmit)="onSubmit()" [formGroup]="addPermanentForm">
+      <div class="form-row mb-12">
+        <div class="form-group col-md-12" style="margin-bottom:1rem;">
+          To mark <b>{{ firstName }} {{ lastName }} </b> as a permanent volunteer for the <b> {{ eventType }} </b> event on <b> {{ weekday}}s</b>, please select the frequency and end date.
+        </div>
+      </div>
+      <div class="form-row mb-12">
+         <div class="form-group col-md-6">
+           <mat-form-field>
+             <mat-label>Frequency</mat-label>
+             <mat-select formControlName="frequency" [(ngModel)]="model.frequency">
+               <mat-option disabled>--Select the frequency--</mat-option>
+               <mat-option [value]="1"> Weekly </mat-option>
+               <mat-option [value]="2"> Biweekly </mat-option>
+               <mat-option [value]="4"> Triweekly </mat-option>
+               <mat-option [value]="4"> Monthly </mat-option>
+             </mat-select>
+             <mat-error>Required!</mat-error>
+           </mat-form-field>
+         </div>
+         <div class="form-group col-md-6">
+            <mat-form-field>
+               <mat-label>End Date</mat-label>
+               <input matInput [matDatepicker]="picker" [min]="today" [max]="aYearFromNow" placeholder="mm/dd/yyyy" formControlName="endDate" [(ngModel)]="model.endDate">
+               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+               <mat-datepicker #picker></mat-datepicker>
+               <mat-error *ngIf="endDateRequiredError()">Required!</mat-error>
+            </mat-form-field>
+         </div>
+      </div>
+    </form>
+  </div>
+  <div class="footer">
+      <button type="submit" class="btn btn-xl btn-outline-success btn-change-registration-code"  (click)="onSubmit('add')">Mark Permanent Volunteer</button>
+  </div>
+</ng-template>
+
+<ng-template class="removePermanentModal" #removePermanentModal let-modal>
+    <div class="modal-header text-center" style="background-color: #dc3545; color: white;">
+        <h4 class="modal-title w-100" id="modal-basic-title">Confirm Removal</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()" #closeModal>
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+          <div class="col-12">You are about to delete the following permanent volunteer shift:</div>
+        </div>
+        <div class="row">
+          <div class="col-3 offset-1">
+              <img class="img-warning" src="../../assets/warning.png" width=100px>
+          </div>
+            <div class="col-6" style="margin-left:2rem">
+              <div class="row" style="margin-top:1rem">
+                <div class="col-12"><b>Volunteer:</b> {{ firstName }} {{ lastName }}</div>
+              </div>
+              <div class="row">
+                <div class="col-12"><b>Event:</b> {{ eventType }}</div>
+              </div>
+              <div class="row">
+                <div class="col-12"><b>Weekday:</b> {{ weekday }}</div>
+              </div>
+              <div class="row">
+                <div class="col-12"><b>Frequency:</b> Biweekly</div>
+              </div>
+              <div class="row">
+                <div class="col-12"><b>End date:</b> January 2, 2019</div>
+              </div>
+            </div>
+        </div>
+        <div style="margin-top:1rem;">Are you sure?<b> This cannot be undone! </b></div>
+    </div>
+    <div class="footer">
+        <button type="button" class="btn btn-xl btn-outline-danger btn-cancel" (click)="modal.dismiss()">Cancel</button>
+        <button type="submit" class="btn btn-xl btn-outline-danger btn-remove-volunteer" (click)="onSubmit('remove')">Remove Permanent Volunteer</button>
+    </div>
+</ng-template>
+
+<img *ngIf="isPermanent; else isNotPermanent" src="../../assets/permanent-event-true.svg" width=28px (click)="open(removePermanentModal)">
+<ng-template #isNotPermanent>
+    <img src="../../assets/permanent-event-false.svg" width=28px (click)="open(addPermanentModal)">
+</ng-template>

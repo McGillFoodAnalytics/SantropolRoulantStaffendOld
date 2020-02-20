@@ -2,7 +2,11 @@
 ::ng-deep .cdk-overlay-container{ z-index:2000; }
 
 .modal-header{
-  background-color: #4285f4;
+  background-color: #5fce99;
+}
+
+.modal-title {
+  color: white;
 }
 
 .modal-body{
@@ -19,8 +23,17 @@
   margin-top: 1.5rem;
 }
 
-
 .footer{
   padding-bottom: 2.5rem;
   text-align: center;
+}
+
+.btn-add-volunteer {
+  color:#5fce99 !important;
+  border-color:#5fce99 !important;
+}
+
+.btn-add-volunteer:hover {
+  background-color: #5fce99 !important;
+  color: white !important;
 }

@@ -4,11 +4,11 @@
 }
 
 .card-header {
-  background-color: #449afe;
-  // #449afe
-  // #63ace5
-  //#c7e1ff
-  //#d6e9ff
+  background-color: #60A4FF;
+}
+
+.card-body {
+  padding: 0;
 }
 
 .kitchenPM .card-body {
@@ -19,11 +19,21 @@
   justify-content: center;
  }
 
- app-remove-user-from-event {
-     cursor: pointer;
+ .img-important-event-false {
+   cursor: pointer;
  }
 
-body > div > app-root > app-sign-up-sheet > div > div.container-fluid > app-slider > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div.card-footer > img
+ app-permanent-volunteer {
+   float:right;
+   margin-right:0.5rem;
+   margin-top:0.2rem;
+   cursor: pointer;
+ }
+
+.img-important-event-true {
+  cursor: pointer;
+}
+
 .custom-select{
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23ffffff' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px !important;
 }
