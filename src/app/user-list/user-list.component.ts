@@ -39,7 +39,7 @@ export class UserListComponent {
   errorMessage: string = "";
   volunteer;
   count = 0;
-  pastEventsUser: [];
+  pastEventsUser: any;
   currentEventsUser: [];
   errorMessage2: string = "";
 
