@@ -20,14 +20,17 @@ export class ChangeRegistrationCodeComponent implements OnInit {
     this.result = db.object('/registration_code').valueChanges();
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.myForm = this.formBuilder.group({
       new_registration_code: ['', Validators.required]
     });
   }
 
   open(content) {
-    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm', windowClass: 'change-registration-code', centered: true});
+    this.modalReference = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',
+                                                            size: 'sm',
+                                                            windowClass: 'change-registration-code',
+                                                            centered: true});
   }
 
   updateRegistrationCode(): void {
@@ -37,7 +40,7 @@ export class ChangeRegistrationCodeComponent implements OnInit {
      });
   }
 
-  onSubmit(){
+  onSubmit() {
     this.myForm.markAllAsTouched();
     if (this.myForm.valid) {
       this.registration_code = this.model.registration_code;

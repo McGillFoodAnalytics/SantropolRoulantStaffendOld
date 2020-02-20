@@ -38,6 +38,10 @@
   background:#dc3545;
 }
 
+.close:focus {
+  outline: none;
+}
+
 .btn-remove-volunteer:hover {
   background: #bb202f;
 }

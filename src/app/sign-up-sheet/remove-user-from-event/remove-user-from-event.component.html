@@ -11,7 +11,7 @@
                 <img class="img-warning" src="../../assets/warning.png" width=80px>
             </div>
             <div class="col-9">
-                <div> You are about to remove <b> {{ firstName }} {{lastName}} </b> from the <b> Kitchen AM</b> event on <b> {{ date }}</b>.
+                <div> You are about to remove <b> {{ firstName }} {{ lastName }} </b> from the <b> {{ eventType }}</b> event on <b> {{ date }}</b>.
                     <br />
                     <br /> Are you sure?<b> This cannot be undone! </b></div>
             </div>
@@ -23,4 +23,7 @@
     </div>
 </ng-template>
 
-<img src="../../assets/remove-user.svg" width=35px (click)="open(content)">
+<button mat-menu-item (click)="open(content)">
+    <mat-icon>delete_forever</mat-icon>
+    <span>Remove Volunteer</span>
+</button>

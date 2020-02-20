@@ -8,26 +8,27 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RemoveUserFromEventComponent implements OnInit {
   @Input() lastName;
-  @Input() eventType;
+  @Input() event;
   @Input() date;
   @Input() firstName: string;
-  @Output() onConfirm: EventEmitter<any> = new EventEmitter<any>();
-
+  @Input() eventType;
+  @Output() confirmRemove: EventEmitter<any> = new EventEmitter<any>();
   private modalReference;
   private model: any = {};
 
   constructor(private modalService: NgbModal) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   open(content) {
-    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm', windowClass: 'remove-volunteer', centered: true});
+    this.modalReference = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',
+                                                            size: 'sm',
+                                                            windowClass: 'remove-volunteer',
+                                                            centered: true});
   }
 
   onSubmit() {
-    console.log("confirm");
-    this.onConfirm.emit("true");
+    this.confirmRemove.emit('true');
     this.modalReference.close();
   }
 

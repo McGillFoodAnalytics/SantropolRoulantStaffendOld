@@ -2,12 +2,11 @@ import 'reflect-metadata';
 import '../polyfills';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AgGridModule } from 'ag-grid-angular';
 import {NgbModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AppConfig } from '../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -34,7 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { StaffNoteComponent } from './sign-up-sheet/staff-note/staff-note.component';
 import { AppComponent } from './app.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { UserListComponent } from './user-list/user-list.component';
@@ -49,6 +48,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MarkPermanentEventComponent } from './sign-up-sheet/mark-permanent-event/mark-permanent-event.component';
 import { PermanentVolunteerComponent } from './permanent-volunteer/permanent-volunteer.component';
+import { EventSignUpTableComponent } from './sign-up-sheet/event-sign-up-table/event-sign-up-table.component';
+
 
 
 const appRoutes: Routes = [
@@ -76,7 +77,22 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NewUserComponent, UserListComponent, ChangeRegistrationCodeComponent, MarkImportantEventComponent, SignUpSheetComponent, HomeComponent, SliderComponent, AddUserToEvent, RemoveUserFromEventComponent, ToolbarComponent, MarkPermanentEventComponent, PermanentVolunteerComponent],
+  declarations: [
+    AppComponent,
+    NewUserComponent,
+    UserListComponent,
+    ChangeRegistrationCodeComponent,
+    MarkImportantEventComponent,
+    SignUpSheetComponent,
+    HomeComponent,
+    SliderComponent,
+    AddUserToEvent,
+    RemoveUserFromEventComponent,
+    ToolbarComponent,
+    MarkPermanentEventComponent,
+    PermanentVolunteerComponent,
+    EventSignUpTableComponent,
+    StaffNoteComponent],
   imports: [
     BrowserModule,
     AgGridModule.withComponents([]),

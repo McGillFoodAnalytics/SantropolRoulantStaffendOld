@@ -43,7 +43,13 @@
                               </div>
                             </ng-template>
                             <div class="card-body">
-                                {{day.value.num_volunteers}}/{{day.value.num_slots}}
+                              <app-event-sign-up-table [slots]="day.value.slots"
+                                                       [eventType]="currentEvent"
+                                                       [volunteerList]="volunteerList"
+                                                       (removeUserFromEvent)="removeUserFromEvent($event)"
+                                                       (insertStaffNote)="insertStaffNote($event)">
+                              </app-event-sign-up-table>
+                                <!-- {{day.value.num_volunteers}}/{{day.value.num_slots}}
                                 <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
                                 <ng-template #volunteersRegistered>
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
@@ -52,16 +58,16 @@
                                             <app-permanent-volunteer [isPermanent]="isPermanentEvent(slot)" firstName={{slot.first_name}} lastName={{slot.last_name}} weekday={{slot.event_date_txt}} [eventType]="currentEvent" (onPermanentVolunteerEvent)="permanentVolunteerEvent($event, slot.id, slot.uid, day.value.display_date, slot.first_name, slot.last_name, slot)"></app-permanent-volunteer>
                                         </li>
                                     </ul>
-                                </ng-template>
+                                </ng-template> -->
                             </div>
                             <div class="card-footer" style="text-align:center">
                                 <img class="img-important-event-true" *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)"  matTooltip="Click to mark this event as unimportant">
                                 <ng-template #importantEventFalse>
                                     <img class="img-important-event-false" src="../../assets/important-event-false.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" matTooltip="Click to mark this event as important">
                                 </ng-template>
-                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;"  matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
+                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;"  matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
                                 <ng-template #fullEvent>
-                                  <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
+                                  <app-add-user-to-event [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
                                 </ng-template>
                             </div>
                         </div>
@@ -81,7 +87,13 @@
                             </div>
                           </ng-template>
                             <div class="card-body">
-                                {{day.value.num_volunteers}}/{{day.value.num_slots}}
+                              <app-event-sign-up-table [slots]="day.value.slots"
+                                                       [eventType]="currentEvent"
+                                                       [volunteerList]="volunteerList"
+                                                       (removeUserFromEvent)="removeUserFromEvent($event)"
+                                                       (insertStaffNote)="insertStaffNote($event)">
+                              </app-event-sign-up-table>
+                                <!-- {{day.value.num_volunteers}}/{{day.value.num_slots}}
                                 <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
                                 <ng-template #volunteersRegistered>
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
@@ -90,16 +102,16 @@
                                             <app-permanent-volunteer [isPermanent]="isPermanentEvent(slot)" firstName={{slot.first_name}} lastName={{slot.last_name}} weekday={{slot.event_date_txt}} [eventType]="currentEvent" (onPermanentVolunteerEvent)="permanentVolunteerEvent($event, slot.id, slot.uid, day.value.display_date, slot.first_name, slot.last_name, slot)"></app-permanent-volunteer>
                                         </li>
                                     </ul>
-                                </ng-template>
+                                </ng-template> -->
                             </div>
                             <div class="card-footer" style="text-align:center">
                                 <img class="img-important-event-true" *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)"  matTooltip="Click to mark this event as unimportant">
                                 <ng-template #importantEventFalse>
                                     <img class="img-important-event-false" src="../../assets/important-event-false.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" matTooltip="Click to mark this event as important">
                                 </ng-template>
-                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;" matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
+                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;" matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
                                 <ng-template #fullEvent>
-                                  <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
+                                  <app-add-user-to-event [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
                                 </ng-template>
                             </div>
                         </div>
@@ -119,7 +131,13 @@
                             </div>
                           </ng-template>
                             <div class="card-body">
-                                {{day.value.num_volunteers}}/{{day.value.num_slots}}
+                              <app-event-sign-up-table [slots]="day.value.slots"
+                                                       [eventType]="currentEvent"
+                                                       [volunteerList]="volunteerList"
+                                                       (removeUserFromEvent)="removeUserFromEvent($event)"
+                                                       (insertStaffNote)="insertStaffNote($event)">
+                              </app-event-sign-up-table>
+                                <!-- {{day.value.num_volunteers}}/{{day.value.num_slots}}
                                 <div *ngIf="day.value.num_volunteers === 0; else volunteersRegistered" style="text-align:center"> No volunteers registered </div>
                                 <ng-template #volunteersRegistered>
                                     <ul class="list-group list-group-flush" *ngFor="let slot of day.value.slots">
@@ -128,16 +146,16 @@
                                             <app-permanent-volunteer [isPermanent]="isPermanentEvent(slot)" firstName={{slot.first_name}} lastName={{slot.last_name}} weekday={{slot.event_date_txt}} [eventType]="currentEvent" (onPermanentVolunteerEvent)="permanentVolunteerEvent($event, slot.id, slot.uid, day.value.display_date, slot.first_name, slot.last_name, slot)"></app-permanent-volunteer>
                                         </li>
                                     </ul>
-                                </ng-template>
+                                </ng-template> -->
                             </div>
                             <div class="card-footer" style="text-align:center">
                                 <img class="img-important-event-true" *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)"  matTooltip="Click to mark this event as unimportant">
                                 <ng-template #importantEventFalse>
                                     <img class="img-important-event-false" src="../../assets/important-event-false.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" matTooltip="Click to mark this event as important">
                                 </ng-template>
-                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;" matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
+                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;" matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
                                 <ng-template #fullEvent>
-                                  <app-add-user-to-event [volunteerList]="getVolunteerList()" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
+                                  <app-add-user-to-event [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
                                 </ng-template>
                             </div>
                         </div>

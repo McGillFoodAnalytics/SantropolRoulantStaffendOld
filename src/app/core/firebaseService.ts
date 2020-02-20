@@ -143,4 +143,14 @@ export class FireBaseService {
       console.log(this.db.object('/event/'+event_id+'/permanent_event_id').remove());
     }
 
+    addStaffNoteToEvent(event_id: string, staff_note: string): void {
+    console.log("from firebase service");
+    console.log(event_id);
+    console.log(staff_note)
+    this.db.object('/event/' + event_id).update({
+        staff_note: staff_note
+     });
+  }
+
+
   }

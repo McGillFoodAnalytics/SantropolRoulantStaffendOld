@@ -54,6 +54,7 @@ export class SignUpSheetComponent implements OnInit {
 
   ngOnInit() {
     this.events = this.fs.getEvents();
+    console.log(this.events);
     this.formatEventDates();
     this.volunteers = this.fs.getUsers();
     this.setVolunteerList();
@@ -132,10 +133,10 @@ export class SignUpSheetComponent implements OnInit {
               };
             }
             if (snapshot.first_name) {
-              this.week3[event_type][event_date]['num_volunteers'] = this.week3[event_type][event_date]["num_volunteers"] + 1;
+              this.week3[event_type][event_date]['num_volunteers'] = this.week3[event_type][event_date]['num_volunteers'] + 1;
             }
-            this.week3[event_type][event_date]["num_slots"] = this.week3[event_type][event_date]["num_slots"] + 1;
-            this.week3[event_type][event_date]["slots"].push(snapshot);
+            this.week3[event_type][event_date]['num_slots'] = this.week3[event_type][event_date]['num_slots'] + 1;
+            this.week3[event_type][event_date]['slots'].push(snapshot);
           }
           i = i + 1;
         });
@@ -154,12 +155,12 @@ export class SignUpSheetComponent implements OnInit {
     return new Date(date);
   }
 
-  nextWeek(){
-    this.currentWeek = this.currentWeek == 'first' ? 'second' : 'third';
+  nextWeek() {
+    this.currentWeek = this.currentWeek === 'first' ? 'second' : 'third';
   }
 
-  prevWeek(){
-    this.currentWeek = this.currentWeek == 'third' ? 'second' : 'first';
+  prevWeek() {
+    this.currentWeek = this.currentWeek === 'third' ? 'second' : 'first';
   }
 
   getWeekTitle(){
@@ -246,19 +247,19 @@ export class SignUpSheetComponent implements OnInit {
     }
   }
 
-  getVolunteerList()
-  {
+  getVolunteerList() {
     return this.volunteerList;
   }
 
-  removeUserFromEvent(event_id)
-  {
+  getSignUpData() {
+    return [{"slot": 0, "volunteer": "alexa"}, {"slot": 1, "volunteer": "alexa"}, {"slot": 2, "volunteer": "alexa"}]
+  }
+
+  removeUserFromEvent(event_id) {
     this.fs.removeUserFromEvent(event_id);
   }
 
-  addUserToEvent(user, event_info)
-  {
-    console.log(user);
+  addUserToEvent(user, event_info) {
     var event_id = event_info.slots[event_info.num_volunteers].id;
     console.log(event_id);
     this.fs.addUserToEvent(event_id, user.first_name, user.last_name, user.key);
@@ -295,15 +296,15 @@ export class SignUpSheetComponent implements OnInit {
         user_id,
         first_name,
         last_name,
-        this.eventTypes[data.eventType] + "_" + data.weekday + "_" + user_id + "_" + data.frequency
+        this.eventTypes[data.eventType] + '_' + data.weekday + '_' + user_id + '_' + data.frequency
       )
     }
   }
 
-  getAssociatedPermanentEvents(startDate, frequency, event_type, remove) {
-    var associatedPermanentEvents = [];
+  getAssociatedPermanentEvents(startDate, frequency, event_type, remove): [] {
+    const associatedPermanentEvents = [];
     const lastDate = this.getLastDate(this.week3);
-    var currentDate = startDate;
+    let currentDate = startDate;
     while ( currentDate.getTime() <= lastDate.getTime() ) {
       const year = currentDate.getFullYear().toString();
       let month = currentDate.getMonth() + 1;
@@ -325,6 +326,13 @@ export class SignUpSheetComponent implements OnInit {
       associatedPermanentEvents.push(event_id);
       currentDate = new Date(currentDate.getTime() + (1000 * 604800 * frequency));
     }
+    console.log("associatedper");
+    console.log(associatedPermanentEvents);
     return associatedPermanentEvents;
   }
+
+  insertStaffNote(event) {
+    this.fs.addStaffNoteToEvent(event.event_id, event.staff_note);
+  }
+
 }
