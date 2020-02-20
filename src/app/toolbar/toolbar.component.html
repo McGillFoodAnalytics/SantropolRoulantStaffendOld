@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" style="display:flex; background-color: #449afe">
-  <button #r="matMenuTrigger" mat-icon-button [matMenuTriggerFor]="menu" >
+  <button class="menu-btn" #r="matMenuTrigger" mat-icon-button [matMenuTriggerFor]="menu" >
     <mat-icon (onClick)="open(r)"  >menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" [overlapTrigger]="false">

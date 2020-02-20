@@ -111,26 +111,24 @@ export class FireBaseService {
       });
     }
 
-    addNewBug(description, subject): void {
+    addNewBug(description): void {
     console.log("in new bug")
     this.db.object('/bug/1')
       .update({
-        description: description,
-        subject: subject
+        description: description
        });
     }
- }
- 
-    addPermanentVolunteer(event_type: string, user_id: string, weekday: string, start_date: Date, end_date: Date, frequency: string, event_id: string) {
-      const permanent_event_id = event_type + "_" + weekday + "_" +  user_id + "_" + frequency;
-      this.db.object('/permanent_events/' + permanent_event_id).update({
-          event_type: event_type,
-          user_id: user_id,
-          start_date: start_date,
-          end_date: end_date,
-          frequency: frequency
-       });
-     }
+
+  addPermanentVolunteer(event_type: string, user_id: string, weekday: string, start_date: Date, end_date: Date, frequency: string, event_id: string) {
+    const permanent_event_id = event_type + "_" + weekday + "_" +  user_id + "_" + frequency;
+    this.db.object('/permanent_events/' + permanent_event_id).update({
+        event_type: event_type,
+        user_id: user_id,
+        start_date: start_date,
+        end_date: end_date,
+        frequency: frequency
+     });
+   }
 
     addPermanentVolunteerEvents(associatedPermanentEvents: [], user_id: string, first_name: string, last_name: string, permanent_event_id: string) {
         for( let i = 0; i < associatedPermanentEvents.length; i++ ) {
@@ -165,4 +163,3 @@ export class FireBaseService {
 
 
   }
-

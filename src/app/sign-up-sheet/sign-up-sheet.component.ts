@@ -54,7 +54,6 @@ export class SignUpSheetComponent implements OnInit {
 
   ngOnInit() {
     this.events = this.fs.getEvents();
-    console.log(this.events);
     this.formatEventDates();
     this.volunteers = this.fs.getUsers();
     this.setVolunteerList();
@@ -261,7 +260,6 @@ export class SignUpSheetComponent implements OnInit {
 
   addUserToEvent(user, event_info) {
     var event_id = event_info.slots[event_info.num_volunteers].id;
-    console.log(event_id);
     this.fs.addUserToEvent(event_id, user.first_name, user.last_name, user.key);
   }
 
@@ -301,7 +299,7 @@ export class SignUpSheetComponent implements OnInit {
     }
   }
 
-  getAssociatedPermanentEvents(startDate, frequency, event_type, remove): [] {
+  getAssociatedPermanentEvents(startDate, frequency, event_type, remove): any {
     const associatedPermanentEvents = [];
     const lastDate = this.getLastDate(this.week3);
     let currentDate = startDate;

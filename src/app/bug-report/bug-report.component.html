@@ -7,24 +7,17 @@
    </div>
    <div class="modal-body">
       <form class="form" (ngSubmit)="onSubmit()" [formGroup]="myForm">
-        <div class="form-row mb-12">
-           <div class="form-group col-md-4">
-              <mat-form-field>
-                 <input matInput placeholder="Type Of Bug" formControlName="subject" [(ngModel)]="model.subject">
-                 <mat-error>Required!</mat-error>
-              </mat-form-field>
-           </div>
-           <div class="form-group col-md-9">
-              <mat-form-field>
-                 <textarea matInput placeholder="Description" class="form-control" rows="10" col="40" ></textarea>
-                 <mat-error>Required!</mat-error>
-              </mat-form-field>
-           </div>
+        <div class="form-row mb-12 div-desc">
+            <mat-form-field class="desc" appearance=fill>
+               <textarea matInput placeholder="Description" formControlName="description" [(ngModel)]="model.description" rows="10" col="40" ></textarea>
+               <mat-error>Required!</mat-error>
+            </mat-form-field>
           </div>
       </form>
    </div>
    <div class="footer">
-      <button type="submit" class="btn btn-xl btn-outline-primary" (click)="onSubmit()">Submit Report</button>
+     <button type="button" class="btn btn-xl btn-outline-danger btn-cancel" (click)="modal.dismiss(); close()">Cancel</button>
+      <button type="submit" class="btn btn-xl btn-outline-primary btn-submit" (click)="onSubmit()">Submit Report</button>
    </div>
 </ng-template>
 

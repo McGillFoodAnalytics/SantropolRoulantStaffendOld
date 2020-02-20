@@ -1,16 +1,57 @@
 
-::ng-deep .cdk-overlay-container{ z-index:2000; }
-
-.modal-header{
-  background-color: #4285f4;
+::ng-deep .bug-report .modal-dialog {
+     max-width: 60% !important;
+     width: 60% !important;
 }
 
-.modal-body{
-  padding: 1rem 2rem 0 2rem;
+.modal-header{
+  background-color: #5fce99;
+}
+
+.modal-title{
+  color: white;
+}
+
+.modal-body {
+  padding: 1rem 3rem 1rem 3rem;
+}
+
+.footer {
+  padding-top: 1rem;
+  padding-bottom: 2.5rem;
+  text-align: center;
+}
+.form-row{
+  justify-content: center;
+}
+.btn-submit {
+  background-color: #5fce99 !important;
+  color: white !important;
+  border-color: #5fce99 !important;
+}
+
+.btn-submit:hover {
+  background-color: #40c485 !important;
+  border-color: #40c485 !important;
 }
 
 .form{
   padding-bottom: 0;
+}
+
+.desc {
+  width: 100%;
+}
+
+.btn-cancel {
+  color:#5fce99 !important;
+  border-color:#5fce99 !important;
+  margin-right:1rem;
+}
+
+.btn-cancel:hover {
+  background-color: #5fce99 !important;
+  color: white !important;
 }
 
 .form-section{
@@ -19,8 +60,6 @@
   margin-top: 1.5rem;
 }
 
-
-.footer{
-  padding-bottom: 2.5rem;
-  text-align: center;
+.div-desc {
+  justify-content: center;
 }

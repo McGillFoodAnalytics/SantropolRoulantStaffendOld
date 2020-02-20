@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./bug-report.component.scss']
 })
 export class BugReportComponent implements OnInit {
-  private model = new Bug();
+  private model = {};
   private myForm: FormGroup;
   private modalReference;
 
@@ -22,23 +22,21 @@ export class BugReportComponent implements OnInit {
 
   ngOnInit(){
     this.myForm = this.formBuilder.group({
-      description: ['', Validators.required],
-      subject: ['', Validators.required]
+      description: ['', Validators.required]
     });
   }
 
   open(content) {
-    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg'});
+    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm', windowClass: 'bug-report',});
   }
 
-  onSubmit(f){
+  onSubmit(f) {
     this.myForm.markAllAsTouched();
     if (this.myForm.valid) {
       this.modalReference.close();
-      console.log(this.model.description)
-      console.log(this.model.subject)
-      this.firebase.addNewBug(this.model.description, this.model.subject)
-      this.model = new Bug();
+      console.log(this.model.description);
+      this.firebase.addNewBug(this.model.description)
+      this.model = {}
       this.myForm.reset();
     }
   }

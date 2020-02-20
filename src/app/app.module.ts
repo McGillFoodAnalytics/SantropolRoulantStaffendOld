@@ -92,7 +92,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MarkPermanentEventComponent,
     PermanentVolunteerComponent,
     EventSignUpTableComponent,
-    BugReportComponent
+    BugReportComponent,
     StaffNoteComponent],
   imports: [
     BrowserModule,
