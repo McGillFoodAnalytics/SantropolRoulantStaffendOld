@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  private toggleSidebar() {
+  toggleSidebar() {
     this.opened = !this.opened;
   }
 
