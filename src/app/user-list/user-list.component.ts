@@ -40,7 +40,7 @@ export class UserListComponent {
   volunteer;
   count = 0;
   pastEventsUser: any;
-  currentEventsUser: [];
+  currentEventsUser: any
   errorMessage2: string = "";
 
   public registerVolunteer = false;
