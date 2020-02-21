@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./bug-report.component.scss']
 })
 export class BugReportComponent implements OnInit {
-  private model = {};
+  private model: any = {};
   private myForm: FormGroup;
   private modalReference;
 
