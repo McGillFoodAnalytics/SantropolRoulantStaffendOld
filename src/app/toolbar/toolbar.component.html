@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" style="display:flex; background-color: #449afe">
   <button class="menu-btn" #r="matMenuTrigger" mat-icon-button [matMenuTriggerFor]="menu" >
-    <mat-icon (onClick)="open(r)"  >menu</mat-icon>
+    <mat-icon (onClick)="open(r)">menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" [overlapTrigger]="false">
     <app-new-user></app-new-user>
@@ -11,5 +11,6 @@
   <div style="margin-left:auto;">
     <a style="padding-right:1rem" routerLink="/volunteer-schedule"> <span>Volunteer Schedule </span></a>
     <a style="padding-right:1rem" routerLink="/volunteer-directory"><span> Volunteer Directory </span> </a>
+    <app-notifications></app-notifications>
   </div>
 </mat-toolbar>
