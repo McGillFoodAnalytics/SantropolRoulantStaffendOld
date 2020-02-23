@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import {Subject, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -19,8 +18,9 @@ export class FireBaseService {
   eventDates = {};
   volunteerSampleRef: AngularFireList<any>;
   volunteerSamples: Observable<any[]>;
+  eventChanges: Observable<any[]>;
 
-  constructor(private db : AngularFireDatabase) {}
+  constructor(private db: AngularFireDatabase) {}
 
   getUserSamples(): Observable<any[]> {
     this.volunteerSampleRef = this.db.list('userSample');
@@ -35,41 +35,31 @@ export class FireBaseService {
   getUsers(): Observable<any[]> {
     this.volunteerRef = this.db.list('user');
     this.volunteers = this.volunteerRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
-      )
-    );
+      map(changes => changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))));
     return this.volunteers;
   }
 
   getEvents(): Observable<any[]> {
     this.eventRef = this.db.list('event');
     this.events = this.eventRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
-      )
-    );
+      map(changes => changes.map(c => ({ id: c.payload.key, ...c.payload.val()}))));
     return this.events;
   }
 
-  getEventsJson(): {}{
+  getEventsJson(): {} {
     this.events = this.getEvents();
-    this.events.subscribe(snapshots=>{ //format event dates
+    this.events.subscribe(snapshots => {
         snapshots.forEach(snapshot => {
-
-
-          var event_date = snapshot.event_date.toString();
-          var event_type = snapshot.event_type.toString();
+          let event_date = snapshot.event_date.toString();
+          const event_type = snapshot.event_type.toString();
           event_date = this.formatDate(event_date);
-          if (!(event_date in this.eventDates)){
+          if (!(event_date in this.eventDates)) {
             this.eventDates[event_date] = {};
             this.eventDates[event_date][event_type] = [snapshot.id];
-          }
-          else{
-            if (!(event_type in this.eventDates[event_date])){
+          } else {
+            if (!(event_type in this.eventDates[event_date])) {
               this.eventDates[event_date][event_type] = [snapshot.id];
-            }
-            else{
+            } else {
               this.eventDates[event_date][event_type].push(snapshot.id);
             }
           }
@@ -78,15 +68,15 @@ export class FireBaseService {
     return this.eventDates;
   }
 
-  formatDate(date: string){
-    const year = "20" + date.substring(0,2);
-    const month = date.substring(2,4);
-    const day = date.substring(4,6);
-    date = month+'/'+day+'/'+year;
+  formatDate(date: string) {
+    const year = '20' + date.substring(0, 2);
+    const month = date.substring(2, 4);
+    const day = date.substring(4, 6);
+    date = month + '/' + day + '/' + year;
     return date;
   }
 
-  changeEventImportance(event_id: string, is_important_event: boolean){
+  changeEventImportance(event_id: string, is_important_event: boolean) {
     this.db.object('/event/' + event_id).update(
       {
         is_important_event: is_important_event
@@ -94,25 +84,24 @@ export class FireBaseService {
     );
   }
 
-  removeUserFromEvent(event_id: string) : void{
+  removeUserFromEvent(event_id: string): void {
     this.db.object('/event/' + event_id).update({
-        first_name:  "",
-        last_name:  "",
-        uid: "nan"
+        first_name:  '',
+        last_name:  '',
+        uid: 'nan'
      });
    }
 
 
-   addUserToEvent(event_id: string, first_name: string, last_name: string, uid: string) : void {
+   addUserToEvent(event_id: string, first_name: string, last_name: string, uid: string): void {
      this.db.object('/event/' + event_id).update({
-         first_name:  first_name,
-         last_name:  last_name,
+         first_name: first_name,
+         last_name: last_name,
          uid: uid
       });
     }
 
     addNewBug(description): void {
-    console.log("in new bug")
     this.db.object('/bug/1')
       .update({
         description: description
@@ -153,13 +142,11 @@ export class FireBaseService {
     }
 
     addStaffNoteToEvent(event_id: string, staff_note: string): void {
-    console.log("from firebase service");
-    console.log(event_id);
-    console.log(staff_note)
     this.db.object('/event/' + event_id).update({
         staff_note: staff_note
      });
-  }
+    }
+
 
 
   }

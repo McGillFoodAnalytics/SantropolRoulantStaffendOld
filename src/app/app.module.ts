@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import '../polyfills';
-
+import {MatBadgeModule} from '@angular/material/badge';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {NgbModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -9,9 +9,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AppConfig } from '../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
-
+import {MatRadioModule} from '@angular/material/radio'
 import { AgGridModule } from 'ag-grid-angular';
-
+import {OverlayModule} from '@angular/cdk/overlay';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from 'ng-sidebar';
 
@@ -19,7 +19,7 @@ import { SidebarModule } from 'ng-sidebar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatTableModule, MatMenuModule } from '@angular/material'
-import {MatInputModule, MatButtonModule, MatOptionModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatToolbarModule} from '@angular/material'
+import {MatInputModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatToolbarModule} from '@angular/material'
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
@@ -50,6 +50,8 @@ import { MarkPermanentEventComponent } from './sign-up-sheet/mark-permanent-even
 import { BugReportComponent } from './bug-report/bug-report.component';
 import { PermanentVolunteerComponent } from './permanent-volunteer/permanent-volunteer.component';
 import { EventSignUpTableComponent } from './sign-up-sheet/event-sign-up-table/event-sign-up-table.component';
+import { NotificationsComponent } from './toolbar/notifications/notifications.component';
+import { MatListModule, MatOptionModule, MatButtonModule } from '@angular/material';
 
 
 const appRoutes: Routes = [
@@ -93,7 +95,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PermanentVolunteerComponent,
     EventSignUpTableComponent,
     BugReportComponent,
-    StaffNoteComponent],
+    StaffNoteComponent,
+    NotificationsComponent],
   imports: [
     BrowserModule,
     AgGridModule.withComponents([]),
@@ -108,14 +111,18 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     CoreModule,
     SharedModule,
+    OverlayModule,
     NgbModule,
     MatTooltipModule,
     MatToolbarModule,
     MatCheckboxModule,
+    MatListModule,
     MatMenuModule,
     MatTableModule,
     AngularFontAwesomeModule,
     MatChipsModule,
+    MatRadioModule,
+    MatBadgeModule,
     MatInputModule,MatOptionModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule,
     BrowserAnimationsModule,
     AppRoutingModule,

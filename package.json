@@ -89,7 +89,7 @@
   "dependencies": {
     "@angular/animations": "^8.2.5",
     "@angular/cdk": "^8.2.0",
-    "@angular/fire": "^5.2.1",
+    "@angular/fire": "^5.4.2",
     "@angular/flex-layout": "^8.0.0-beta.27",
     "@angular/material": "^8.2.0",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
@@ -98,7 +98,7 @@
     "angular-font-awesome": "^3.1.2",
     "angularfire2": "^5.2.1",
     "bootstrap": "^4.3.1",
-    "firebase": "^6.5.0",
+    "firebase": "^6.6.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "ng-sidebar": "^9.1.1",

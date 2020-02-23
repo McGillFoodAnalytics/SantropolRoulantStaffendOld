@@ -49,6 +49,8 @@ export class SignUpSheetComponent implements OnInit {
                       };
   currentEvent = 'Kitchen AM';
   private pane = 'left';
+  items: Observable<any[]>;
+
 
   constructor(private db: AngularFireDatabase, private fs: FireBaseService) {}
 
@@ -57,6 +59,11 @@ export class SignUpSheetComponent implements OnInit {
     this.formatEventDates();
     this.volunteers = this.fs.getUsers();
     this.setVolunteerList();
+    // this.db.list('event').auditTrail().subscribe(changes => { console.log(changes);
+    //   // changes.forEach(c => console.log({ id: c.payload.key, ...c.payload.val() }))
+    //
+    // });
+
   }
 
   setVolunteerList() {
@@ -332,5 +339,4 @@ export class SignUpSheetComponent implements OnInit {
   insertStaffNote(event) {
     this.fs.addStaffNoteToEvent(event.event_id, event.staff_note);
   }
-
 }
