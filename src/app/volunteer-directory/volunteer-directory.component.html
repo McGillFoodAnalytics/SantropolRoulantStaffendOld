@@ -1,0 +1,15 @@
+<mat-form-field class="search-volunteer">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<div class="table-volunteers">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+      <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
+        <th mat-header-cell *matHeaderCellDef> {{ prettify(col) }} </th>
+        <td mat-cell *matCellDef="let element"> {{ element[col] }} </td>
+      </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index">
+        </tr>
+    </table>
+</div>

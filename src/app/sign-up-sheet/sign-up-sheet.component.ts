@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import 'bootstrap/dist/js/bootstrap.bundle';
-import {FireBaseService} from '../core/firebaseService'
+import {FireBaseService} from '../core/firebaseService';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
@@ -28,7 +28,6 @@ export class SignUpSheetComponent implements OnInit {
   private events: Observable<any[]>;
   private volunteers: Observable<any[]>;
   private permanent_events: Observable<any[]>;
-  volunteerRef: AngularFireList<any>;
   private volunteerList = [];
   private volunteerListInitialized = false;
   private week1;
@@ -338,5 +337,12 @@ export class SignUpSheetComponent implements OnInit {
 
   insertStaffNote(event) {
     this.fs.addStaffNoteToEvent(event.event_id, event.staff_note);
+  }
+
+  updateEventNote(event_id, event_note) {
+    console.log("update event");
+    console.log(event_id);
+    console.log(event_note);
+    this.fs.updateEventNote(event_id, event_note);
   }
 }

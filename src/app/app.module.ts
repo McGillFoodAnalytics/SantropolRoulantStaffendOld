@@ -42,7 +42,7 @@ import { MarkImportantEventComponent } from './mark-important-event/mark-importa
 import { SignUpSheetComponent } from './sign-up-sheet/sign-up-sheet.component';
 import { HomeComponent } from './home/home.component';
 import { SliderComponent } from './slider/slider.component';
-import { AddUserToEvent } from './sign-up-sheet/add-user-to-event/add-user-to-event.component';
+import { AddUserToEventComponent } from './sign-up-sheet/add-user-to-event/add-user-to-event.component';
 import { RemoveUserFromEventComponent } from './sign-up-sheet/remove-user-from-event/remove-user-from-event.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -52,6 +52,9 @@ import { PermanentVolunteerComponent } from './permanent-volunteer/permanent-vol
 import { EventSignUpTableComponent } from './sign-up-sheet/event-sign-up-table/event-sign-up-table.component';
 import { NotificationsComponent } from './toolbar/notifications/notifications.component';
 import { MatListModule, MatOptionModule, MatButtonModule } from '@angular/material';
+import { EventNoteComponent } from './sign-up-sheet/event-note/event-note.component';
+import { VolunteerDirectoryComponent } from './volunteer-directory/volunteer-directory.component';
+import { TestComponent } from './test/test.component';
 
 
 const appRoutes: Routes = [
@@ -65,7 +68,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'volunteer-directory',
-    component: UserListComponent
+    component: VolunteerDirectoryComponent
   },
   {
     path: '**',
@@ -88,7 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SignUpSheetComponent,
     HomeComponent,
     SliderComponent,
-    AddUserToEvent,
+    AddUserToEventComponent,
     RemoveUserFromEventComponent,
     ToolbarComponent,
     MarkPermanentEventComponent,
@@ -96,7 +99,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventSignUpTableComponent,
     BugReportComponent,
     StaffNoteComponent,
-    NotificationsComponent],
+    NotificationsComponent,
+    EventNoteComponent,
+    VolunteerDirectoryComponent,
+    TestComponent],
   imports: [
     BrowserModule,
     AgGridModule.withComponents([]),

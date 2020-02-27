@@ -94,6 +94,7 @@ export class FireBaseService {
 
 
    addUserToEvent(event_id: string, first_name: string, last_name: string, uid: string): void {
+     console.log("from firebase service");
      this.db.object('/event/' + event_id).update({
          first_name: first_name,
          last_name: last_name,
@@ -145,6 +146,12 @@ export class FireBaseService {
     this.db.object('/event/' + event_id).update({
         staff_note: staff_note
      });
+    }
+
+    updateEventNote(event_id: string, event_note: string): void {
+      this.db.object('/event/' + event_id).update({
+          event_note: event_note
+       });
     }
 
 
