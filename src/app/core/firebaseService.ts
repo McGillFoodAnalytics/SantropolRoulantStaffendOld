@@ -11,6 +11,7 @@ import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 export class FireBaseService {
   volunteerRef: AngularFireList<any>;
   volunteers: Observable<any[]>;
+  count: any;
   eventRef: AngularFireList<any>;
   events: Observable<any[]>;
   pastEventRef: AngularFireList<any>;
@@ -101,12 +102,21 @@ export class FireBaseService {
       });
     }
 
-    addNewBug(description): void {
-    this.db.object('/bug/1')
-      .update({
-        description: description
-       });
-    }
+    addNewBug(description): void {let count = this.getBugCount();
+        count = count + 1;
+        this.db.object('/bug/' + count).update({
+            description: description
+           });
+        this.db.object('/bug/').update({
+            count: count
+        });
+      }
+
+      getBugCount() {
+        this.db.object('bug').snapshotChanges().subscribe(action => this.count = action.payload.val().count);
+        return this.count;
+      }
+
 
   addPermanentVolunteer(event_type: string, user_id: string, weekday: string, start_date: Date, end_date: Date, frequency: string, event_id: string) {
     const permanent_event_id = event_type + "_" + weekday + "_" +  user_id + "_" + frequency;

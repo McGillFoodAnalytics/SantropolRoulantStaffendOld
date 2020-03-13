@@ -9,7 +9,7 @@
       <form class="form" (ngSubmit)="onSubmit()" [formGroup]="myForm">
         <div class="form-row mb-12 div-desc">
             <mat-form-field class="desc" appearance=fill>
-               <textarea matInput placeholder="Description of bug re" formControlName="description" [(ngModel)]="model.description" rows="10" col="40" ></textarea>
+               <textarea matInput placeholder="Description of the bug" formControlName="description" [(ngModel)]="model.description" rows="10" col="40" ></textarea>
                <mat-error>Required!</mat-error>
             </mat-form-field>
           </div>
