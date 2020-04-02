@@ -82,9 +82,7 @@
         <button type="button" class="btn btn-xl btn-outline-danger btn-cancel" (click)="modal.dismiss()">Cancel</button>
         <button type="submit" class="btn btn-xl btn-outline-danger btn-remove-volunteer" (click)="onSubmit('remove')">Remove Permanent Volunteer</button>
     </div>
-</ng-template>
-
-<img *ngIf="isPermanent; else isNotPermanent" src="../../assets/permanent-event-true.svg" width=28px (click)="open(removePermanentModal)">
-<ng-template #isNotPermanent>
-    <img src="../../assets/permanent-event-false.svg" width=28px (click)="open(addPermanentModal)">
-</ng-template>
+</ng-template><button mat-menu-item (click)="open(addPermanentModal)">
+  <mat-icon>alarm</mat-icon>
+  <span>Add Permanent Volunteer</span>
+</button>
