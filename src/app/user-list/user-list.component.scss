@@ -3,3 +3,32 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+
+.info-header {
+  text-decoration: underline;
+
+}
+
+#volunteer-info {
+  background-color: #D2CCFF;
+}
+
+#person{
+  padding-top: 5px;
+  font-size: 35px;
+  text-shadow: 2px 2px white;
+}
+
+#warning:hover{
+  color: #FF3838;
+  font-size: 15px;
+}
+
+#search-bar{
+  font-size: 20px
+}
+#typeahead-focus{
+  width: 250px;
+  border: 1px solid blue;
+}
