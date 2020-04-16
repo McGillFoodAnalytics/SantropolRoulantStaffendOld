@@ -3,17 +3,21 @@ import { MatTableDataSource } from '@angular/material/table';
 import {FireBaseService} from '../core/firebaseService';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-volunteer-directory',
   templateUrl: './volunteer-directory.component.html',
-  styleUrls: ['./volunteer-directory.component.scss']
+  styleUrls: ['./volunteer-directory.component.scss'],
 })
+
 export class VolunteerDirectoryComponent implements OnInit {
   private displayedColumns: string[] = ['id', 'first_name', 'last_name'];
-  private dataSource;
-  private volunteersObservable: Observable<any[]>;
   private volunteers: any = [];
+  private volunteersObservable;
+  dataSource;
+
+
   constructor(private fs: FireBaseService) { }
 
   ngOnInit() {
@@ -36,4 +40,6 @@ export class VolunteerDirectoryComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+
 }

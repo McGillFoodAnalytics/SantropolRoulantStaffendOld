@@ -103,11 +103,17 @@ export class FireBaseService {
     }
 
     addNewBug(description): void {
+    this.getBugCount();
     this.db.object('/bug/1')
       .update({
         description: description
        });
     }
+
+  getBugCount() {
+       console.log(this.db.list('bug/count'));
+    }
+
 
   addPermanentVolunteer(event_type: string, user_id: string, weekday: string, start_date: Date, end_date: Date, frequency: string, event_id: string) {
     const permanent_event_id = event_type + "_" + weekday + "_" +  user_id + "_" + frequency;
