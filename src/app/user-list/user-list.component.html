@@ -2,7 +2,13 @@
   <p></p>
 <div class="col-md-12">
   <div id="target">
+    <div>
+<div>
+  <div id="search" style="display: flex; align-items: baseline">
+    <div id="search-bar">
     <label for="typeahead-focus" id="search-bar">Search for a volunteer:</label>
+    <div id="search-button" style="display: flex">
+      <!-- add flex design for buttons -->
     <input
       id="typeahead-focus"
       type="text"
@@ -13,8 +19,14 @@
       (click)="click$.next($event.target.value)"
       #instance="ngbTypeahead"
     /><br>
-    <!-- I want to make the button be on the same line as the search bar someone help me here -->
-    <button type="button" class="btn btn-primary" (click)= "displayUser()">Search</button>
+    <button  type="button" style="margin-left:10px;" class="btn btn-primary" (click)= "displayUser()">Search</button>
+  </div>
+  </div>
+    <div style="margin-left:auto; align-self: center">
+      <button style="padding:0" type="button" class="btn btn-success"><app-new-user></app-new-user></button>
+    </div>
+  </div>
+</div>
     <p></p>
     <div class="alert alert-danger" role="alert" *ngIf="error">
       {{errorMessage}}
