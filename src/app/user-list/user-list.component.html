@@ -12,7 +12,9 @@
       (focus)="focus$.next($event.target.value)"
       (click)="click$.next($event.target.value)"
       #instance="ngbTypeahead"
-    /><br>
+    />
+
+    <br>
     <!-- I want to make the button be on the same line as the search bar someone help me here -->
     <button type="button" class="btn btn-primary" (click)= "displayUser()">Search</button>
     <p></p>
