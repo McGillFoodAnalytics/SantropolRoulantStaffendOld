@@ -4,9 +4,10 @@
   <div id="target">
     <div>
 <div>
-
-    <label for="typeahead-focus" id="search-bar">Search for a volunteer:</label>
   <div id="search" style="display: flex; align-items: baseline">
+    <div id="search-bar">
+    <label for="typeahead-focus" id="search-bar">Search for a volunteer:</label>
+    <div id="search-button" style="display: flex">
     <input
       id="typeahead-focus"
       type="text"
@@ -18,7 +19,9 @@
       #instance="ngbTypeahead"
     /><br>
     <button  type="button" style="margin-left:10px;" class="btn btn-primary" (click)= "displayUser()">Search</button>
-    <div style="margin-left:auto;">
+  </div>
+  </div>
+    <div style="margin-left:auto; align-self: center">
       <button style="padding:0" type="button" class="btn btn-success"><app-new-user></app-new-user></button>
     </div>
   </div>
