@@ -53,8 +53,7 @@
 mat-list-option[isRead='false'] {
   background-color: #d6ede3;
 }
-// #d6ede3
-// e6f1ec
+
 mat-list-option[isRead='true'] {
   background-color: #efefefd9;
 }
@@ -67,7 +66,6 @@ mat-list-option[isRead='true'] {
 mat-selection-list {
   padding-top: 0;
 }
-
 
 ::ng-deep mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
   padding: 0.5rem 0 !important;

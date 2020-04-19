@@ -61,14 +61,21 @@
                                 </ng-template> -->
                             </div>
                             <div class="card-footer" style="text-align:center">
-                                <img class="img-important-event-true" *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)"  matTooltip="Click to mark this event as unimportant">
+                                <img class="img-important-event-true" *ngIf="day.value.is_important_event; else importantEventFalse" src="../../assets/important-event-true.svg" width=35px style="margin-right:1rem" (click)="changeEventImportance(day.key)"  matTooltip="Click to mark this event as unimportant">
                                 <ng-template #importantEventFalse>
-                                    <img class="img-important-event-false" src="../../assets/important-event-false.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" matTooltip="Click to mark this event as important">
+                                    <img class="img-important-event-false" src="../../assets/important-event-false.svg" width=35px style="margin-right:1rem" (click)="changeEventImportance(day.key)" matTooltip="Click to mark this event as important">
                                 </ng-template>
-                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;"  matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
+                                <!-- <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;"  matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
                                 <ng-template #fullEvent>
                                   <app-add-user-to-event [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
-                                </ng-template>
+                                </ng-template> -->
+                                <app-event-note date={{day.value.slots[0].event_date_txt}}
+                                                [eventType]="currentEvent"
+                                                eventNote={{day.value.slots[0].event_note}}
+                                                (updateEventNote)="updateEventNote(day.value.slots[0].id, $event)"
+                                                matTooltip="Click to view & edit the event note">
+                                </app-event-note>
+                                <app-add-user-to-event></app-add-user-to-event>
                             </div>
                         </div>
                     </div>
@@ -109,10 +116,16 @@
                                 <ng-template #importantEventFalse>
                                     <img class="img-important-event-false" src="../../assets/important-event-false.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" matTooltip="Click to mark this event as important">
                                 </ng-template>
-                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;" matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
+                                <!-- <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;" matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
                                 <ng-template #fullEvent>
                                   <app-add-user-to-event [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
-                                </ng-template>
+                                </ng-template> -->
+                                <app-event-note date={{day.value.slots[0].event_date_txt}}
+                                                [eventType]="currentEvent"
+                                                eventNote={{day.value.slots[0].event_note}}
+                                                (updateEventNote)="updateEventNote(day.value.slots[0].id, $event)"
+                                                matTooltip="Click to view & edit the event note">
+                                </app-event-note>
                             </div>
                         </div>
                     </div>
@@ -153,10 +166,17 @@
                                 <ng-template #importantEventFalse>
                                     <img class="img-important-event-false" src="../../assets/important-event-false.svg" width=30px style="margin-right:1rem" (click)="changeEventImportance(day.key)" matTooltip="Click to mark this event as important">
                                 </ng-template>
-                                <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;" matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
+                                <!-- <app-add-user-to-event *ngIf="day.value.num_volunteers < day.value.num_slots; else fullEvent" [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="false" (onAddUser)="addUserToEvent($event, day.value)" style="cursor: pointer;" matTooltip="Click to add a volunteer to this event"></app-add-user-to-event>
                                 <ng-template #fullEvent>
                                   <app-add-user-to-event [volunteerList]="volunteerList" date={{day.value.slots[0].event_date_txt}} [eventType]="currentEvent" [fullEvent]="true" (onAddUser)="addUserToEvent($event, day.value)" style="opacity:0.4"></app-add-user-to-event>
-                                </ng-template>
+                                </ng-template> -->
+                                <app-event-note date={{day.value.slots[0].event_date_txt}}
+                                                [eventType]="currentEvent"
+                                                eventNote={{day.value.slots[0].event_note}}
+                                                (updateEventNote)="updateEventNote(day.value.slots[0].id, $event)"
+                                                matTooltip="Click to view & edit the event note">
+                                </app-event-note>
+
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-<ng-template #content let-modal>
+<ng-template #addUserModal let-modal>
     <div class="modal-header text-center">
         <h4 class="modal-title w-100" id="modal-basic-title"><i class="fa fa-user-plus"></i>Add Volunteer to Event</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()" #closeModal>
@@ -39,5 +39,3 @@
         <button type="submit" class="btn btn-xl btn-outline-danger btn-add-volunteer" (click)="onSubmit()">Add Volunteer to Event</button>
     </div>
 </ng-template>
-
-<img src="../../assets/add-user.svg" width=35px (click)="open(content)">

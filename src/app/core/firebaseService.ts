@@ -94,6 +94,7 @@ export class FireBaseService {
 
 
    addUserToEvent(event_id: string, first_name: string, last_name: string, uid: string): void {
+     console.log("from firebase service");
      this.db.object('/event/' + event_id).update({
          first_name: first_name,
          last_name: last_name,
@@ -102,11 +103,17 @@ export class FireBaseService {
     }
 
     addNewBug(description): void {
+    this.getBugCount();
     this.db.object('/bug/1')
       .update({
         description: description
        });
     }
+
+  getBugCount() {
+       console.log(this.db.list('bug/count'));
+    }
+
 
   addPermanentVolunteer(event_type: string, user_id: string, weekday: string, start_date: Date, end_date: Date, frequency: string, event_id: string) {
     const permanent_event_id = event_type + "_" + weekday + "_" +  user_id + "_" + frequency;
@@ -145,6 +152,12 @@ export class FireBaseService {
     this.db.object('/event/' + event_id).update({
         staff_note: staff_note
      });
+    }
+
+    updateEventNote(event_id: string, event_note: string): void {
+      this.db.object('/event/' + event_id).update({
+          event_note: event_note
+       });
     }
 
 

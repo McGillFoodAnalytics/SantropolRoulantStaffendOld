@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from '../../core/modalService';
 
 @Component({
   selector: 'app-event-sign-up-table',
@@ -18,10 +18,11 @@ export class EventSignUpTableComponent implements OnInit {
   @Output() removeUserFromEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() insertStaffNote: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private modalService: NgbModal) { }
+
+  constructor(private modalService: ModalService) {}
 
   ngOnInit() {
-      this.dataSource = new MatTableDataSource(this.slots);
+    this.dataSource = new MatTableDataSource(this.slots);
   }
 
   prettySlot(slot: string) {
@@ -41,7 +42,8 @@ export class EventSignUpTableComponent implements OnInit {
                                'staff_note': staffNote});
   }
 
-  clickRow(row) {
+  openAddUserModal(row) {
     console.log(row);
+    this.modalService.open(row.id, this.eventType, row.event_date_txt, this.volunteerList);
   }
 }

@@ -52,13 +52,14 @@ export class NotificationsComponent implements OnInit {
   }
 
   onClickOutside() {
-    this.notifications =  this.notifications.filter(
-          n => n.read === false);
-    this.notifs.deselectAll();
+    if (this.notificationsNotEmpty()) {
+      this.notifications =  this.notifications.filter(
+            n => n.read === false);
+      this.notifs.deselectAll();
+    }
   }
 
   isRead(bool) {
-    console.log(bool);
     return bool;
   }
 
