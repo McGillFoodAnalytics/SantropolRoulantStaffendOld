@@ -37,10 +37,14 @@
           </div>
           <div style="margin-left: 40px;">
             <p *ngIf="element.no_show == 0" ><strong>Volunteer no-show count: </strong><span style="color: green">{{element.no_show}} </span></p>
-            <p *ngIf="element.no_show > 0" ><strong>Volunteer no-show count: </strong><span style="color: green">{{element.no_show}} </span></p>
-
-            <button type="button" class="btn btn-outline-danger" (click)="deleteUser(volunteer.id)">Delete this volunteer?</button>
-            <!-- Need to implement the deleteUser() method in the ts file -->
+            <p *ngIf="element.no_show > 0" ><strong>Volunteer no-show count: </strong><span style="color: red">{{element.no_show}} </span></p>
+            <div class = "col-1" >
+              <i class="fa fa-plus"  (click)="updateNoShow(element.id, element.no_show+1);"></i>
+            </div>
+            <div class = "col-1">
+              <i class="fa fa-minus"  (click)="updateNoShow(element.id, element.no_show-1);"></i>
+            </div>
+            <button type="button" class="btn btn-info" ><app-user-event [userId]="element.id"></app-user-event></button>
           </div>
         </div>
       </div>

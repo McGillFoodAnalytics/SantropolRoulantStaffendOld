@@ -20,6 +20,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatTableModule, MatMenuModule } from '@angular/material'
 import {MatInputModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatToolbarModule} from '@angular/material'
+import {MatTabsModule} from '@angular/material';
+
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
@@ -55,6 +57,7 @@ import { MatListModule, MatOptionModule, MatButtonModule } from '@angular/materi
 import { EventNoteComponent } from './sign-up-sheet/event-note/event-note.component';
 import { VolunteerDirectoryComponent } from './volunteer-directory/volunteer-directory.component';
 import { TestComponent } from './test/test.component';
+import { UserEventComponent } from './user-event/user-event.component';
 
 
 const appRoutes: Routes = [
@@ -102,7 +105,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotificationsComponent,
     EventNoteComponent,
     VolunteerDirectoryComponent,
-    TestComponent],
+    TestComponent,
+    UserEventComponent],
   imports: [
     BrowserModule,
     AgGridModule.withComponents([]),
@@ -130,6 +134,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatRadioModule,
     MatBadgeModule,
     MatInputModule,MatOptionModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule,
+    MatTabsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     TranslateModule.forRoot({

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {FireBaseService} from '../core/firebaseService';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -26,10 +27,13 @@ export class VolunteerDirectoryComponent implements OnInit {
   private volunteersObservable;
   private expandableColumns
   dataSource;
+  errorMessage: string = "";
   expandedElement: User;
 
 
-  constructor(private fs: FireBaseService) { }
+  constructor(private fs: FireBaseService,  private db: AngularFireDatabase) {
+    this.errorMessage = "";
+  }
 
   ngOnInit() {
     this.volunteersObservable = this.fs.getUsers();
@@ -52,6 +56,19 @@ export class VolunteerDirectoryComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  //missing the deleteUser() method 
+  updateNoShow(userId, noshowcount): void {
+    if(noshowcount !== -1){
+
+    this.db.object('/user/' + userId)
+      .update({
+        no_show: noshowcount,
+       });
+       this.errorMessage="";
+    } else {
+      console.log("Tried to decrease the no show count below 0!");
+      this.errorMessage="Can't decrease the no show count below zero!";
+    }
+  }
+  //missing the deleteUser() method
 
 }
