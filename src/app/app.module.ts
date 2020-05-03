@@ -20,14 +20,14 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatTableModule, MatMenuModule } from '@angular/material'
 import {MatInputModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatToolbarModule} from '@angular/material'
-
+import {MatSortModule} from '@angular/material/sort';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-
+import {MatDividerModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 
 // NG Translate
@@ -114,6 +114,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSortModule,
     HttpClientModule,
     CoreModule,
     SharedModule,
@@ -125,6 +126,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatListModule,
     MatMenuModule,
     MatTableModule,
+    MatDividerModule,
     AngularFontAwesomeModule,
     MatChipsModule,
     MatRadioModule,

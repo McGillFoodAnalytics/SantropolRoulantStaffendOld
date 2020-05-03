@@ -18,10 +18,10 @@ export class NewUserComponent implements OnInit {
   private today: Date;
 
   constructor(private modalService: NgbModal, private db: AngularFireDatabase, private formBuilder: FormBuilder) {
-    this.today = new Date(); 
+    this.today = new Date();
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.myForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
