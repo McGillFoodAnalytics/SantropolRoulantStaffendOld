@@ -19,7 +19,7 @@ export class AddUserToEventComponent implements OnInit {
   private dataSource;
   private selectedRowIndex: Number;
   private selectedRow: any = {};
-  // @ViewChild('addUserModal') modalTemplate: TemplateRef;
+  @ViewChild('addUserModal', {static: true}) modalTemplate: TemplateRef<any>;
 
 
   constructor(private fs: FireBaseService,
@@ -28,18 +28,17 @@ export class AddUserToEventComponent implements OnInit {
 
   ngOnInit() { this.myModalService.set(this); }
 
-  // open(event_id, eventType: string, date: string, volunteerList: any) {
-  //   this.eventType = eventType;
-  //   this.date = date;
-  //   this.event_id = event_id;
-  //   this.dataSource = new MatTableDataSource(volunteerList);
-  //   this.modalReference = this.modalService.open(this.modalTemplate, { ariaLabelledBy: 'modal-basic-title',
-  //                                                                      size: 'lg',
-                                                                     //   windowClass: 'my-class',
-                                                                     //   centered: true
-                                                                     // });
-  // }
-// }
+  open(event_id, eventType: string, date: string, volunteerList: any) {
+    this.eventType = eventType;
+    this.date = date;
+    this.event_id = event_id;
+    this.dataSource = new MatTableDataSource(volunteerList);
+    this.modalReference = this.modalService.open(this.modalTemplate, { ariaLabelledBy: 'modal-basic-title',
+                                                                       size: 'lg',
+                                                                       windowClass: 'my-class',
+                                                                       centered: true
+                                                                     });
+  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

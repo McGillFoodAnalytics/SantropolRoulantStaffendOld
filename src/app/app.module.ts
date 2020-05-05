@@ -36,7 +36,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StaffNoteComponent } from './sign-up-sheet/staff-note/staff-note.component';
 import { AppComponent } from './app.component';
 import { NewUserComponent } from './new-user/new-user.component';
-import { UserListComponent } from './user-list/user-list.component';
 import { ChangeRegistrationCodeComponent } from './change-registration-code/change-registration-code.component';
 import { MarkImportantEventComponent } from './mark-important-event/mark-important-event.component';
 import { SignUpSheetComponent } from './sign-up-sheet/sign-up-sheet.component';
@@ -85,7 +84,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     NewUserComponent,
-    UserListComponent,
     ChangeRegistrationCodeComponent,
     MarkImportantEventComponent,
     SignUpSheetComponent,
