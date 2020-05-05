@@ -29,6 +29,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import {MatDividerModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -128,6 +129,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFontAwesomeModule,
     MatChipsModule,
     MatRadioModule,
+    MatSnackBarModule,
     MatBadgeModule,
     MatInputModule,MatOptionModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule,
     BrowserAnimationsModule,
