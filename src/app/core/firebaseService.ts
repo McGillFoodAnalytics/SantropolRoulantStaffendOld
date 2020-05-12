@@ -46,6 +46,16 @@ export class FireBaseService {
     return this.events;
   }
 
+  getPastEvents(): Observable<any[]> {
+    this.pastEventRef = this.db.list('past_events');
+    this.pastEvents = this.pastEventRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
+      )
+    );
+    return this.pastEvents;
+  }
+
   getEventsJson(): {} {
     this.events = this.getEvents();
     this.events.subscribe(snapshots => {

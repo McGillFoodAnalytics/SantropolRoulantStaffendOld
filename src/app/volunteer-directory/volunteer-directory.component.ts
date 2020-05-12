@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {FireBaseService} from '../core/firebaseService';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -31,7 +32,10 @@ export class VolunteerDirectoryComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
-  constructor(private fs: FireBaseService) { }
+
+  constructor(private fs: FireBaseService,  private db: AngularFireDatabase) {
+    this.errorMessage = "";
+  }
 
   ngOnInit() {
     this.volunteersObservable = this.fs.getUsers();
@@ -54,9 +58,24 @@ export class VolunteerDirectoryComponent implements OnInit {
     return str.toUpperCase();
   }
 
+  updateNoShow(userId, noshowcount): void {
+    if(noshowcount !== -1){
+
+    this.db.object('/user/' + userId)
+      .update({
+        no_show: noshowcount,
+       });
+       this.errorMessage="";
+    } else {
+      console.log("Tried to decrease the no show count below 0!");
+      this.errorMessage="Can't decrease the no show count below zero!";
+    }
+  }
+ 
   title(str: string) {
     return str.toUpperCase();
   }
+  
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
