@@ -37,3 +37,19 @@
   background-color: #5fce99 !important;
   color: white !important;
 }
+
+.close:focus {
+  outline: none;
+}
+
+.btn-add:focus {
+  outline: none;
+}
+
+.btn-add {
+  color:#5fce99;
+}
+
+mat-icon {
+  font-size: 30px;
+}

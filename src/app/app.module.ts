@@ -19,18 +19,18 @@ import { SidebarModule } from 'ng-sidebar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatTableModule, MatMenuModule } from '@angular/material'
-import {MatInputModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatToolbarModule} from '@angular/material'
+import {MatInputModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatToolbarModule} from '@angular/material
 import {MatTabsModule} from '@angular/material';
-
-
+import {MatSortModule} from '@angular/material/sort';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-
+import {MatDividerModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -38,7 +38,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StaffNoteComponent } from './sign-up-sheet/staff-note/staff-note.component';
 import { AppComponent } from './app.component';
 import { NewUserComponent } from './new-user/new-user.component';
-import { UserListComponent } from './user-list/user-list.component';
 import { ChangeRegistrationCodeComponent } from './change-registration-code/change-registration-code.component';
 import { MarkImportantEventComponent } from './mark-important-event/mark-important-event.component';
 import { SignUpSheetComponent } from './sign-up-sheet/sign-up-sheet.component';
@@ -88,7 +87,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     NewUserComponent,
-    UserListComponent,
     ChangeRegistrationCodeComponent,
     MarkImportantEventComponent,
     SignUpSheetComponent,
@@ -118,6 +116,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSortModule,
     HttpClientModule,
     CoreModule,
     SharedModule,
@@ -129,9 +128,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatListModule,
     MatMenuModule,
     MatTableModule,
+    MatDividerModule,
     AngularFontAwesomeModule,
     MatChipsModule,
     MatRadioModule,
+    MatSnackBarModule,
     MatBadgeModule,
     MatInputModule,MatOptionModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule,
     MatTabsModule,
