@@ -269,41 +269,41 @@ export class SignUpSheetComponent implements OnInit {
     this.fs.addUserToEvent(event_id, user.first_name, user.last_name, user.key);
   }
 
-  permanentVolunteerEvent(event, event_id, user_id, event_date, first_name, last_name, slot) {
-    if ( event.event == "remove" ) {
-      const data = event.removePermanentVolunteerData;
-      const event_type =  this.eventTypes[data.eventType];
-      const freq = slot.permanent_event_id.slice(-1);
-      const associatedPermanentEvents = this.getAssociatedPermanentEvents(event_date, freq, this.eventTypes[data.eventType], true);
-      this.fs.removePermanentVolunteer(
-        slot.permanent_event_id
-      )
-      for(let i = 0; i < associatedPermanentEvents.length; i++) {
-        this.fs.removePermanentVolunteerEvents(associatedPermanentEvents[i]);
-      }
-    }
-    if ( event.event == "add" ) {
-      const data = event.addPermanentVolunteerData;
-      const event_type =  this.eventTypes[data.eventType];
-      const associatedPermanentEvents = this.getAssociatedPermanentEvents(event_date, data.frequency, event_type, false);
-      this.fs.addPermanentVolunteer(
-        event_type,
-        user_id,
-        data.weekday,
-        event_date,
-        data.endDate,
-        data.frequency,
-        event_id
-      );
-      this.fs.addPermanentVolunteerEvents(
-        associatedPermanentEvents,
-        user_id,
-        first_name,
-        last_name,
-        this.eventTypes[data.eventType] + '_' + data.weekday + '_' + user_id + '_' + data.frequency
-      )
-    }
-  }
+  // permanentVolunteerEvent(event, event_id, user_id, event_date, first_name, last_name, slot) {
+  //   if ( event.event == "remove" ) {
+  //     const data = event.removePermanentVolunteerData;
+  //     const event_type =  this.eventTypes[data.eventType];
+  //     const freq = slot.permanent_event_id.slice(-1);
+  //     const associatedPermanentEvents = this.getAssociatedPermanentEvents(event_date, freq, this.eventTypes[data.eventType], true);
+  //     this.fs.removePermanentVolunteer(
+  //       slot.permanent_event_id
+  //     )
+  //     for(let i = 0; i < associatedPermanentEvents.length; i++) {
+  //       this.fs.removePermanentVolunteerEvents(associatedPermanentEvents[i]);
+  //     }
+  //   }
+  //   if ( event.event == "add" ) {
+  //     const data = event.addPermanentVolunteerData;
+  //     const event_type =  this.eventTypes[data.eventType];
+  //     const associatedPermanentEvents = this.getAssociatedPermanentEvents(event_date, data.frequency, event_type, false);
+  //     this.fs.addPermanentVolunteer(
+  //       event_type,
+  //       user_id,
+  //       data.weekday,
+  //       event_date,
+  //       data.endDate,
+  //       data.frequency,
+  //       event_id
+  //     );
+  //     this.fs.addPermanentVolunteerEvents(
+  //       associatedPermanentEvents,
+  //       user_id,
+  //       first_name,
+  //       last_name,
+  //       this.eventTypes[data.eventType] + '_' + data.weekday + '_' + user_id + '_' + data.frequency
+  //     )
+  //   }
+  // }
 
   getAssociatedPermanentEvents(startDate, frequency, event_type, remove): any {
     const associatedPermanentEvents = [];

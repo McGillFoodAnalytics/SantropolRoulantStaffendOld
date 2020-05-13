@@ -30,6 +30,7 @@ export class VolunteerDirectoryComponent implements OnInit {
   private events: any = [];
   private eventsObservable;
   private dataSource;
+  private errorMessage;
   private expandedElement: User;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 

@@ -135,8 +135,7 @@ export class FireBaseService {
 
 
   addPermanentVolunteer(event_type: string, user_id: string, start_date: Date, end_date: Date, frequency: Number) {
-    let a = start_date.getDate()*frequency*end_date.getMonth();
-    const permanent_event_id = event_type + "_" + a + "_" +  user_id;
+    const permanent_event_id = event_type + "_" + start_date.getDate()+frequency+end_date.getMonth() + "_" +  user_id;
     this.db.object('/permanent_events/' + permanent_event_id).update({
         event_type: event_type,
         user_id: user_id,
