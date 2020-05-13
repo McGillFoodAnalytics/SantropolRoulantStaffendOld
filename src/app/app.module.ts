@@ -18,8 +18,8 @@ import { SidebarModule } from 'ng-sidebar';
 // MATT IMPORTS
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
-import { MatTableModule, MatMenuModule } from '@angular/material'
-import {MatInputModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatToolbarModule} from '@angular/material
+import { MatTableModule, MatMenuModule } from '@angular/material';
+import {MatInputModule,MatFormFieldModule, MatSelectModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatToolbarModule} from '@angular/material';
 import {MatTabsModule} from '@angular/material';
 import {MatSortModule} from '@angular/material/sort';
 import { BrowserModule } from '@angular/platform-browser';
@@ -50,6 +50,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MarkPermanentEventComponent } from './sign-up-sheet/mark-permanent-event/mark-permanent-event.component';
 import { BugReportComponent } from './bug-report/bug-report.component';
 import { PermanentVolunteerComponent } from './permanent-volunteer/permanent-volunteer.component';
+import { PermanentVolunteerDirectoryComponent } from './permanent-volunteer-directory/permanent-volunteer-directory.component';
 import { EventSignUpTableComponent } from './sign-up-sheet/event-sign-up-table/event-sign-up-table.component';
 import { NotificationsComponent } from './toolbar/notifications/notifications.component';
 import { MatListModule, MatOptionModule, MatButtonModule } from '@angular/material';
@@ -97,6 +98,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToolbarComponent,
     MarkPermanentEventComponent,
     PermanentVolunteerComponent,
+    PermanentVolunteerDirectoryComponent,
     EventSignUpTableComponent,
     BugReportComponent,
     StaffNoteComponent,

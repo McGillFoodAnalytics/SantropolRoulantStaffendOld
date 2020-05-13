@@ -27,6 +27,8 @@ export class VolunteerDirectoryComponent implements OnInit {
   private volunteers: any = [];
   private volunteersObservable;
   private expandableColumns;
+  private events: any = [];
+  private eventsObservable;
   private dataSource;
   private expandedElement: User;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -43,6 +45,8 @@ export class VolunteerDirectoryComponent implements OnInit {
       snapshots.forEach(snapshot => {
         this.volunteers.push(snapshot);
     });
+
+      console.log(this.volunteers);
     this.dataSource = new MatTableDataSource(this.volunteers);
     this.dataSource.sort = this.sort;
     let temp = Object.keys(this.volunteers[0]);
@@ -71,11 +75,11 @@ export class VolunteerDirectoryComponent implements OnInit {
       this.errorMessage="Can't decrease the no show count below zero!";
     }
   }
- 
+
   title(str: string) {
     return str.toUpperCase();
   }
-  
+
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

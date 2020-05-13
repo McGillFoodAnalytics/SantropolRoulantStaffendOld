@@ -6,12 +6,12 @@ import {FireBaseService} from '../core/firebaseService';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-permanent-volunteer',
-  templateUrl: './permanent-volunteer.component.html',
-  styleUrls: ['./permanent-volunteer.component.scss'],
+  selector: 'app-permanent-volunteer-directory',
+  templateUrl: './permanent-volunteer-directory.component.html',
+  styleUrls: ['./permanent-volunteer-directory.component.scss'],
 
 })
-export class PermanentVolunteerComponent implements OnInit {
+export class PermanentVolunteerDirectoryComponent implements OnInit {
   active = 1;
   private modalReference;
   private volunteers: any = [];
@@ -40,6 +40,17 @@ export class PermanentVolunteerComponent implements OnInit {
     });
     this.eventsObservable.subscribe(snapshots => {
       snapshots.forEach(snapshot => {
+        snapshot.start_date = new Date(snapshot.start_date).toLocaleDateString();
+        snapshot.end_date = new Date(snapshot.end_date).toLocaleDateString();
+        // for(let volunteer in this.volunteers){
+        //   console.log(volunteer.key);
+        //   console.log(snapshot.user_id);
+        //   if(volunteer.key==snapshot.user_id){
+        //     snapshot.user_id = volunteer.first_name + ' ' + volunteer.last_name;
+        //     console.log(snapshot.user_id);
+        //     break;
+        //   }
+        // }
         this.events.push(snapshot);
       });
     });
@@ -62,7 +73,11 @@ export class PermanentVolunteerComponent implements OnInit {
   }
 
   open(content) {
-    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm', windowClass: 'permanent-volunteer', centered: true});
+    this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm', windowClass: 'permanent-volunteer-directory', centered: true});
+  }
+
+  delete(eventID){
+    this.fs.removePermanentVolunteer(eventID);
   }
 
   onSubmit(event) {

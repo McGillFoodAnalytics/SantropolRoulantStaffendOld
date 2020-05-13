@@ -11,6 +11,8 @@ import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 export class FireBaseService {
   volunteerRef: AngularFireList<any>;
   volunteers: Observable<any[]>;
+  permanentEventsRef: AngularFireList<any>;
+  permanentEvents: Observable<any[]>;
   eventRef: AngularFireList<any>;
   events: Observable<any[]>;
   pastEventRef: AngularFireList<any>;
@@ -37,6 +39,13 @@ export class FireBaseService {
     this.volunteers = this.volunteerRef.snapshotChanges().pipe(
       map(changes => changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))));
     return this.volunteers;
+  }
+
+  getPermanentEvents(): Observable<any[]> {
+    this.permanentEventsRef = this.db.list('permanent_events');
+    this.permanentEvents = this.permanentEventsRef.snapshotChanges().pipe(
+      map(changes => changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))));
+    return this.permanentEvents;
   }
 
   getEvents(): Observable<any[]> {
@@ -125,8 +134,9 @@ export class FireBaseService {
     }
 
 
-  addPermanentVolunteer(event_type: string, user_id: string, weekday: string, start_date: Date, end_date: Date, frequency: string, event_id: string) {
-    const permanent_event_id = event_type + "_" + weekday + "_" +  user_id + "_" + frequency;
+  addPermanentVolunteer(event_type: string, user_id: string, start_date: Date, end_date: Date, frequency: Number) {
+    let a = start_date.getDate()*frequency*end_date.getMonth();
+    const permanent_event_id = event_type + "_" + a + "_" +  user_id;
     this.db.object('/permanent_events/' + permanent_event_id).update({
         event_type: event_type,
         user_id: user_id,
@@ -134,6 +144,7 @@ export class FireBaseService {
         end_date: end_date,
         frequency: frequency
      });
+     console.log("EVENT CREATED");
    }
 
     addPermanentVolunteerEvents(associatedPermanentEvents: [], user_id: string, first_name: string, last_name: string, permanent_event_id: string) {
@@ -151,6 +162,7 @@ export class FireBaseService {
     removePermanentVolunteer(permanent_event_id) {
       this.db.object('/permanent_events/' + permanent_event_id).remove();
     }
+
 
     removePermanentVolunteerEvents(event_id) {
       console.log(event_id);
