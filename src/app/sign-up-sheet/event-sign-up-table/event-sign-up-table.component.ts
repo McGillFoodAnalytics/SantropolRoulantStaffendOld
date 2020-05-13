@@ -9,9 +9,9 @@ import { ModalService } from '../../core/modalService';
 })
 
 export class EventSignUpTableComponent implements OnInit {
-  private displayedColumns: string[] = ['slot', 'volunteer', 'actions'];
-  private dataSource;
-  private selectedRow;
+  displayedColumns: string[] = ['slot', 'volunteer', 'actions'];
+  dataSource;
+  selectedRow;
   @Input() slots: [];
   @Input() eventType: string;
   @Input() volunteerList: [];

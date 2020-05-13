@@ -9,9 +9,9 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 export class NotificationsComponent implements OnInit {
   @ViewChild('list', {static: false}) notifs;
-  private notifications: any = [];
-  private allRead = false;
-  private selectedNotifications: string[] = [];
+  notifications: any = [];
+  allRead = false;
+  selectedNotifications: string[] = [];
   constructor(private db: AngularFireDatabase) { }
 
   ngOnInit() {

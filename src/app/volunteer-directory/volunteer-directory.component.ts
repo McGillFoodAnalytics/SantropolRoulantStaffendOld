@@ -23,15 +23,15 @@ import { User } from '../shared/models/user';
 })
 
 export class VolunteerDirectoryComponent implements OnInit {
-  private displayedColumns: string[] = [ 'first_name', 'last_name', 'email', 'phone_number'];
-  private volunteers: any = [];
-  private volunteersObservable;
-  private expandableColumns;
-  private events: any = [];
-  private eventsObservable;
-  private dataSource;
-  private errorMessage;
-  private expandedElement: User;
+  displayedColumns: string[] = [ 'first_name', 'last_name', 'email', 'phone_number'];
+  volunteers: any = [];
+  volunteersObservable;
+  expandableColumns;
+  events: any = [];
+  eventsObservable;
+  dataSource;
+  errorMessage;
+  expandedElement: User;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
